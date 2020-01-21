@@ -13,8 +13,7 @@ export class UserResolver implements Resolve<FirebaseUserModel> {
     let user = new FirebaseUserModel();
 
     return new Promise((resolve, reject) => {
-      this.userService.getCurrentUser()
-      .then(res => {
+      this.userService.getCurrentUser().then(res => {
         if(res.providerData[0].providerId == 'password'){
           user.image = 'https://via.placeholder.com/400x300';
           user.name = res.displayName;

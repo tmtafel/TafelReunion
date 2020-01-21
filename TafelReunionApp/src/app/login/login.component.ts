@@ -13,49 +13,37 @@ export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
 
-  constructor(
-    public authService: AuthService,
-    private router: Router,
-    private fb: FormBuilder
-  ) {
+  constructor(public authService: AuthService, private router: Router, private fb: FormBuilder) {
     this.createForm();
   }
 
   createForm() {
     this.loginForm = this.fb.group({
-      email: ['', Validators.required ],
-      password: ['',Validators.required]
+      email: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
-  tryFacebookLogin(){
-    this.authService.doFacebookLogin()
-    .then(res => {
+  tryFacebookLogin() {
+    this.authService.doFacebookLogin().then(res => {
       this.router.navigate(['/user']);
     })
   }
 
-  tryTwitterLogin(){
-    this.authService.doTwitterLogin()
-    .then(res => {
-      this.router.navigate(['/user']);
-    })
-  }
-
-  tryGoogleLogin(){
+  tryGoogleLogin() {
     this.authService.doGoogleLogin()
-    .then(res => {
-      this.router.navigate(['/user']);
-    })
+      .then(res => {
+        this.router.navigate(['/user']);
+      })
   }
 
-  tryLogin(value){
+  tryLogin(value) {
     this.authService.doLogin(value)
-    .then(res => {
-      this.router.navigate(['/user']);
-    }, err => {
-      console.log(err);
-      this.errorMessage = err.message;
-    })
+      .then(res => {
+        this.router.navigate(['/user']);
+      }, err => {
+        console.log(err);
+        this.errorMessage = err.message;
+      })
   }
 }
