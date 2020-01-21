@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, Router } from "@angular/router";
 import { AngularFireAuth } from '@angular/fire/auth';
-import { UserService } from './user.service';
+import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 
+import { UserService } from './user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
         return resolve(false);
       }, err => {
         return resolve(true);
-      })
-    })
+      });
+    });
   }
 }

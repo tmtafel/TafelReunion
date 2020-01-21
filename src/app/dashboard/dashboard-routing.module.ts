@@ -9,33 +9,28 @@ import { UserResolver } from './user/user.resolver';
 
 export const dashboardRoutes: Routes = [
   {
-    path: '',
+    path: 'dashboard',
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
-        canActivateChild: [AuthGuard],
-        children: [
-          {
-            path: '',
-            redirectTo: 'login',
-            pathMatch: 'full'
-          },
-          {
-            path: 'login',
-            component: LoginComponent
-          },
-          {
-            path: 'register',
-            component: RegisterComponent
-          },
-          {
-            path: 'user',
-            component: UserComponent,
-            resolve: {
-              data: UserResolver
-            }
-          }
-        ]
+        redirectTo: 'login',
+        pathMatch: 'full'
+      },
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
+      },
+      {
+        path: 'user',
+        component: UserComponent,
+        resolve: {
+          data: UserResolver
+        }
       }
     ]
   }
