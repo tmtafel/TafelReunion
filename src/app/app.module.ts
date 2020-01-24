@@ -5,19 +5,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './dashboard/core/auth.guard';
-// import { HomeComponent } from './dashboard/dashboard.module';
-import { HomeComponent } from './home/home.component';
+import { AdminModule } from './admin/admin.module';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent
+    AppComponent
   ],
   imports: [
+    MaterialModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    // DashboardModule,
     AuthModule,
+    AdminModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

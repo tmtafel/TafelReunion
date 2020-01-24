@@ -25,7 +25,7 @@ export class LoginComponent {
   login() {
     this.message = 'Trying to log in ...';
 
-    this.authService.doLogin(this.loginForm).subscribe(
+    this.authService.login(this.loginForm).subscribe(
       (next) => {
         console.log(next);
         this.authService.isLoggedIn = true;
@@ -47,14 +47,23 @@ export class LoginComponent {
         }
       }, (error) => {
         console.log(error);
+        this.authService.isLoggedIn = false;
         this.errorMessage = error.message;
         this.setMessage();
       });
   }
 
   logout() {
-    // this.authService.logout();
-    this.setMessage();
+    this.authService.logout().subscribe((next) => {
+      console.log(next);
+      this.authService.isLoggedIn = true;
+      this.setMessage();
+    }, (error) => {
+      console.log(error);
+      this.authService.isLoggedIn = false;
+      this.errorMessage = error.message;
+      this.setMessage();
+    });
   }
 
   createForm() {
@@ -63,14 +72,4 @@ export class LoginComponent {
       password: ['', Validators.required]
     });
   }
-
-  // tryLogin(value) {
-  //   this.authService.doLogin(value)
-  //     .then(res => {
-  //       this.router.navigate(['/user']);
-  //     }, err => {
-  //       console.log(err);
-  //       this.errorMessage = err.message;
-  //     });
-  // }
 }
