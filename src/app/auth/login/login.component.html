@@ -1,7 +1,5 @@
-<h2>LOGIN</h2>
-<p>{{message}}</p>
 <p>
-  <button (click)="login()"  *ngIf="!authService.isLoggedIn">Login</button>
+  <button (click)="login()" *ngIf="!authService.isLoggedIn">Login</button>
   <button (click)="logout()" *ngIf="authService.isLoggedIn">Logout</button>
 </p>
 
@@ -21,23 +19,17 @@
               <input type="password" class="form-control" formControlName="password">
               <label class="error">{{errorMessage}}</label>
             </div>
-            <button type="submit" (click)="tryLogin(loginForm.value)" class="btn btn-secondary text-center">Login</button>
+            <button type="submit" (click)="login(loginForm.value)" class="btn btn-secondary text-center">Login</button>
 
           </form>
         </div>
       </div>
+      <div class="row">
+          <p>{{message}}</p>
+      </div>
     </div>
+
     <div class="col-lg-4 col-md-3 col-12">
-      <div class="row justify-content-center">
-        <div class="col-12">
-          <button type="button" class="btn btn-primary btn-block" (click)="tryFacebookLogin()">Login with Facebook</button>
-        </div>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-12">
-          <button type="button" class="btn btn-danger btn-block" (click)="tryGoogleLogin()">Login with Google</button>
-        </div>
-      </div>
       <div class="row justify-content-center">
         <div class="col-12">
           <p class="text-center">No account yet? <a href="/register">Create an account</a></p>

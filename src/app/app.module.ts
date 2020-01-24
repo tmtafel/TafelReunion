@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DashboardModule } from './dashboard/dashboard.module';
-import { HomeComponent } from './home/home.component';
+import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './dashboard/core/auth.guard';
+// import { HomeComponent } from './dashboard/dashboard.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,8 @@ import { AuthGuard } from './dashboard/core/auth.guard';
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
-    DashboardModule
+    // DashboardModule,
+    AuthModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
