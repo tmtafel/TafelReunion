@@ -25,8 +25,8 @@ export class RegisterComponent {
     });
   }
 
-  tryRegister(value) {
-    this.authService.register(value)
+  tryRegister() {
+    this.authService.register(this.registerForm)
       .subscribe(res => {
         console.log(res);
         this.errorMessage = '';
