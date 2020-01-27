@@ -1,13 +1,17 @@
 <mat-sidenav-container class="example-container">
-    <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="sidenavOpened()" (closed)="sidenavClosed()">
-        <p>
-            <button (click)="login()" *ngIf="!authService.isLoggedIn">Login</button>
-            <button (click)="logout()" *ngIf="authService.isLoggedIn">Logout</button>
-        </p>
-    </mat-sidenav>
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="sidenavOpened()" (closed)="sidenavClosed()">
+    <p>
+      <button (click)="login()" *ngIf="!authService.isLoggedIn">Login</button>
+      <button (click)="logout()" *ngIf="authService.isLoggedIn">Logout</button>
+    </p>
+  </mat-sidenav>
 
-    <mat-sidenav-content>
-        <p><button mat-button (click)="sidenav.toggle()">sidenav.toggle()</button></p>
-        <router-outlet></router-outlet>
-    </mat-sidenav-content>
+  <mat-sidenav-content>
+    <p>
+      <button mat-button (click)="sidenav.toggle()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+      </button>
+    </p>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>

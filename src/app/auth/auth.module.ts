@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { LoginComponent } from './login/login.component';
     AngularFireAuthModule
   ],
   declarations: [
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ]
 })
 export class AuthModule { }

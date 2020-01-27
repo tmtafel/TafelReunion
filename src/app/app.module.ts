@@ -4,9 +4,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
-import { AuthGuard } from './dashboard/core/auth.guard';
 import { AdminModule } from './admin/admin.module';
 import { MaterialModule } from './material.module';
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   declarations: [

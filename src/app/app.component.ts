@@ -12,9 +12,11 @@ export class AppComponent {
   constructor(public authService: AuthService, public router: Router) {
   }
 
-  login(){
+  login() {
     this.router.navigateByUrl('/login');
   }
+
+  lo
   sidenavOpened() {
     console.log('sidebar opened!');
   }

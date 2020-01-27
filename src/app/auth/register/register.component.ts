@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -10,8 +11,8 @@ import { AuthService } from '../auth.service';
 export class RegisterComponent {
 
   registerForm: FormGroup;
-  errorMessage: string = '';
-  successMessage: string = '';
+  errorMessage = '';
+  successMessage = '';
 
   constructor(public authService: AuthService, private fb: FormBuilder) {
     this.createForm();
@@ -25,16 +26,16 @@ export class RegisterComponent {
   }
 
   tryRegister(value) {
-    this.authService.doRegister(value)
-      .then(res => {
+    this.authService.register(value)
+      .subscribe(res => {
         console.log(res);
-        this.errorMessage = "";
-        this.successMessage = "Your account has been created";
+        this.errorMessage = '';
+        this.successMessage = 'Your account has been created';
       }, err => {
         console.log(err);
         this.errorMessage = err.message;
-        this.successMessage = "";
-      })
+        this.successMessage = '';
+      });
   }
 
 }

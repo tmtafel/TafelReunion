@@ -18,9 +18,7 @@ export class AuthService {
     const password = loginForm.value.password;
     const loginAttempt = this.afAuth.auth.signInWithEmailAndPassword(email, password);
     return from(loginAttempt);
-  };
-
-  doLogin()
+  }
 
   logout(): Observable<void> {
     const logoutAttempt = this.afAuth.auth.signOut();
