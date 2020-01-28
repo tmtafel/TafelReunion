@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
-import { AdminModule } from './admin/admin.module';
-import { MaterialModule } from './material.module';
 import { AuthGuard } from './auth/auth.guard';
+import { AuthModule } from './auth/auth.module';
 import { HomeComponent } from './home/home.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
