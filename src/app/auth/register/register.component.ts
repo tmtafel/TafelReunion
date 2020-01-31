@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, FormGroupDirective, NgForm, AbstractControl } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+
+import { AuthService } from '../auth.service';
+import { Registration } from '../registration';
 
 @Component({
   selector: 'app-register',
@@ -8,46 +11,43 @@ import { ErrorStateMatcher } from '@angular/material/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  formGroup: FormGroup;
   nameFormGroup: FormGroup;
-  emailFormGroup: FormGroup;
+  loginFormGroup: FormGroup;
+  email: string;
+  firstName: string;
+  lastName: string;
 
-  // steps = [
-  //   { label: 'Confirm your name', content: 'Last name, First name.' },
-  //   { label: 'Confirm your contact information', content: '123-456-7890' },
-  //   { label: 'Confirm your address', content: '1600 Amphitheater Pkwy MTV' },
-  //   { label: 'You are now done', content: 'Finished!' }
-  // ];
+  constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
 
-  /** Returns a FormArray with the name 'formArray'. */
-  get formArray(): AbstractControl | null { return this.formGroup.get('formArray'); }
-  constructor(private formBuilder: FormBuilder) { }
   ngOnInit() {
-    this.formGroup = this.formBuilder.group({
-      formArray: this.formBuilder.array([
-        this.formBuilder.group({
-          firstNameFormCtrl: ['', Validators.required],
-          lastNameFormCtrl: ['', Validators.required],
-        }),
-        this.formBuilder.group({
-          emailFormCtrl: ['', [Validators.required, Validators.email]]
-        }),
-      ])
+    this.loginFormGroup = this.formBuilder.group({
+      emailFormCtrl: ['', [Validators.email, Validators.required]],
+      passwordFormCtrl: ['', [Validators.minLength(6), Validators.required]]
+    });
+
+    this.loginFormGroup.valueChanges.subscribe(loginFormGroup => {
+      this.email = loginFormGroup.emailFormCtrl;
     });
 
     this.nameFormGroup = this.formBuilder.group({
-      firstNameCtrl: ['', Validators.required],
-      lastNameCtrl: ['', Validators.required],
+      firstNameFormCtrl: ['', [Validators.required]],
+      lastNameFormCtrl: ['', [Validators.required]]
     });
 
-    this.emailFormGroup = this.formBuilder.group({
-      emailCtrl: ['', Validators.email]
+    this.nameFormGroup.valueChanges.subscribe(nameFormGroup =>{
+      this.firstName = nameFormGroup.firstNameFormCtrl;
+      this.lastName = nameFormGroup.lastNameFormCtrl;
     });
   }
 
-  completeRegistration() {
-    const firstName = this.nameFormGroup.value.firstNameCtrl;
-    console.log(firstName);
+  tryRegister() {
+    console.log(this.nameFormGroup);
+    console.log(this.loginFormGroup);
+    // const first = this.nameFormGroup.controls.firstNameFormCtrl.value;
+    // const last = this.nameFormGroup.controls.lastNameFormCtrl.value;
+    // const email = this.loginFormGroup.controls.emailFormCtrl.value;
+    // const registration = new Registration(first, last, email);
+    // this.authService.register(registration);
   }
 
   // registerForm: FormGroup;

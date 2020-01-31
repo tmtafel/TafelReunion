@@ -1,58 +1,77 @@
-<h1 class="header">Create an account</h1>
+<h1 class="text-center">Create an account</h1>
 <div class="container">
-  <div class="row">
-    <div class="col-12">
-      <form [formGroup]="formGroup">
-        <mat-vertical-stepper #linearVerticalStepper="matVerticalStepper" formArrayName="formArray" [linear]="true">
-          <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
+  <div class="row justify-content-center">
+    <div class="col-xl-6 col-lg-8 col-md-9 col-sm-10 col-12">
+      <mat-vertical-stepper [linear]="true" #stepper>
+        <!-- •	Name (Last, First, Address, eMail, Mobile, Branch) -->
+        <mat-step [stepControl]="loginFormGroup">
+          <form [formGroup]="loginFormGroup">
+            <ng-template matStepLabel>Create a Login</ng-template>
+            <div>
+              <mat-form-field appearance="legacy">
+                <mat-label>Email Address:</mat-label>
+                <input matInput type="email" formControlName="emailFormCtrl" placeholder="Your email">
+                <mat-icon matSuffix>mail_outline</mat-icon>
+                <mat-error>The input is invalid.</mat-error>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="legacy">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="passwordFormCtrl" placeholder="Your password">
+                <mat-icon matSuffix>lock</mat-icon>
+                <mat-error>Minimum of 6 characters</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="pt-3 d-flex justify-content-center">
+              <button mat-button mat-raised-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="nameFormGroup">
+          <form [formGroup]="nameFormGroup">
             <ng-template matStepLabel>Fill out your name</ng-template>
-            <mat-form-field>
-              <mat-label>First name</mat-label>
-              <input matInput formControlName="firstNameFormCtrl" required>
-              <mat-error>This field is required</mat-error>
-            </mat-form-field>
-      
-            <mat-form-field>
-              <mat-label>Last name</mat-label>
-              <input matInput formControlName="lastNameFormCtrl" required>
-              <mat-error>This field is required</mat-error>
-            </mat-form-field>
             <div>
-              <button mat-button matStepperNext>Next</button>
+              <mat-form-field>
+                <mat-label>First name</mat-label>
+                <input matInput formControlName="firstNameFormCtrl" required>
+                <mat-error>This field is required</mat-error>
+              </mat-form-field>
             </div>
-          </mat-step>
-      
-          <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
-            <ng-template matStepLabel>
-              <div>Fill out your email address</div>
-            </ng-template>
-            <mat-form-field>
-              <mat-label>Email address</mat-label>
-              <input matInput formControlName="emailFormCtrl">
-              <mat-error>The input is invalid.</mat-error>
-            </mat-form-field>
             <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
+              <mat-form-field>
+                <mat-label>Last name</mat-label>
+                <input matInput formControlName="lastNameFormCtrl" required>
+                <mat-error>This field is required</mat-error>
+              </mat-form-field>
             </div>
-          </mat-step>
-      
-          <mat-step>
-            <ng-template matStepLabel>Confirm your information</ng-template>
-            Everything seems correct.
-            <div>
-              <button mat-button (click)="completeRegistration()">Done</button>
-              <button type="button" mat-button (click)="linearVerticalStepper.reset()">Reset</button>
+            <div class="pt-3 d-flex justify-content-around">
+              <button mat-button mat-raised-button matStepperPrevious>Back</button>
+              <button mat-button mat-raised-button matStepperNext>Next</button>
             </div>
-          </mat-step>
-        </mat-vertical-stepper>
-      </form>
+          </form>
+        </mat-step>
+
+
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <div class="py-3 d-flex flex-column align-items-center">
+            <p>Click Done to finish Registration</p>
+            <p>Email: {{email}}</p>
+            <p>Name: {{firstName}} {{lastName}}</p>
+          </div>
+          <div class="pt-3 d-flex justify-content-around">
+            <button mat-button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-button mat-raised-button (click)="tryRegister()">Done</button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-4 col-md-offset-4">
-      <p>Already have an account? <a href="/login">Login</a></p>
+  <div class="row justify-content-center pt-4">
+    <div class="col-xl-6 col-lg-8 col-md-9 col-sm-10 col-12">
+      <p class="text-center">Already have an account? <a href="/login">Login</a></p>
     </div>
   </div>
 </div>
