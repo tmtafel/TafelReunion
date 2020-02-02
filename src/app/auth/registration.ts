@@ -2,18 +2,20 @@ export class Registration {
     firstName: string;
     lastName: string;
     email: string;
+    id: string;
 
-    constructor(first: string, last: string, email: string) {
+    constructor(first: string, last: string, email: string, id: string) {
         this.firstName = first;
         this.lastName = last;
         this.email = email;
+        this.id = id;
     }
 
-    getDocumentObject(): any {
+    getDocumentObject() {
         return {
-            first: this.firstName,
-            last: this.lastName,
-            email: this.email,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email
         };
     }
 }

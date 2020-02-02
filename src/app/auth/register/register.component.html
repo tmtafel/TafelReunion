@@ -1,9 +1,8 @@
 <h1 class="text-center">Create an account</h1>
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-xl-6 col-lg-8 col-md-9 col-sm-10 col-12">
+    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
       <mat-vertical-stepper [linear]="true" #stepper>
-        <!-- •	Name (Last, First, Address, eMail, Mobile, Branch) -->
         <mat-step [stepControl]="loginFormGroup">
           <form [formGroup]="loginFormGroup">
             <ng-template matStepLabel>Create a Login</ng-template>
@@ -12,10 +11,10 @@
                 <mat-label>Email Address:</mat-label>
                 <input matInput type="email" formControlName="emailFormCtrl" placeholder="Your email">
                 <mat-icon matSuffix>mail_outline</mat-icon>
-                <mat-error>The input is invalid.</mat-error>
+                <mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
               </mat-form-field>
             </div>
-            <div>
+            <div class="py-3">
               <mat-form-field appearance="legacy">
                 <mat-label>Password</mat-label>
                 <input matInput type="password" formControlName="passwordFormCtrl" placeholder="Your password">
@@ -24,7 +23,8 @@
               </mat-form-field>
             </div>
             <div class="pt-3 d-flex justify-content-center">
-              <button mat-button mat-raised-button matStepperNext>Next</button>
+              <button [disabled]="loginFormGroup.pristine || loginFormGroup.invalid" mat-button mat-raised-button (click)="createAccount(stepper)">Create
+                Login</button>
             </div>
           </form>
         </mat-step>
@@ -45,32 +45,17 @@
                 <mat-error>This field is required</mat-error>
               </mat-form-field>
             </div>
-            <div class="pt-3 d-flex justify-content-around">
-              <button mat-button mat-raised-button matStepperPrevious>Back</button>
-              <button mat-button mat-raised-button matStepperNext>Next</button>
+            <div class="pt-3 d-flex justify-content-between">
+                <button [disabled]="nameFormGroup.pristine || nameFormGroup.invalid" mat-button mat-raised-button (click)="createUserDocument()">Save Name</button>
             </div>
           </form>
-        </mat-step>
-
-
-        <mat-step>
-          <ng-template matStepLabel>Done</ng-template>
-          <div class="py-3 d-flex flex-column align-items-center">
-            <p>Click Done to finish Registration</p>
-            <p>Email: {{email}}</p>
-            <p>Name: {{firstName}} {{lastName}}</p>
-          </div>
-          <div class="pt-3 d-flex justify-content-around">
-            <button mat-button mat-raised-button matStepperPrevious>Back</button>
-            <button mat-button mat-raised-button (click)="tryRegister()">Done</button>
-          </div>
         </mat-step>
       </mat-vertical-stepper>
     </div>
   </div>
 
   <div class="row justify-content-center pt-4">
-    <div class="col-xl-6 col-lg-8 col-md-9 col-sm-10 col-12">
+    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
       <p class="text-center">Already have an account? <a href="/login">Login</a></p>
     </div>
   </div>

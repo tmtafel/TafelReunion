@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
+import { ValidationErrors, AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 import { AuthService } from '../auth.service';
+import { User } from 'firebase';
+import { IfStmt } from '@angular/compiler';
 import { Registration } from '../registration';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,13 +15,14 @@ import { Registration } from '../registration';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  user: User;
   nameFormGroup: FormGroup;
   loginFormGroup: FormGroup;
-  email: string;
-  firstName: string;
-  lastName: string;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
+  errorMessage: string;
+
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
+  }
 
   ngOnInit() {
     this.loginFormGroup = this.formBuilder.group({
@@ -25,57 +30,41 @@ export class RegisterComponent implements OnInit {
       passwordFormCtrl: ['', [Validators.minLength(6), Validators.required]]
     });
 
-    this.loginFormGroup.valueChanges.subscribe(loginFormGroup => {
-      this.email = loginFormGroup.emailFormCtrl;
-    });
-
     this.nameFormGroup = this.formBuilder.group({
       firstNameFormCtrl: ['', [Validators.required]],
       lastNameFormCtrl: ['', [Validators.required]]
     });
+  }
 
-    this.nameFormGroup.valueChanges.subscribe(nameFormGroup =>{
-      this.firstName = nameFormGroup.firstNameFormCtrl;
-      this.lastName = nameFormGroup.lastNameFormCtrl;
+
+  createAccount(stepper: MatStepper) {
+    const password = this.loginFormGroup.controls.passwordFormCtrl.value;
+    const email = this.loginFormGroup.controls.emailFormCtrl.value;
+    this.authService.createLogin(email, password).subscribe(res => {
+      this.authService.login(email, password).subscribe(res2 => {
+        this.user = res2.user;
+        stepper.next();
+      });
+    }, err => {
+      console.log(err);
+      this.loginFormGroup.controls.emailFormCtrl.setErrors(err.message);
+      this.errorMessage = err.message;
     });
   }
 
-  tryRegister() {
-    console.log(this.nameFormGroup);
-    console.log(this.loginFormGroup);
-    // const first = this.nameFormGroup.controls.firstNameFormCtrl.value;
-    // const last = this.nameFormGroup.controls.lastNameFormCtrl.value;
-    // const email = this.loginFormGroup.controls.emailFormCtrl.value;
-    // const registration = new Registration(first, last, email);
-    // this.authService.register(registration);
+
+
+  createUserDocument() {
+    const firstName = this.nameFormGroup.controls.firstNameFormCtrl.value;
+    const lastName = this.nameFormGroup.controls.lastNameFormCtrl.value;
+    const registration = new Registration(firstName, lastName, this.user.email, this.user.uid);
+    this.authService.register(registration).subscribe(res => {
+      this.router.navigate([`/profile/${this.user.uid}`]);
+    }, err => {
+      console.log(err);
+      this.nameFormGroup.setErrors(err.message);
+    });
   }
-
-  // registerForm: FormGroup;
-  // errorMessage = '';
-  // successMessage = '';
-
-  // constructor(public authService: AuthService, private fb: FormBuilder) {
-  //   this.createForm();
-  // }
-
-  // createForm() {
-  //   this.registerForm = this.fb.group({
-  //     email: ['', Validators.required],
-  //     password: ['', Validators.required]
-  //   });
-  // }
-
-  // tryRegister() {
-  //   this.authService.register(this.registerForm)
-  //     .subscribe(res => {
-  //       console.log(res);
-  //       this.errorMessage = '';
-  //       this.successMessage = 'Your account has been created';
-  //     }, err => {
-  //       console.log(err);
-  //       this.errorMessage = err.message;
-  //       this.successMessage = '';
-  //     });
-  // }
-
 }
+
+

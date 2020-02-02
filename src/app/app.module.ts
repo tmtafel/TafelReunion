@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { HomeComponent } from './home/home.component';
-import { MaterialModule } from './material.module';
+import { MaterialModule } from './shared/material.module';
 
 @NgModule({
   declarations: [

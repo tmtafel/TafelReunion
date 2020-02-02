@@ -24,22 +24,20 @@ export class LoginComponent {
 
   login() {
     this.message = 'Trying to log in ...';
-
-    this.authService.login(this.loginForm).subscribe(
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+    this.authService.login(email, password).subscribe(
       (next) => {
         console.log(next);
         this.authService.isLoggedIn = true;
         this.setMessage();
-        if (this.authService.isLoggedIn) {
-          const redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/admin';
-          const navigationExtras: NavigationExtras = {
-            queryParamsHandling: 'preserve',
-            preserveFragment: true
-          };
+        const redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/profile';
+        const navigationExtras: NavigationExtras = {
+          queryParamsHandling: 'preserve',
+          preserveFragment: true
+        };
+        this.router.navigateByUrl(redirect, navigationExtras);
 
-          // Redirect the user
-          this.router.navigateByUrl(redirect, navigationExtras);
-        }
       }, (error) => {
         console.log(error);
         this.authService.isLoggedIn = false;
