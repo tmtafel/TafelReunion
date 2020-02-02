@@ -16,7 +16,9 @@ export class AppComponent {
     this.router.navigateByUrl('/login');
   }
 
-  
+  logout() {
+    this.authService.logout();
+  }
   sidenavOpened() {
     console.log('sidebar opened!');
   }

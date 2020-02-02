@@ -11,8 +11,7 @@ import { Registration } from './registration';
   providedIn: 'root',
 })
 export class AuthService {
-  user: Observable<firebase.User>;
-  isLoggedIn = false;
+  user: Observable<User>;
   redirectUrl: string;
   private registrations: AngularFirestoreCollection<Registration>;
 
@@ -21,6 +20,9 @@ export class AuthService {
     this.registrations = db.collection<Registration>('registrations');
   }
 
+  isLoggedIn(): boolean {
+    return this.afAuth.auth.currentUser !== null;
+  }
   login(email: string, password: string): Observable<firebase.auth.UserCredential> {
     const loginAttempt = this.afAuth.auth.signInWithEmailAndPassword(email, password);
     return from(loginAttempt);

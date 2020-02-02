@@ -1,25 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
+import { User } from 'firebase';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorMessage = '';
   message = '';
-
   constructor(public authService: AuthService, public router: Router, private fb: FormBuilder) {
     this.createForm();
+
+  }
+
+  ngOnInit() {
+    this.authService.user.subscribe(user => {
+      if (user !== null) {
+        this.router.navigateByUrl(`profile/${user.uid}`);
+      }
+    });
   }
 
   setMessage() {
-    this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
+    this.message = 'Logged ' + (this.authService.isLoggedIn() ? 'in' : 'out');
   }
 
   login() {
@@ -29,7 +38,6 @@ export class LoginComponent {
     this.authService.login(email, password).subscribe(
       (next) => {
         console.log(next);
-        this.authService.isLoggedIn = true;
         this.setMessage();
         const redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/profile';
         const navigationExtras: NavigationExtras = {
@@ -40,7 +48,6 @@ export class LoginComponent {
 
       }, (error) => {
         console.log(error);
-        this.authService.isLoggedIn = false;
         this.errorMessage = error.message;
         this.setMessage();
       });
@@ -49,11 +56,9 @@ export class LoginComponent {
   logout() {
     this.authService.logout().subscribe((next) => {
       console.log(next);
-      this.authService.isLoggedIn = true;
       this.setMessage();
     }, (error) => {
       console.log(error);
-      this.authService.isLoggedIn = false;
       this.errorMessage = error.message;
       this.setMessage();
     });

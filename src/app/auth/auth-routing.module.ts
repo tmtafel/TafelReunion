@@ -16,6 +16,10 @@ const authRoutes: Routes = [
     component: RegisterComponent
   },
   {
+    path: 'profile',
+    redirectTo: 'login'
+  },
+  {
     path: 'profile/:id',
     component: ProfileComponent,
     canActivate: [AuthGuard]
