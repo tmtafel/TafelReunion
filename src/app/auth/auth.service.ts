@@ -1,36 +1,43 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { FormGroup } from '@angular/forms';
 import * as firebase from 'firebase/app';
-import { from, Observable, of } from 'rxjs';
 import { User, UserInfo } from 'firebase/app';
+import { from, Observable, of } from 'rxjs';
+
 import { Registration } from './registration';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  user: Observable<User>;
   redirectUrl: string;
+  user: Observable<User>;
   private registrations: AngularFirestoreCollection<Registration>;
 
   constructor(public afAuth: AngularFireAuth, public db: AngularFirestore) {
-    this.user = afAuth.authState;
+    this.afAuth.authState.subscribe(this.firebaseAuthChangeListener);
     this.registrations = db.collection<Registration>('registrations');
+    this.user = this.afAuth.authState;
   }
 
   isLoggedIn(): boolean {
-    return this.afAuth.auth.currentUser !== null;
+    try {
+      return JSON.parse(localStorage.getItem('user')) !== null;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
+
   login(email: string, password: string): Observable<firebase.auth.UserCredential> {
-    const loginAttempt = this.afAuth.auth.signInWithEmailAndPassword(email, password);
-    return from(loginAttempt);
+    return from(this.afAuth.auth.signInWithEmailAndPassword(email, password));
   }
 
   logout(): Observable<void> {
-    const logoutAttempt = this.afAuth.auth.signOut();
-    return from(logoutAttempt);
+    localStorage.setItem('user', null);
+    return from(this.afAuth.auth.signOut());
   }
 
   createLogin(email: string, password: string): Observable<firebase.auth.UserCredential> {
@@ -38,7 +45,21 @@ export class AuthService {
   }
 
   register(registration: Registration): Observable<void> {
-    return from(this.db.collection<Registration>('registrations').doc(registration.id).set(registration.getDocumentObject()));
+    return from(this.registrations.doc(registration.id).set(registration.getDocumentObject()));
+  }
+
+  getCurrentUser(): User {
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      return user;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  private firebaseAuthChangeListener(user: User) {
+    localStorage.setItem('user', user !== null ? JSON.stringify(user) : null);
   }
 
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
+import { User } from 'firebase';
 
 import { AuthService } from '../auth.service';
-import { User } from 'firebase';
 
 @Component({
   selector: 'app-login',
@@ -16,15 +16,12 @@ export class LoginComponent implements OnInit {
   message = '';
   constructor(public authService: AuthService, public router: Router, private fb: FormBuilder) {
     this.createForm();
-
   }
 
   ngOnInit() {
-    this.authService.user.subscribe(user => {
-      if (user !== null) {
-        this.router.navigateByUrl(`profile/${user.uid}`);
-      }
-    });
+    if (this.authService.isLoggedIn()) {
+      this.router.navigateByUrl(`profile`);
+    }
   }
 
   setMessage() {

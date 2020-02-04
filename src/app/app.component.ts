@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { AuthService } from './auth/auth.service';
+import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
+
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +18,8 @@ export class AppComponent {
     this.router.navigateByUrl('/login');
   }
 
-  logout() {
+  logout(sidenav: MatSidenav) {
+    sidenav.close();
     this.authService.logout();
   }
   sidenavOpened() {

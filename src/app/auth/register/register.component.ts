@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { ValidationErrors, AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
+import { User } from 'firebase';
 
 import { AuthService } from '../auth.service';
-import { User } from 'firebase';
-import { IfStmt } from '@angular/compiler';
 import { Registration } from '../registration';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -21,10 +19,13 @@ export class RegisterComponent implements OnInit {
 
   errorMessage: string;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
   }
 
   ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigateByUrl(`profile`);
+    }
     this.loginFormGroup = this.formBuilder.group({
       emailFormCtrl: ['', [Validators.email, Validators.required]],
       passwordFormCtrl: ['', [Validators.minLength(6), Validators.required]]
@@ -36,15 +37,12 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-
   createAccount(stepper: MatStepper) {
     const password = this.loginFormGroup.controls.passwordFormCtrl.value;
     const email = this.loginFormGroup.controls.emailFormCtrl.value;
     this.authService.createLogin(email, password).subscribe(res => {
-      this.authService.login(email, password).subscribe(res2 => {
-        this.user = res2.user;
-        stepper.next();
-      });
+      this.user = res.user;
+      stepper.next();
     }, err => {
       console.log(err);
       this.loginFormGroup.controls.emailFormCtrl.setErrors(err.message);
@@ -52,13 +50,11 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-
-
   createUserDocument() {
     const firstName = this.nameFormGroup.controls.firstNameFormCtrl.value;
     const lastName = this.nameFormGroup.controls.lastNameFormCtrl.value;
     const registration = new Registration(firstName, lastName, this.user.email, this.user.uid);
-    this.authService.register(registration).subscribe(res => {
+    this.authService.register(registration).subscribe(() => {
       this.router.navigate([`/profile/${this.user.uid}`]);
     }, err => {
       console.log(err);
