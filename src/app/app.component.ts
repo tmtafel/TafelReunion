@@ -22,11 +22,4 @@ export class AppComponent {
     sidenav.close();
     this.authService.logout();
   }
-  sidenavOpened() {
-    console.log('sidebar opened!');
-  }
-
-  sidenavClosed() {
-    console.log('sidebar closed!');
-  }
 }

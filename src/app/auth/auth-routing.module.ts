@@ -17,7 +17,7 @@ const authRoutes: Routes = [
   },
   {
     path: 'profile',
-    redirectTo: 'login',
+    component: ProfileComponent,
     canActivate: [AuthGuard]
   }
 ];

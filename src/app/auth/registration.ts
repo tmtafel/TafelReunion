@@ -1,8 +1,11 @@
+import { Address } from './address';
+
 export class Registration {
     firstName: string;
     lastName: string;
     email: string;
     id: string;
+    address: Address;
 
     constructor(first: string, last: string, email: string, id: string) {
         this.firstName = first;
@@ -12,10 +15,6 @@ export class Registration {
     }
 
     getDocumentObject() {
-        return {
-            firstName: this.firstName,
-            lastName: this.lastName,
-            email: this.email
-        };
+        return JSON.stringify(this);
     }
 }

@@ -40,7 +40,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { AddressComponent } from './address/address.component';
 
 @NgModule({
     exports: [
@@ -86,7 +85,6 @@ import { AddressComponent } from './address/address.component';
         MatTreeModule,
         PortalModule,
         ScrollingModule,
-    ],
-    declarations: [AddressComponent]
+    ]
 })
 export class MaterialModule { }
