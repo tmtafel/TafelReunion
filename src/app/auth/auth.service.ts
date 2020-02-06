@@ -59,7 +59,12 @@ export class AuthService {
   }
 
   private firebaseAuthChangeListener(user: User) {
-    localStorage.setItem('user', user !== null ? JSON.stringify(user) : null);
+    if (user !== null) {
+      const json = JSON.stringify(user);
+      localStorage.setItem('user', json);
+    } else {
+      localStorage.setItem('user', null);
+    }
   }
 
 }

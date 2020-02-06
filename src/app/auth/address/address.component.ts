@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Address } from '../address';
 
 @Component({
@@ -11,6 +12,7 @@ export class AddressComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.location = new Address();
   }
 
 }
