@@ -11,7 +11,9 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent {
   title = 'TafelReunion';
+  loggedIn: boolean;
   constructor(public authService: AuthService, public router: Router) {
+
   }
 
   login() {
@@ -21,5 +23,13 @@ export class AppComponent {
   logout(sidenav: MatSidenav) {
     sidenav.close();
     this.authService.logout();
+  }
+
+  sidenavOpened() {
+    this.loggedIn = this.authService.isLoggedIn();
+  }
+
+  sidenavClosed() {
+    this.loggedIn = this.authService.isLoggedIn();
   }
 }

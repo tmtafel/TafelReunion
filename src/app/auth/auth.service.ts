@@ -7,6 +7,7 @@ import { User, UserInfo } from 'firebase/app';
 import { from, Observable, of } from 'rxjs';
 
 import { Registration } from './registration';
+import { Profile } from './profile';
 
 @Injectable({
   providedIn: 'root',
@@ -46,6 +47,16 @@ export class AuthService {
 
   register(registration: Registration): Observable<void> {
     return from(this.registrations.doc(registration.id).set(registration.getDocumentObject()));
+  }
+
+  getCurrentProfile(): Observable<Profile> {
+    const id = this.getCurrentUser().uid;
+    return this.registrations.doc<Profile>(id).valueChanges();
+  }
+
+  updateProfile(profile: Profile) {
+    const json = JSON.stringify(profile);
+    return from(this.registrations.doc(profile.id).set(json));
   }
 
   getCurrentUser(): User {

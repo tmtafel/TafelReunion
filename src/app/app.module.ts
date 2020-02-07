@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { HomeComponent } from './home/home.component';
-import { AddressComponent } from './auth/address/address.component';
 import { MaterialModule } from './shared/material.module';
 
 @NgModule({

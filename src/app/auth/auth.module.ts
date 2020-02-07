@@ -11,7 +11,6 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AddressComponent } from './address/address.component';
 
 @NgModule({
   imports: [
@@ -27,8 +26,7 @@ import { AddressComponent } from './address/address.component';
   declarations: [
     LoginComponent,
     RegisterComponent,
-    ProfileComponent,
-    AddressComponent
+    ProfileComponent
   ]
 })
 export class AuthModule { }

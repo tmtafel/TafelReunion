@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-8">
+    <div class="row justify-content-center">
+      <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
         <div class="card">
           <div class="card-header card-header-danger">
             <h4 class="card-title">Profile</h4>
@@ -9,25 +9,33 @@
           <div class="card-body">
             <form>
               <div class="row">
-                <div class="col-md-4">
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email address" type="email">
-                  </mat-form-field>
-                </div>
+                <mat-form-field class="col-12">
+                  <input [formControl]="email" matInput placeholder="Email address" type="email">
+                </mat-form-field>
+                <mat-form-field class="col-sm-6 col-12">
+                  <input [formControl]="first" matInput placeholder="Fist Name" type="text">
+                </mat-form-field>
+                <mat-form-field class="col-sm-6 col-12">
+                  <input [formControl]="last" matInput placeholder="Last Name" type="text">
+                </mat-form-field>
               </div>
               <div class="row">
-                <div class="col-md-6">
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Fist Name" type="text">
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Last Name" type="text">
-                  </mat-form-field>
-                </div>
+                <mat-form-field class="col-12">
+                  <input [formControl]="street" matInput placeholder="Street">
+                </mat-form-field>
+                <mat-form-field class="col-12 col-sm-8">
+                  <input [formControl]="city" matInput placeholder="City">
+                </mat-form-field>
+                <mat-form-field class="col-12 col-sm-4">
+                  <input [formControl]="stateOrProvince" matInput placeholder="State or Province">
+                </mat-form-field>
+                <mat-form-field class="col-12 col-sm-6">
+                  <input [formControl]="postalCode" matInput placeholder="Postal Code">
+                </mat-form-field>
+                <mat-form-field class="col-12 col-sm-6">
+                  <input [formControl]="country" matInput placeholder="Country">
+                </mat-form-field>
               </div>
-              <app-address></app-address>
               <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
             </form>
           </div>
