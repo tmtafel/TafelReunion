@@ -6,6 +6,7 @@ import { User } from 'firebase';
 
 import { AuthService } from '../auth.service';
 import { Registration } from '../registration';
+import { Profile } from '../profile';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,9 @@ export class RegisterComponent implements OnInit {
   user: User;
   nameFormGroup: FormGroup;
   loginFormGroup: FormGroup;
+  addressFormGroup: FormGroup;
 
+  profile: Profile;
   errorMessage: string;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
@@ -31,9 +34,21 @@ export class RegisterComponent implements OnInit {
       passwordFormCtrl: ['', [Validators.minLength(6), Validators.required]]
     });
 
+    this.loginFormGroup.valueChanges.subscribe(lfg => {
+      this.profile.email = lfg.emailFormCtrl;
+    })
+
     this.nameFormGroup = this.formBuilder.group({
       firstNameFormCtrl: ['', [Validators.required]],
       lastNameFormCtrl: ['', [Validators.required]]
+    });
+
+    this.addressFormGroup = this.formBuilder.group({
+      streetFormCtrl: ['', [Validators.required]],
+      cityFormCtrl: ['', [Validators.required]],
+      stateFormCtrl: ['', [Validators.required]],
+      postalCodeFormCtrl: ['', [Validators.required]],
+      countryFormCtrl: ['', [Validators.required]]
     });
   }
 
@@ -50,16 +65,21 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  createUserDocument() {
+  createUserDocument(stepper: MatStepper) {
     const firstName = this.nameFormGroup.controls.firstNameFormCtrl.value;
     const lastName = this.nameFormGroup.controls.lastNameFormCtrl.value;
     const registration = new Registration(firstName, lastName, this.user.email, this.user.uid);
     this.authService.register(registration).subscribe(() => {
-      this.router.navigate([`/profile/${this.user.uid}`]);
+      // this.router.navigate([`/profile/${this.user.uid}`]);
+      stepper.next();
     }, err => {
       console.log(err);
       this.nameFormGroup.setErrors(err.message);
     });
+  }
+
+  addAddressToDocument() {
+
   }
 }
 

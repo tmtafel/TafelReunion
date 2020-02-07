@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Profile } from '../profile';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -11,37 +11,11 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
   profile: Profile;
-  email: FormControl;
-  first: FormControl;
-  last: FormControl;
-  street: FormControl;
-  city: FormControl;
-  stateOrProvince: FormControl;
-  zip: FormControl;
-  country: FormControl;
+  profileForm: FormGroup;
   constructor(private authService: AuthService) {
+    this.profileForm = this.createFormGroup();
     this.authService.getCurrentProfile().subscribe(profile => {
-      this.email = new FormControl({ value: profile.email, disabled: true }, [Validators.required, Validators.email]);
-      this.email.valueChanges.pipe().subscribe(eml => {
-        this.profile.email = eml;
-      });
 
-      this.first = new FormControl(profile.firstName, [Validators.required]);
-      this.first.valueChanges.pipe().subscribe(frst => {
-        this.profile.firstName = frst;
-      });
-
-      this.last = new FormControl(profile.lastName, [Validators.required]);
-      this.last.valueChanges.pipe().subscribe(lst => {
-        this.profile.firstName = lst;
-      });
-      this.street = new FormControl(profile.street);
-      this.city = new FormControl(profile.city);
-      this.stateOrProvince = new FormControl(profile.state);
-      this.zip = new FormControl(profile.zip);
-      this.country = new FormControl(profile.country);
-
-      this.profile = profile;
     });
   }
 
@@ -50,8 +24,14 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  updateCurrentProfile() {
-    console.log(this.profile);
+  createFormGroup() {
+    return new FormGroup({
+      street: new FormControl(),
+      city: new FormControl(),
+      state: new FormControl(),
+      zip: new FormControl(),
+      country: new FormControl(),
+    });
   }
 
 }

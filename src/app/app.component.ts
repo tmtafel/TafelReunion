@@ -12,17 +12,21 @@ import { AuthService } from './auth/auth.service';
 export class AppComponent {
   title = 'TafelReunion';
   loggedIn: boolean;
+  opened: boolean;
   constructor(public authService: AuthService, public router: Router) {
-
+    this.loggedIn = this.authService.isLoggedIn();
   }
 
-  login() {
+  login(sidenav: MatSidenav) {
+    sidenav.close();
     this.router.navigateByUrl('/login');
   }
 
   logout(sidenav: MatSidenav) {
     sidenav.close();
-    this.authService.logout();
+    this.authService.logout().subscribe(success => {
+      this.router.navigateByUrl('/');
+    });
   }
 
   sidenavOpened() {

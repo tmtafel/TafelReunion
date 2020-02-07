@@ -1,44 +1,31 @@
-<div class="main-content">
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
-        <div class="card">
-          <div class="card-header card-header-danger">
-            <h4 class="card-title">Profile</h4>
-          </div>
-          <div class="card-body">
-            <form>
-              <div class="row">
-                <mat-form-field class="col-12">
-                  <input [formControl]="email" matInput placeholder="Email address" type="email">
-                </mat-form-field>
-                <mat-form-field class="col-sm-6 col-12">
-                  <input [formControl]="first" matInput placeholder="Fist Name" type="text">
-                </mat-form-field>
-                <mat-form-field class="col-sm-6 col-12">
-                  <input [formControl]="last" matInput placeholder="Last Name" type="text">
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-form-field class="col-12">
-                  <input [formControl]="street" matInput placeholder="Street">
-                </mat-form-field>
-                <mat-form-field class="col-12 col-sm-8">
-                  <input [formControl]="city" matInput placeholder="City">
-                </mat-form-field>
-                <mat-form-field class="col-12 col-sm-4">
-                  <input [formControl]="stateOrProvince" matInput placeholder="State or Province">
-                </mat-form-field>
-                <mat-form-field class="col-12 col-sm-6">
-                  <input [formControl]="postalCode" matInput placeholder="Postal Code">
-                </mat-form-field>
-                <mat-form-field class="col-12 col-sm-6">
-                  <input [formControl]="country" matInput placeholder="Country">
-                </mat-form-field>
-              </div>
-              <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
-            </form>
-          </div>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <h4 class="card-title">Profile</h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="row">
+              <mat-form-field class="col-12">
+                <input formControlName="street" matInput placeholder="Street">
+              </mat-form-field>
+              <mat-form-field class="col-12">
+                <input formControlName="city" matInput placeholder="City">
+              </mat-form-field>
+              <mat-form-field class="col-12">
+                <input formControlName="state" matInput placeholder="State or Province">
+              </mat-form-field>
+              <mat-form-field class="col-12">
+                <input formControlName="zip" matInput placeholder="Postal Code">
+              </mat-form-field>
+              <mat-form-field class="col-12">
+                <input formControlName="country" matInput placeholder="Country">
+              </mat-form-field>
+            </div>
+            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
+          </form>
         </div>
       </div>
     </div>
