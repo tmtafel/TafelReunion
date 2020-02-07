@@ -1,17 +1,8 @@
-<mat-sidenav-container class="example-container">
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="sidenavOpened()" (closed)="sidenavClosed()">
-    <p>
-      <button (click)="login(sidenav)" *ngIf="!loggedIn">Login</button>
-      <button (click)="logout(sidenav)" *ngIf="loggedIn">Logout</button>
-    </p>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-    <p>
-      <button mat-button (click)="sidenav.toggle()">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
-      </button>
-    </p>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="justify-content-between">
+    <span>Tafel Reunion 2020</span>
+    <button (click)="login()" *ngIf="!(loggedIn$ | async)">Login</button>
+    <button (click)="logout()" *ngIf="loggedIn$ | async">Logout</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>

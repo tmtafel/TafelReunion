@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 
 import { AuthService } from './auth/auth.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -10,30 +11,19 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'TafelReunion';
-  loggedIn: boolean;
-  opened: boolean;
+  loggedIn$: Observable<boolean>
   constructor(public authService: AuthService, public router: Router) {
-    this.loggedIn = this.authService.isLoggedIn();
+    this.loggedIn$ = this.authService.user.pipe(map(u => u !== null));
   }
 
-  login(sidenav: MatSidenav) {
-    sidenav.close();
+  login() {
     this.router.navigateByUrl('/login');
   }
 
-  logout(sidenav: MatSidenav) {
-    sidenav.close();
+  logout() {
     this.authService.logout().subscribe(success => {
       this.router.navigateByUrl('/');
     });
   }
 
-  sidenavOpened() {
-    this.loggedIn = this.authService.isLoggedIn();
-  }
-
-  sidenavClosed() {
-    this.loggedIn = this.authService.isLoggedIn();
-  }
 }

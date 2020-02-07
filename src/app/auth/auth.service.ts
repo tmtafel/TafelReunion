@@ -25,7 +25,10 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     try {
-      return JSON.parse(localStorage.getItem('user')) !== null;
+      const user = JSON.parse(localStorage.getItem('user'));
+      const loggedIn = user !== null;
+      console.log(loggedIn ? "User is logged in" : "User is not logged in");
+      return loggedIn;
     } catch (error) {
       console.log(error);
       return false;

@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
   loginFormGroup: FormGroup;
   addressFormGroup: FormGroup;
 
-  profile: Profile;
+  profile: Profile = new Profile();
   errorMessage: string;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
@@ -36,11 +36,16 @@ export class RegisterComponent implements OnInit {
 
     this.loginFormGroup.valueChanges.subscribe(lfg => {
       this.profile.email = lfg.emailFormCtrl;
-    })
+    });
 
     this.nameFormGroup = this.formBuilder.group({
       firstNameFormCtrl: ['', [Validators.required]],
       lastNameFormCtrl: ['', [Validators.required]]
+    });
+
+    this.nameFormGroup.valueChanges.subscribe(nfg => {
+      this.profile.firstName = nfg.firstNameFormCtrl;
+      this.profile.lastName = nfg.lastNameFormCtrl;
     });
 
     this.addressFormGroup = this.formBuilder.group({
@@ -50,13 +55,22 @@ export class RegisterComponent implements OnInit {
       postalCodeFormCtrl: ['', [Validators.required]],
       countryFormCtrl: ['', [Validators.required]]
     });
+
+    this.addressFormGroup.valueChanges.subscribe(afg => {
+      this.profile.street = afg.streetFormCtrl;
+      this.profile.city = afg.cityFormCtrl;
+      this.profile.state = afg.stateFormCtrl;
+      this.profile.zip = afg.postalCodeFormCtrl;
+      this.profile.country = afg.countryFormCtrl;
+    });
   }
 
   createAccount(stepper: MatStepper) {
     const password = this.loginFormGroup.controls.passwordFormCtrl.value;
-    const email = this.loginFormGroup.controls.emailFormCtrl.value;
+    const email = this.profile.email;
     this.authService.createLogin(email, password).subscribe(res => {
       this.user = res.user;
+      this.profile.id = res.user.uid;
       stepper.next();
     }, err => {
       console.log(err);
@@ -66,9 +80,7 @@ export class RegisterComponent implements OnInit {
   }
 
   createUserDocument(stepper: MatStepper) {
-    const firstName = this.nameFormGroup.controls.firstNameFormCtrl.value;
-    const lastName = this.nameFormGroup.controls.lastNameFormCtrl.value;
-    const registration = new Registration(firstName, lastName, this.user.email, this.user.uid);
+    const registration = new Registration(this.profile.firstName, this.profile.lastName, this.profile.email, this.user.uid);
     this.authService.register(registration).subscribe(() => {
       // this.router.navigate([`/profile/${this.user.uid}`]);
       stepper.next();
