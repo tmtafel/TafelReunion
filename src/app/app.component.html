@@ -1,8 +1,30 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="mat-elevation-z8 mb-5">
   <mat-toolbar-row class="justify-content-between">
-    <span>Tafel Reunion 2020</span>
-    <button (click)="login()" *ngIf="!(loggedIn$ | async)">Login</button>
-    <button (click)="logout()" *ngIf="loggedIn$ | async">Logout</button>
+    <div class="col-4">
+      <button mat-raised-button routerLink="/" class="btn btn-secondary">
+        <i class="material-icons">home</i>
+      </button>
+    </div>
+    <div class="col-4">
+      <h4 class="text-left text-md-center">Tafel Reunion 2020</h4>
+    </div>
+    <div class="col-4">
+      <div class="text-right" *ngIf="!(loggedIn$ | async)">
+        <button mat-raised-button routerLink="/login" class="btn btn-secondary">
+          Login
+        </button>
+      </div>
+      <div class="text-right" *ngIf="(loggedIn$ | async)">
+        <button mat-raised-button class="btn btn-secondary pull-right" routerLink="/login">
+          <i class="material-icons">
+            perm_identity
+          </i>
+        </button>
+        <button mat-raised-button class="btn btn-secondary pull-right" (click)="logout()">
+          Logout
+        </button>
+      </div>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 <router-outlet></router-outlet>

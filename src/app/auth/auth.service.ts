@@ -5,8 +5,6 @@ import { FormGroup } from '@angular/forms';
 import * as firebase from 'firebase/app';
 import { User, UserInfo } from 'firebase/app';
 import { from, Observable, of } from 'rxjs';
-
-import { Registration } from './registration';
 import { Profile } from './profile';
 
 @Injectable({
@@ -15,11 +13,11 @@ import { Profile } from './profile';
 export class AuthService {
   redirectUrl: string;
   user: Observable<User>;
-  private registrations: AngularFirestoreCollection<Registration>;
+  private registrations: AngularFirestoreCollection<Profile>;
 
   constructor(public afAuth: AngularFireAuth, public db: AngularFirestore) {
     this.afAuth.authState.subscribe(this.firebaseAuthChangeListener);
-    this.registrations = db.collection<Registration>('registrations');
+    this.registrations = db.collection<Profile>('registrations');
     this.user = this.afAuth.authState;
   }
 
@@ -27,7 +25,7 @@ export class AuthService {
     try {
       const user = JSON.parse(localStorage.getItem('user'));
       const loggedIn = user !== null;
-      console.log(loggedIn ? "User is logged in" : "User is not logged in");
+      console.log(loggedIn ? 'User is logged in' : 'User is not logged in');
       return loggedIn;
     } catch (error) {
       console.log(error);
@@ -48,18 +46,25 @@ export class AuthService {
     return from(this.afAuth.auth.createUserWithEmailAndPassword(email, password));
   }
 
-  register(registration: Registration): Observable<void> {
-    return from(this.registrations.doc(registration.id).set(registration.getDocumentObject()));
+  register(profile: Profile): Observable<void> {
+    return from(this.registrations.doc(profile.id).set(profile.getDocumentObject()));
+  }
+
+  getCurrentUserId(): string {
+    return this.getCurrentUser().uid;
+  }
+
+  getCurrentUserEmail(): string {
+    return this.getCurrentUser().email;
   }
 
   getCurrentProfile(): Observable<Profile> {
-    const id = this.getCurrentUser().uid;
+    const id = this.getCurrentUserId();
     return this.registrations.doc<Profile>(id).valueChanges();
   }
 
   updateProfile(profile: Profile) {
-    const json = JSON.stringify(profile);
-    return from(this.registrations.doc(profile.id).set(json));
+    return from(this.registrations.doc(profile.id).set(profile.getDocumentObject()));
   }
 
   getCurrentUser(): User {

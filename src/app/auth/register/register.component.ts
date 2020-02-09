@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { User } from 'firebase';
 
 import { AuthService } from '../auth.service';
-import { Registration } from '../registration';
 import { Profile } from '../profile';
 
 @Component({
@@ -14,12 +13,12 @@ import { Profile } from '../profile';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  user: User;
   nameFormGroup: FormGroup;
   loginFormGroup: FormGroup;
   addressFormGroup: FormGroup;
+  phoneFormGroup: FormGroup;
 
-  profile: Profile = new Profile();
+  profile: Profile;
   errorMessage: string;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
@@ -32,10 +31,6 @@ export class RegisterComponent implements OnInit {
     this.loginFormGroup = this.formBuilder.group({
       emailFormCtrl: ['', [Validators.email, Validators.required]],
       passwordFormCtrl: ['', [Validators.minLength(6), Validators.required]]
-    });
-
-    this.loginFormGroup.valueChanges.subscribe(lfg => {
-      this.profile.email = lfg.emailFormCtrl;
     });
 
     this.nameFormGroup = this.formBuilder.group({
@@ -57,20 +52,27 @@ export class RegisterComponent implements OnInit {
     });
 
     this.addressFormGroup.valueChanges.subscribe(afg => {
-      this.profile.street = afg.streetFormCtrl;
-      this.profile.city = afg.cityFormCtrl;
-      this.profile.state = afg.stateFormCtrl;
-      this.profile.zip = afg.postalCodeFormCtrl;
-      this.profile.country = afg.countryFormCtrl;
+      this.profile.address.street = afg.streetFormCtrl;
+      this.profile.address.city = afg.cityFormCtrl;
+      this.profile.address.state = afg.stateFormCtrl;
+      this.profile.address.zip = afg.postalCodeFormCtrl;
+      this.profile.address.country = afg.countryFormCtrl;
+    });
+
+    this.phoneFormGroup = this.formBuilder.group({
+      phoneFormCtrl: ['', [Validators.required]]
+    });
+
+    this.phoneFormGroup.valueChanges.subscribe(pfg => {
+      this.profile.phone = pfg.phoneFormCtrl;
     });
   }
 
   createAccount(stepper: MatStepper) {
     const password = this.loginFormGroup.controls.passwordFormCtrl.value;
-    const email = this.profile.email;
+    const email = this.loginFormGroup.controls.emailFormCtrl.value;
     this.authService.createLogin(email, password).subscribe(res => {
-      this.user = res.user;
-      this.profile.id = res.user.uid;
+      this.profile = new Profile(res.user.uid, email);
       stepper.next();
     }, err => {
       console.log(err);
@@ -80,8 +82,8 @@ export class RegisterComponent implements OnInit {
   }
 
   createUserDocument(stepper: MatStepper) {
-    const registration = new Registration(this.profile.firstName, this.profile.lastName, this.profile.email, this.user.uid);
-    this.authService.register(registration).subscribe(() => {
+    console.log(this.profile);
+    this.authService.register(this.profile).subscribe(() => {
       // this.router.navigate([`/profile/${this.user.uid}`]);
       stepper.next();
     }, err => {
@@ -90,8 +92,22 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  addAddressToDocument() {
+  addAddressToDocument(stepper: MatStepper) {
+    this.authService.updateProfile(this.profile).subscribe(() => {
+      stepper.next();
+    }, err => {
+      console.log(err);
+      this.addressFormGroup.setErrors(err.message);
+    });
+  }
 
+  savePhoneNumber(stepper: MatStepper) {
+    this.authService.updateProfile(this.profile).subscribe(() => {
+      this.router.navigate([`/profile`]);
+    }, err => {
+      console.log(err);
+      this.phoneFormGroup.setErrors(err.message);
+    });
   }
 }
 

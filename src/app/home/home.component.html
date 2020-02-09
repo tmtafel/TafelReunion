@@ -1,36 +1,75 @@
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <h1>Please Join in the fun!</h1>
-            <h2>
-                Tafel Family Reunion<br />
-                August 6-8, 2020
-            </h2>
-            <h3>Louisville, Kentucky, USA</h3>
-        </div>
-    </div>
-    <h6>You can cancel Hotel with 48-hour notice</h6>
-    <h5>Exciting Events Planned Including:</h5>
-    <ul class="list-group">
-        <li class="list-group-item">Bourbon Distillery Excursions</li>
-        <li class="list-group-item">Private Horse Farm Tour</li>
-        <li class="list-group-item">Historic Churchill Downs</li>
-        <li class="list-group-item">Farm to Table Dinner</li>
-    </ul>
-    <h5>All in walking distance of the hotel you can…</h5>
-    <ul class="list-group">
-        <li class="list-group-item">Hit the “Bourbon Trail” & experience world renown brands like Pappy, Wild Turkey, Jim Beam, or Maker’s Mark</li>
-        <li class="list-group-item">Experience the Muhammed Ali center, Historic Frazier Museum, America’s last Steamboat, and Glass Blowing</li>
-        <li class="list-group-item">Explore North America’s largest collection or Victorian iron storefronts along historic Main Street</li>
-        <li class="list-group-item">Roam the “Urban Bourbon Trail” with over seven distilleries within walking distance of the hotel</li>
-        <li class="list-group-item">Wander through Riverfront park, stroll across the pedestrian bridge, and visit historic town of Jeffersonville</li>
-        <li class="list-group-item">Take in some craft beer, throw axes, and enjoy nationally acclaimed “foodie” restaurants along Market Street</li>
-    </ul>
-    <p>
-        And if you want to add on to the trip, a short drive away is...<br />
-        NASHVILLE • LEXINGTON • CINCINNATI • INDIANAPOLIS • KNOXVILLE • ST. LOUIS<br />
-        Please contact with any questions: Americas: dantafel@gmail.com Europe: tobias@tafel.name
-    </p>
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex  align-items-center flex-column">
+        <h1 class="text-center pb-3">Please Join in the fun!</h1>
+        <h2 class="text-center pb-3">
+          Tafel Family Reunion<br />
+          August 6-8, 2020
+        </h2>
+        <h3 class="text-center pb-3">Louisville, Kentucky, USA</h3>
+        <h6 class="text-center pb-3">You can cancel Hotel with 48-hour notice</h6>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Exciting Events Planned Including:</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list role="list">
+              <mat-list-item role="listitem">
+                <i class="material-icons mr-2">local_drink</i>Bourbon Distillery Excursions
+              </mat-list-item>
+              <mat-list-item role="listitem">
+                <i class="material-icons mr-2">local_drink</i>Private Horse Farm Tour
+              </mat-list-item>
+              <mat-list-item role="listitem">
+                <i class="material-icons mr-2">local_drink</i>Historic Churchill Downs
+              </mat-list-item>
+              <mat-list-item role="listitem">
+                <i class="material-icons mr-2">local_drink</i>Farm to Table Dinner
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+          <mat-card-actions class="text-center">
+            <button mat-raised-button *ngIf="!(loggedIn$ | async)" routerLink="/register">Click Here to Register</button>
+            <button mat-raised-button *ngIf="loggedIn$ | async" routerLink="/profile">Click Here to Sign-up for events</button>
+          </mat-card-actions>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>All in walking distance of the hotel you can…</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list role="list">
+              <mat-list-item role="listitem">
+                Hit the “Bourbon Trail” & experience world renown brands like Pappy, Wild Turkey, Jim Beam, or Maker’s Mark
+              </mat-list-item>
+              <mat-list-item role="listitem">
+                Experience the Muhammed Ali center, Historic Frazier Museum, America’s last Steamboat, and Glass Blowing
+              </mat-list-item>
+              <mat-list-item role="listitem">
+                Explore North America’s largest collection or Victorian iron storefronts along historic Main Street
+              </mat-list-item>
+              <mat-list-item role="listitem">
+                Roam the “Urban Bourbon Trail” with over seven distilleries within walking distance of the hotel
+              </mat-list-item>
+              <mat-list-item role="listitem">
+                Wander through Riverfront park, stroll across the pedestrian bridge, and visit historic town of Jeffersonville
+              </mat-list-item>
+              <mat-list-item role="listitem">
+                Take in some craft beer, throw axes, and enjoy nationally acclaimed “foodie” restaurants along Market Street
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+        <p>
+          And if you want to add on to the trip, a short drive away is...<br />
+          NASHVILLE • LEXINGTON • CINCINNATI • INDIANAPOLIS • KNOXVILLE • ST. LOUIS<br />
+          Please contact with any questions: Americas: dantafel@gmail.com Europe: tobias@tafel.name
+        </p>
 
-    <a routerLink="./register" routerLinkActive="active">Event Reservation Link</a>
+
+        <a routerLink="./register" routerLinkActive="active">Event Reservation Link</a>
+      </div>
+    </div>
+  </div>
 </div>

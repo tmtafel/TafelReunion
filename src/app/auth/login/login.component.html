@@ -1,7 +1,9 @@
-<h1 class="header">Login</h1>
 <div class="container">
   <div class="row justify-content-between align-items-center">
-    <div class="col-xl-6 col-lg-7 col-md-9 col-12">
+    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
+      <div class="row">
+          <h1 class="col-12">Login</h1>
+      </div>
       <div class="row justify-content-center">
         <div class="col-12">
           <form [formGroup]="loginForm">
@@ -14,7 +16,7 @@
               <input type="password" class="form-control" formControlName="password">
               <label class="error">{{errorMessage}}</label>
             </div>
-            <button type="submit" (click)="login(loginForm.value)" class="btn btn-secondary text-center">Login</button>
+            <button type="submit" (click)="login()" class="btn btn-secondary text-center">Login</button>
 
           </form>
         </div>

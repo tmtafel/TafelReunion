@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  loggedIn$: Observable<boolean>
+  loggedIn$: Observable<boolean>;
   constructor(public authService: AuthService, public router: Router) {
     this.loggedIn$ = this.authService.user.pipe(map(u => u !== null));
   }

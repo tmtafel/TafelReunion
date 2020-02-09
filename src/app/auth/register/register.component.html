@@ -46,45 +46,52 @@
               </mat-form-field>
             </div>
             <div class="pt-3 d-flex justify-content-between">
-              <button [disabled]="nameFormGroup.pristine || nameFormGroup.invalid" mat-button mat-raised-button (click)="createUserDocument(stepper)">Save Name</button>
+              <button [disabled]="nameFormGroup.pristine || nameFormGroup.invalid" mat-button mat-raised-button (click)="createUserDocument(stepper)">Save
+                Name</button>
             </div>
           </form>
         </mat-step>
         <mat-step [stepControl]="addressFormGroup">
           <form [formGroup]="addressFormGroup">
             <ng-template matStepLabel>Fill out your address</ng-template>
-            <div>
-              <mat-form-field>
-                <mat-label>Street</mat-label>
-                <input formControlName="streetFormCtrl" matInput placeholder="Street">
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-form-field>
-                <mat-label>City</mat-label>
-                <input formControlName="cityFormCtrl" matInput placeholder="City">
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-form-field>
-                <mat-label>State/Province</mat-label>
-                <input formControlName="stateFormCtrl" matInput placeholder="State/Province">
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-form-field>
-                <mat-label>Postal Code</mat-label>
-                <input formControlName="postalCodeFormCtrl" matInput placeholder="Postal Code">
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-form-field>
-                <mat-label>Country</mat-label>
-                <input formControlName="countryFormCtrl" matInput placeholder="Country">
-              </mat-form-field>
-            </div>
+            <mat-form-field>
+              <mat-label>Street</mat-label>
+              <input formControlName="streetFormCtrl" matInput placeholder="Street">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>City</mat-label>
+              <input formControlName="cityFormCtrl" matInput placeholder="City">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>State/Province</mat-label>
+              <input formControlName="stateFormCtrl" matInput placeholder="State/Province">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Postal Code</mat-label>
+              <input formControlName="postalCodeFormCtrl" matInput placeholder="Postal Code">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Country</mat-label>
+              <input formControlName="countryFormCtrl" matInput placeholder="Country">
+            </mat-form-field>
             <div class="pt-3 d-flex justify-content-between">
-              <button [disabled]="addressFormGroup.pristine || addressFormGroup.invalid" mat-button mat-raised-button (click)="createUserDocument()">Save Name</button>
+              <button [disabled]="addressFormGroup.pristine || addressFormGroup.invalid" mat-button mat-raised-button (click)="addAddressToDocument(stepper)">
+                Save Address
+              </button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="phoneFormGroup">
+          <form [formGroup]="phoneFormGroup">
+            <ng-template matStepLabel>Fill out your phone number</ng-template>
+            <mat-form-field>
+              <mat-label>Phone</mat-label>
+              <input matInput formControlName="phoneFormCtrl" placeholder="Phone">
+            </mat-form-field>
+            <div class="pt-3 d-flex justify-content-between">
+              <button [disabled]="phoneFormGroup.pristine || phoneFormGroup.invalid" mat-button mat-raised-button (click)="savePhoneNumber(stepper)">
+                Save Phone
+              </button>
             </div>
           </form>
         </mat-step>

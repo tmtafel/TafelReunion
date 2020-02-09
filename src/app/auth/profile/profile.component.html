@@ -1,33 +1,77 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
-      <div class="card">
-        <div class="card-header card-header-danger">
-          <h4 class="card-title">Profile</h4>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Profile</mat-card-title>
+        </mat-card-header>
+        <div *ngIf="!loaded">
+          <h2>Loading...</h2>
         </div>
-        <div class="card-body">
-          <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate>
-            <div class="row">
-              <mat-form-field class="col-12">
-                <input formControlName="street" matInput placeholder="Street">
-              </mat-form-field>
-              <mat-form-field class="col-12">
-                <input formControlName="city" matInput placeholder="City">
-              </mat-form-field>
-              <mat-form-field class="col-12">
-                <input formControlName="state" matInput placeholder="State or Province">
-              </mat-form-field>
-              <mat-form-field class="col-12">
-                <input formControlName="zip" matInput placeholder="Postal Code">
-              </mat-form-field>
-              <mat-form-field class="col-12">
-                <input formControlName="country" matInput placeholder="Country">
-              </mat-form-field>
-            </div>
-            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
-          </form>
-        </div>
-      </div>
+        <mat-card-content>
+          <mat-tab-group *ngIf="loaded">
+            <mat-tab label="Name" class="row">
+              <div class="container-fluid pt-3">
+                <form [formGroup]="nameFormGroup" class="row">
+                  <mat-form-field class="col-12">
+                    <mat-label>First name</mat-label>
+                    <input matInput formControlName="firstNameFormCtrl">
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-12">
+                    <mat-label>Last name</mat-label>
+                    <input matInput formControlName="lastNameFormCtrl">
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                </form>
+              </div>
+            </mat-tab>
+            <mat-tab label="Address">
+              <div class="container-fluid pt-3">
+                <form [formGroup]="addressFormGroup" class="row">
+                  <mat-form-field class="col-12">
+                    <mat-label>Street</mat-label>
+                    <input formControlName="streetFormCtrl" matInput placeholder="Street">
+                  </mat-form-field>
+                  <mat-form-field class="col-12">
+                    <mat-label>City</mat-label>
+                    <input formControlName="cityFormCtrl" matInput placeholder="City">
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-12">
+                    <mat-label>State/Province</mat-label>
+                    <input formControlName="stateFormCtrl" matInput placeholder="State/Province">
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-12">
+                    <mat-label>Postal Code</mat-label>
+                    <input formControlName="postalCodeFormCtrl" matInput placeholder="Postal Code">
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-12">
+                    <mat-label>Country</mat-label>
+                    <input formControlName="countryFormCtrl" matInput placeholder="Country">
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                </form>
+              </div>
+            </mat-tab>
+            <mat-tab label="Phone">
+              <div class="container-fluid pt-3">
+                <form [formGroup]="phoneFormGroup" class="row">
+                  <mat-form-field class="col-12">
+                    <mat-label>Phone</mat-label>
+                    <input matInput formControlName="phoneFormCtrl" placeholder="Phone">
+                  </mat-form-field>
+                </form>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card-content>
+        <mat-card-actions class="text-right">
+          <button mat-raised-button (click)="updateProfile()">Update</button>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 </div>

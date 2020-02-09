@@ -1,23 +1,48 @@
 export class Profile {
+    id: string;
+    email: string;
+
     firstName: string;
     lastName: string;
-    email: string;
-    id: string;
-    street?: string;
-    city?: string;
-    state?: string;
-    zip?: string;
-    country?: string;
 
-    constructor(first?: string, last?: string, email?: string, id?: string, street?: string, city?: string, state?: string, zip?: string, country?: string) {
-        this.firstName = first;
-        this.lastName = last;
-        this.email = email;
+    address: Address;
+    phone: string;
+
+    constructor(id: string, email: string) {
+
         this.id = id;
-        this.street = street;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.country = country;
+        this.email = email;
+        this.firstName = '';
+        this.lastName = '';
+        this.address.street = '';
+        this.address.city = '';
+        this.address.state = '';
+        this.address.zip = '';
+        this.address.country = '';
+        this.phone = '';
     }
+
+    getDocumentObject() {
+        return {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+            address: {
+                street: this.address.street,
+                city: this.address.city,
+                state: this.address.state,
+                zip: this.address.zip,
+                country: this.address.country
+            },
+            phone: this.phone
+        };
+    }
+}
+
+export class Address {
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+    country: string;
 }
