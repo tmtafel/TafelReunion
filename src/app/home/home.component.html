@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <div class="d-flex  align-items-center flex-column">
+      <div class="d-flex align-items-center flex-column pb-5 mb-5">
         <h1 class="text-center pb-3">Please Join in the fun!</h1>
         <h2 class="text-center pb-3">
           Tafel Family Reunion<br />
@@ -9,66 +9,104 @@
         </h2>
         <h3 class="text-center pb-3">Louisville, Kentucky, USA</h3>
         <h6 class="text-center pb-3">You can cancel Hotel with 48-hour notice</h6>
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>Exciting Events Planned Including:</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <mat-list role="list">
-              <mat-list-item role="listitem">
-                <i class="material-icons mr-2">local_drink</i>Bourbon Distillery Excursions
-              </mat-list-item>
-              <mat-list-item role="listitem">
-                <i class="material-icons mr-2">local_drink</i>Private Horse Farm Tour
-              </mat-list-item>
-              <mat-list-item role="listitem">
-                <i class="material-icons mr-2">local_drink</i>Historic Churchill Downs
-              </mat-list-item>
-              <mat-list-item role="listitem">
-                <i class="material-icons mr-2">local_drink</i>Farm to Table Dinner
-              </mat-list-item>
-            </mat-list>
-          </mat-card-content>
-          <mat-card-actions class="text-center">
-            <button mat-raised-button *ngIf="!(loggedIn$ | async)" routerLink="/register">Click Here to Register</button>
-            <button mat-raised-button *ngIf="loggedIn$ | async" routerLink="/profile">Click Here to Sign-up for events</button>
-          </mat-card-actions>
-        </mat-card>
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>All in walking distance of the hotel you can…</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <mat-list role="list">
-              <mat-list-item role="listitem">
-                Hit the “Bourbon Trail” & experience world renown brands like Pappy, Wild Turkey, Jim Beam, or Maker’s Mark
-              </mat-list-item>
-              <mat-list-item role="listitem">
-                Experience the Muhammed Ali center, Historic Frazier Museum, America’s last Steamboat, and Glass Blowing
-              </mat-list-item>
-              <mat-list-item role="listitem">
-                Explore North America’s largest collection or Victorian iron storefronts along historic Main Street
-              </mat-list-item>
-              <mat-list-item role="listitem">
-                Roam the “Urban Bourbon Trail” with over seven distilleries within walking distance of the hotel
-              </mat-list-item>
-              <mat-list-item role="listitem">
-                Wander through Riverfront park, stroll across the pedestrian bridge, and visit historic town of Jeffersonville
-              </mat-list-item>
-              <mat-list-item role="listitem">
-                Take in some craft beer, throw axes, and enjoy nationally acclaimed “foodie” restaurants along Market Street
-              </mat-list-item>
-            </mat-list>
-          </mat-card-content>
-        </mat-card>
+        <div class="py-3">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Exciting Events Planned Including:</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-list role="list">
+                <mat-list-item role="listitem">
+                  <div class="d-flex justify-content-between w-100">
+                    <i class="material-icons">local_drink</i>
+                    <span>Bourbon Distillery Excursions</span>
+                    <i class="material-icons">local_drink</i>
+                  </div>
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  <div class="d-flex justify-content-between w-100">
+                    <i class="fas fa-horse fa-lg"></i>
+                    <span>Private Horse Farm Tour</span>
+                    <i class="fas fa-horse fa-lg"></i>
+                  </div>
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  <div class="d-flex justify-content-between w-100">
+                    <img style="width:24px; height:24px;" src="../../assets/twinspires-100x100.png" alt="twin spires">
+                    <span class="ml-2">Historic Churchill Downs</span>
+                    <img style="width:24px; height:24px;" src="../../assets/twinspires-100x100.png" alt="twin spires">
+                  </div>
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  <div class="d-flex justify-content-between w-100">
+                    <i class="fas fa-utensils fa-lg"></i>
+                    <span class="ml-2">Farm to Table Dinner</span>
+                    <i class="fas fa-utensils fa-lg"></i>
+                  </div>
+                </mat-list-item>
+              </mat-list>
+            </mat-card-content>
+            <mat-card-actions class="text-center my-4">
+              <button mat-raised-button *ngIf="!(loggedIn$ | async)" routerLink="/register">Click Here to Register</button>
+              <button mat-raised-button *ngIf="loggedIn$ | async" routerLink="/profile">Click Here to Sign-up for events</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+        <div class="py-3">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>All in walking distance of the hotel you can…</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-list role="list">
+                <mat-list-item role="listitem">
+                  Hit the “Bourbon Trail” & experience world renown brands like Pappy, Wild Turkey, Jim Beam, or Maker’s Mark
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  Experience the Muhammed Ali center, Historic Frazier Museum, America’s last Steamboat, and Glass Blowing
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  Explore North America’s largest collection or Victorian iron storefronts along historic Main Street
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  Roam the “Urban Bourbon Trail” with over seven distilleries within walking distance of the hotel
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  Wander through Riverfront park, stroll across the pedestrian bridge, and visit historic town of Jeffersonville
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  Take in some craft beer, throw axes, and enjoy nationally acclaimed “foodie” restaurants along Market Street
+                </mat-list-item>
+              </mat-list>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <p class="text-center py-3">
+          And if you want to add on to the trip, a short drive away is...
+        </p>
+        <div class="w-100 d-flex align-items-center justify-content-between flex-wrap">
+          <h5>NASHVILLE</h5>
+          <span>•</span>
+          <h5>LEXINGTON</h5>
+          <span>•</span>
+          <h5>CINCINNATI</h5>
+          <span>•</span>
+          <h5>INDIANAPOLIS</h5>
+          <span>•</span>
+          <h5>KNOXVILLE</h5>
+          <span>•</span>
+          <h5>ST. LOUIS</h5>
+        </div>
         <p>
-          And if you want to add on to the trip, a short drive away is...<br />
-          NASHVILLE • LEXINGTON • CINCINNATI • INDIANAPOLIS • KNOXVILLE • ST. LOUIS<br />
-          Please contact with any questions: Americas: dantafel@gmail.com Europe: tobias@tafel.name
+          Please contact with any questions:<br />
+          Americas: <a href="mailto:dantafel@gmail.com">dantafel@gmail.com</a><br />
+          Europe: <a href="mailto:tobias@tafel.name">tobias@tafel.name</a>
         </p>
 
-
-        <a routerLink="./register" routerLinkActive="active">Event Reservation Link</a>
+        <div>
+          <button mat-raised-button *ngIf="!(loggedIn$ | async)" routerLink="/register">Click Here to Register</button>
+          <button mat-raised-button *ngIf="loggedIn$ | async" routerLink="/profile">Click Here to Sign-up for events</button>
+        </div>
       </div>
     </div>
   </div>
