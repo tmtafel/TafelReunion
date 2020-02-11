@@ -1,0 +1,14 @@
+<div class="py-3">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>All in walking distance of the hotel you can…</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let attraction of attractions">
+          {{attraction}}
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

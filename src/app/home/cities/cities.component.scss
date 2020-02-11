@@ -1,0 +1,65 @@
+.cities-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .city {
+    text-transform: uppercase;
+    padding: 0 15px;
+
+    @media (min-width: 576px) {
+      width: auto;
+      padding: 0;
+
+      &:first-of-type {
+        &::before {
+          content: "•";
+          padding: 0 10px;
+        }
+      }
+
+      &::after {
+        content: "•";
+        padding: 0 10px;
+      }
+
+      &:nth-child(4n + 0) {
+        &::before {
+          content: "•";
+          padding: 0 10px;
+        }
+      }
+
+    }
+
+    @media (min-width: 768px) {
+
+      &:nth-child(5n + 0) {
+        &::before {
+          content: "•";
+          padding: 0 10px;
+        }
+      }
+
+      &:nth-child(4n + 0) {
+        &::before {
+          display: none;
+        }
+      }
+    }
+
+    @media (min-width: 992px) {
+
+      &:nth-child(5n + 0) {
+        &::before {
+          display: none;
+        }
+      }
+    }
+
+    @media (min-width: 1200px) {}
+
+
+  }
+}

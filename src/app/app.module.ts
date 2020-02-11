@@ -9,11 +9,19 @@ import { AuthGuard } from './auth/auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './shared/material.module';
+import { CitiesComponent } from './home/cities/cities.component';
+import { NearbyComponent } from './home/nearby/nearby.component';
+import { HomeEventsComponent } from './home/home-events/home-events.component';
+import { HomeEventComponent } from './home/home-event/home-event.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    CitiesComponent,
+    NearbyComponent,
+    HomeEventsComponent,
+    HomeEventComponent
   ],
   imports: [
     MaterialModule,
