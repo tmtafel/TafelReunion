@@ -5,6 +5,8 @@ import { FormGroup } from '@angular/forms';
 import * as firebase from 'firebase/app';
 import { User, UserInfo } from 'firebase/app';
 import { from, Observable, of } from 'rxjs';
+
+import { Event } from './event';
 import { Profile } from './profile';
 
 @Injectable({
@@ -14,10 +16,12 @@ export class AuthService {
   redirectUrl: string;
   user: Observable<User>;
   private registrations: AngularFirestoreCollection<Profile>;
+  private events: AngularFirestoreCollection<Event>;
 
   constructor(public afAuth: AngularFireAuth, public db: AngularFirestore) {
     this.afAuth.authState.subscribe(this.firebaseAuthChangeListener);
     this.registrations = db.collection<Profile>('registrations');
+    this.events = db.collection<Event>('events');
     this.user = this.afAuth.authState;
   }
 
@@ -61,6 +65,10 @@ export class AuthService {
   getCurrentProfile(): Observable<Profile> {
     const id = this.getCurrentUserId();
     return this.registrations.doc<Profile>(id).valueChanges();
+  }
+
+  getEvents(): Observable<Event[]> {
+    return this.events.valueChanges();
   }
 
   updateProfile(profile: Profile) {

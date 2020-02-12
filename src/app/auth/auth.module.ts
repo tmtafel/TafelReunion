@@ -12,6 +12,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EventsComponent } from './events/events.component';
+import { PhoneComponent } from './profile/phone/phone.component';
+import { AddressComponent } from './profile/address/address.component';
+import { NameComponent } from './profile/name/name.component';
 
 @NgModule({
   imports: [
@@ -28,7 +31,10 @@ import { EventsComponent } from './events/events.component';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    EventsComponent
+    EventsComponent,
+    PhoneComponent,
+    AddressComponent,
+    NameComponent
   ]
 })
 export class AuthModule { }

@@ -5,66 +5,22 @@
         <mat-card-header>
           <mat-card-title>Profile</mat-card-title>
         </mat-card-header>
-        <div *ngIf="!loaded">
+        <mat-card-content *ngIf="!loaded">
           <h2>Loading...</h2>
-        </div>
-        <mat-card-content>
-          <mat-tab-group *ngIf="loaded">
+        </mat-card-content>
+        <mat-card-content *ngIf="loaded">
+          <mat-tab-group>
+            <mat-tab label="Events">
+              <app-events></app-events>
+            </mat-tab>
             <mat-tab label="Name" class="row">
-              <div class="container-fluid pt-3">
-                <form [formGroup]="nameFormGroup" class="row">
-                  <mat-form-field class="col-12">
-                    <mat-label>First name</mat-label>
-                    <input matInput formControlName="firstNameFormCtrl">
-                    <mat-error>This field is required</mat-error>
-                  </mat-form-field>
-                  <mat-form-field class="col-12">
-                    <mat-label>Last name</mat-label>
-                    <input matInput formControlName="lastNameFormCtrl">
-                    <mat-error>This field is required</mat-error>
-                  </mat-form-field>
-                </form>
-              </div>
+              <profile-name [firstName]="profile.firstName" [lastName]="profile.lastName"></profile-name>
             </mat-tab>
             <mat-tab label="Address">
-              <div class="container-fluid pt-3">
-                <form [formGroup]="addressFormGroup" class="row">
-                  <mat-form-field class="col-12">
-                    <mat-label>Street</mat-label>
-                    <input formControlName="streetFormCtrl" matInput placeholder="Street">
-                  </mat-form-field>
-                  <mat-form-field class="col-12">
-                    <mat-label>City</mat-label>
-                    <input formControlName="cityFormCtrl" matInput placeholder="City">
-                    <mat-error>This field is required</mat-error>
-                  </mat-form-field>
-                  <mat-form-field class="col-12">
-                    <mat-label>State/Province</mat-label>
-                    <input formControlName="stateFormCtrl" matInput placeholder="State/Province">
-                    <mat-error>This field is required</mat-error>
-                  </mat-form-field>
-                  <mat-form-field class="col-12">
-                    <mat-label>Postal Code</mat-label>
-                    <input formControlName="postalCodeFormCtrl" matInput placeholder="Postal Code">
-                    <mat-error>This field is required</mat-error>
-                  </mat-form-field>
-                  <mat-form-field class="col-12">
-                    <mat-label>Country</mat-label>
-                    <input formControlName="countryFormCtrl" matInput placeholder="Country">
-                    <mat-error>This field is required</mat-error>
-                  </mat-form-field>
-                </form>
-              </div>
+              <profile-address [address]="profile.address"></profile-address>
             </mat-tab>
             <mat-tab label="Phone">
-              <div class="container-fluid pt-3">
-                <form [formGroup]="phoneFormGroup" class="row">
-                  <mat-form-field class="col-12">
-                    <mat-label>Phone</mat-label>
-                    <input matInput formControlName="phoneFormCtrl" placeholder="Phone">
-                  </mat-form-field>
-                </form>
-              </div>
+              <profile-phone [phone]="profile.phone" (phoneChange)="phoneIsChanging()"></profile-phone>
             </mat-tab>
           </mat-tab-group>
         </mat-card-content>

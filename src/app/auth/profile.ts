@@ -16,6 +16,7 @@ export class Profile {
         this.email = email;
         this.firstName = '';
         this.lastName = '';
+        this.address = new Address();
         this.address.street = '';
         this.address.city = '';
         this.address.state = '';
