@@ -11,7 +11,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
-import { EventsComponent } from './events/events.component';
+import { EventsComponent } from './profile/events/events.component';
 import { PhoneComponent } from './profile/phone/phone.component';
 import { AddressComponent } from './profile/address/address.component';
 import { NameComponent } from './profile/name/name.component';

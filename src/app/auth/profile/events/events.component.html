@@ -1,0 +1,7 @@
+<form class="row">
+  <mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let event of events">
+      <mat-checkbox [checked]="event.attending" id="{{event.id}}" name="{{event.title}}" (change)="updateCheckbox($event)">{{event.title}}</mat-checkbox>
+    </mat-list-item>
+  </mat-list>
+</form>

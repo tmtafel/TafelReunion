@@ -2,12 +2,12 @@
   <div class="row">
     <mat-form-field class="col-12">
       <mat-label>First name</mat-label>
-      <input matInput [(ngModel)]="firstName">
+      <input matInput [formControl]="firstNameFormControl">
       <mat-error>This field is required</mat-error>
     </mat-form-field>
     <mat-form-field class="col-12">
       <mat-label>Last name</mat-label>
-      <input matInput [(ngModel)]="lastName">
+      <input matInput [formControl]="lastNameFormControl">
       <mat-error>This field is required</mat-error>
     </mat-form-field>
   </div>

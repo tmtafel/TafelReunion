@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { AuthService } from '../auth.service';
 import { Profile } from '../profile';
-import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
-
+import { Address } from '../address';
+import { Event } from '../event';
+import { ProfileEvent } from './profile-event';
 
 @Component({
   selector: 'app-profile',
@@ -23,19 +26,30 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  phoneIsChanging(newNumber: string) {
+  updateFirstName(newFirstName: string) {
+    this.profile.firstName = newFirstName;
+  }
+
+  updateLastName(newLastName: string) {
+    this.profile.lastName = newLastName;
+  }
+
+  updateAddress(newAddress: Address) {
+    this.profile.address = newAddress;
+  }
+  updatePhone(newNumber: string) {
     this.profile.phone = newNumber;
-    console.log('phone is changing');
-    console.log(this.profile);
   }
 
   updateProfile() {
-    console.log(this.profile);
-    // this.authService.updateProfile(this.profile).subscribe(() => {
-    //   alert('Updated!!');
-    // }, err => {
-    //   console.log(err);
-    //   alert('Error!!');
-    // });
+    if (typeof this.profile.id === 'undefined') {
+      this.profile.id = this.authService.getCurrentUserId();
+    }
+    this.authService.updateProfile(this.profile).subscribe(() => {
+      alert('Updated!!');
+    }, err => {
+      console.log(err);
+      alert('Error!!');
+    });
   }
 }

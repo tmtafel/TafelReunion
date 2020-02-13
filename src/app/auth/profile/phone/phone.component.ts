@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -7,23 +7,19 @@ import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms'
   templateUrl: './phone.component.html',
   styleUrls: ['./phone.component.scss']
 })
-export class PhoneComponent implements OnInit, DoCheck {
+export class PhoneComponent implements OnInit {
   @Input() phone: string;
   @Output() phoneChange: EventEmitter<string> = new EventEmitter();
   phoneFormControl: FormControl;
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit() {
     this.phoneFormControl = new FormControl(this.phone);
     this.phoneFormControl.valueChanges.subscribe(newPhone => {
       this.phone = newPhone;
+      this.phoneChange.emit(newPhone);
     });
-  }
-
-  ngDoCheck() {
-    this.phoneChange.next(this.phone);
   }
 
 }

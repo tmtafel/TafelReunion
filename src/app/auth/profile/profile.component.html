@@ -14,13 +14,14 @@
               <app-events></app-events>
             </mat-tab>
             <mat-tab label="Name" class="row">
-              <profile-name [firstName]="profile.firstName" [lastName]="profile.lastName"></profile-name>
+              <profile-name [firstName]="profile.firstName" (firstNameChange)="updateFirstName($event)" [lastName]="profile.lastName"
+                (lastNameChange)="updateLastName($event)"></profile-name>
             </mat-tab>
             <mat-tab label="Address">
-              <profile-address [address]="profile.address"></profile-address>
+              <profile-address [address]="profile.address" (addressChange)="updateAddress($event)"></profile-address>
             </mat-tab>
             <mat-tab label="Phone">
-              <profile-phone [phone]="profile.phone" (phoneChange)="phoneIsChanging()"></profile-phone>
+              <profile-phone [phone]="profile.phone" (phoneChange)="updatePhone($event)"></profile-phone>
             </mat-tab>
           </mat-tab-group>
         </mat-card-content>

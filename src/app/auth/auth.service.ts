@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { FormGroup } from '@angular/forms';
+import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
-import { User, UserInfo } from 'firebase/app';
-import { from, Observable, of } from 'rxjs';
+import { User } from 'firebase/app';
+import { from, Observable } from 'rxjs';
 
 import { Event } from './event';
 import { Profile } from './profile';
+import { ProfileEvent } from './profile/profile-event';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -17,12 +18,30 @@ export class AuthService {
   user: Observable<User>;
   private registrations: AngularFirestoreCollection<Profile>;
   private events: AngularFirestoreCollection<Event>;
+  private userEvents: AngularFirestoreCollection<Event>;
 
   constructor(public afAuth: AngularFireAuth, public db: AngularFirestore) {
     this.afAuth.authState.subscribe(this.firebaseAuthChangeListener);
     this.registrations = db.collection<Profile>('registrations');
     this.events = db.collection<Event>('events');
     this.user = this.afAuth.authState;
+  }
+
+  getProfileEventDocument(event: ProfileEvent) {
+    const id = this.getCurrentUserId();
+    return this.registrations.doc(id)
+      .collection<ProfileEvent>('events', events => events.where('id', '==', event.id))
+      .snapshotChanges();
+  }
+
+  updateEvent(pid: string, event: ProfileEvent) {
+    const id = this.getCurrentUserId();
+    const eventObj = {
+      id: event.id,
+      title: event.title,
+      attending: event.attending
+    };
+    return from(this.registrations.doc(id).collection<ProfileEvent>('events').doc(pid).set(eventObj));
   }
 
   isLoggedIn(): boolean {
@@ -51,7 +70,20 @@ export class AuthService {
   }
 
   register(profile: Profile): Observable<void> {
-    return from(this.registrations.doc(profile.id).set(profile.getDocumentObject()));
+    const profileObj = {
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+      email: profile.email,
+      address: {
+        street: profile.address.street,
+        city: profile.address.city,
+        state: profile.address.state,
+        zip: profile.address.zip,
+        country: profile.address.country
+      },
+      phone: profile.phone
+    };
+    return from(this.registrations.doc(profile.id).set(profileObj));
   }
 
   getCurrentUserId(): string {
@@ -67,12 +99,46 @@ export class AuthService {
     return this.registrations.doc<Profile>(id).valueChanges();
   }
 
-  getEvents(): Observable<Event[]> {
-    return this.events.valueChanges();
+  getCurrentProfileEvents(): Observable<ProfileEvent[]> {
+    const id = this.getCurrentUserId();
+    return this.registrations.doc(id).collection<ProfileEvent>('events').valueChanges();
+  }
+
+  getEvents(): Observable<DocumentChangeAction<Event>[]> {
+    return this.events.snapshotChanges();
+  }
+
+  getEvent(eventId: string): Observable<Event> {
+    return this.events.doc<Event>(eventId).valueChanges();
+  }
+
+
+
+  addProfileEvent(event: ProfileEvent) {
+    const eventObj = {
+      id: event.id,
+      title: event.title,
+      attending: event.attending
+    };
+    const id = this.getCurrentUserId();
+    this.registrations.doc(id).collection('events').add(eventObj);
   }
 
   updateProfile(profile: Profile) {
-    return from(this.registrations.doc(profile.id).set(profile.getDocumentObject()));
+    const profileObj = {
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+      email: profile.email,
+      address: {
+        street: profile.address.street,
+        city: profile.address.city,
+        state: profile.address.state,
+        zip: profile.address.zip,
+        country: profile.address.country
+      },
+      phone: profile.phone
+    };
+    return from(this.registrations.doc(profile.id).set(profileObj));
   }
 
   getCurrentUser(): User {
