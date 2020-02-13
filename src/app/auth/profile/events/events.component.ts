@@ -5,6 +5,7 @@ import { Event } from '../../event';
 import { FormGroup } from '@angular/forms';
 import { ProfileEvent } from '../profile-event';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-events',
@@ -14,7 +15,7 @@ import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 export class EventsComponent implements OnInit {
   events: ProfileEvent[];
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.events = [];
@@ -52,7 +53,9 @@ export class EventsComponent implements OnInit {
       if (evts.length > 0) {
         const pid = evts[0].payload.doc.id;
         this.authService.updateEvent(pid, pEvent).subscribe(() => {
-          alert('updated!!');
+          this._snackBar.open('updated!!', 'exit', {
+            duration: 2000,
+          });
         }, err => {
           console.log(err);
           alert('Error!!');

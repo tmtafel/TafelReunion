@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeEvent } from '../home-event';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home-events',
@@ -14,7 +17,10 @@ export class HomeEventsComponent implements OnInit {
     new HomeEvent('Historic Churchill Downs', 'img', '', '../../assets/twinspires-100x100.png'),
     new HomeEvent('Farm to Table Dinner', 'i', 'fas fa-utensils fa-lg' )
   ];
-  constructor() { }
+  loggedIn$: Observable<boolean>;
+  constructor(public authService: AuthService) {
+    this.loggedIn$ = this.authService.user.pipe(map(u => u !== null));
+  }
 
   ngOnInit() {
   }
