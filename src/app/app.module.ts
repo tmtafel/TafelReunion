@@ -13,6 +13,7 @@ import { CitiesComponent } from './home/cities/cities.component';
 import { NearbyComponent } from './home/nearby/nearby.component';
 import { HomeEventsComponent } from './home/home-events/home-events.component';
 import { HomeEventComponent } from './home/home-event/home-event.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HomeEventComponent } from './home/home-event/home-event.component';
     CitiesComponent,
     NearbyComponent,
     HomeEventsComponent,
-    HomeEventComponent
+    HomeEventComponent,
+    HeaderComponent
   ],
   imports: [
     MaterialModule,

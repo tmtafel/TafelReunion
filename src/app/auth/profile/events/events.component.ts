@@ -1,11 +1,8 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthService } from '../../auth.service';
-import { Event } from '../../event';
-import { FormGroup } from '@angular/forms';
 import { ProfileEvent } from '../profile-event';
-import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-events',
@@ -14,8 +11,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class EventsComponent implements OnInit {
   events: ProfileEvent[];
+  loaded = false;
 
-  constructor(private authService: AuthService, private _snackBar: MatSnackBar) { }
+  constructor(private authService: AuthService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.events = [];
@@ -29,6 +27,7 @@ export class EventsComponent implements OnInit {
             this.authService.addProfileEvent(addEvent);
           }
         });
+        this.loaded = true;
       });
     });
   }
@@ -41,31 +40,5 @@ export class EventsComponent implements OnInit {
       }
     });
     return idNotFound;
-  }
-
-  updateCheckbox(evt: MatCheckboxChange) {
-    console.log(evt);
-    const id = evt.source.id;
-    const title = evt.source.name;
-    const attending = evt.checked;
-    const pEvent = new ProfileEvent(id, title, attending);
-    this.authService.getProfileEventDocument(pEvent).subscribe(evts => {
-      if (evts.length > 0) {
-        const pid = evts[0].payload.doc.id;
-        this.authService.updateEvent(pid, pEvent).subscribe(() => {
-          this._snackBar.open('updated!!', 'exit', {
-            duration: 2000,
-          });
-        }, err => {
-          console.log(err);
-          alert('Error!!');
-        });
-      } else {
-        alert('cannot find profile event');
-      }
-    }, err => {
-      console.log(err);
-      alert('Error!!');
-    });
   }
 }

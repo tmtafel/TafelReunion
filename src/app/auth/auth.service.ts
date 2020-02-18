@@ -27,10 +27,10 @@ export class AuthService {
     this.user = this.afAuth.authState;
   }
 
-  getProfileEventDocument(event: ProfileEvent) {
+  getProfileEventDocument(eventId: string) {
     const id = this.getCurrentUserId();
     return this.registrations.doc(id)
-      .collection<ProfileEvent>('events', events => events.where('id', '==', event.id))
+      .collection<ProfileEvent>('events', events => events.where('id', '==', eventId))
       .snapshotChanges();
   }
 

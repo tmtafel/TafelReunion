@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
-import { User } from 'firebase';
+import { User } from 'firebase/app';
 
 import { AuthService } from '../auth.service';
 
@@ -33,8 +33,12 @@ export class LoginComponent implements OnInit {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
     this.authService.login(email, password).subscribe(
-      (next) => {
-        console.log(next);
+      (credential) => {
+        if (credential.user !== null) {
+          const json = JSON.stringify(credential.user);
+          localStorage.setItem('user', json);
+        }
+        console.log(credential);
         this.setMessage();
         const redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/profile';
         const navigationExtras: NavigationExtras = {

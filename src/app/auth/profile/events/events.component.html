@@ -1,7 +1,15 @@
-<form class="row">
-  <mat-list role="list">
-    <mat-list-item role="listitem" *ngFor="let event of events">
-      <mat-checkbox [checked]="event.attending" id="{{event.id}}" name="{{event.title}}" (change)="updateCheckbox($event)">{{event.title}}</mat-checkbox>
-    </mat-list-item>
-  </mat-list>
-</form>
+<div *ngIf="loaded">
+  <a *ngFor="let event of events" [routerLink]="['/event', event.id]">
+    <mat-card [class.mat-elevation-z2]>
+      <mat-card-header>
+        <mat-card-title>{{event.title}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Content needed
+      </mat-card-content>
+    </mat-card>
+  </a>
+</div>
+<div *ngIf="!loaded">
+  <h1>LOADING...</h1>
+</div>

@@ -1,0 +1,6 @@
+<div *ngIf="loaded">
+  <mat-checkbox [checked]="event.attending" id="{{event.id}}" name="{{event.title}}" (change)="updateCheckbox($event)">{{event.title}}</mat-checkbox>
+</div>
+<div *ngIf="!loaded">
+  <h1>LOADING...</h1>
+</div>
