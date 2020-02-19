@@ -86,13 +86,7 @@ export class AuthService {
     return from(this.registrations.doc(profile.id).set(profileObj));
   }
 
-  getCurrentUserId(): string {
-    return this.getCurrentUser().uid;
-  }
 
-  getCurrentUserEmail(): string {
-    return this.getCurrentUser().email;
-  }
 
   getCurrentProfile(): Observable<Profile> {
     const id = this.getCurrentUserId();
@@ -139,6 +133,14 @@ export class AuthService {
       phone: profile.phone
     };
     return from(this.registrations.doc(profile.id).set(profileObj));
+  }
+
+  getCurrentUserId(): string {
+    return this.getCurrentUser().uid;
+  }
+
+  getCurrentUserEmail(): string {
+    return this.getCurrentUser().email;
   }
 
   getCurrentUser(): User {

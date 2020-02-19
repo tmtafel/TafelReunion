@@ -8,6 +8,11 @@
         <div class="col d-none d-sm-block">
             <h4 class="text-left text-md-center">Tafel Reunion 2020</h4>
         </div>
+        <div class="col" *ngIf="showDatabaseLink">
+            <button (click)="goToDatabase()"mat-raised-button class="btn btn-secondary">
+                <i class="fas fa-database"></i>
+            </button>
+        </div>
         <div class="col">
             <div class="text-right" *ngIf="!(loggedIn$ | async)">
                 <button mat-raised-button routerLink="/login" class="btn btn-secondary">
