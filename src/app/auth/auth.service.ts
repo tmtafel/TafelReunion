@@ -4,11 +4,12 @@ import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } fr
 import * as firebase from 'firebase/app';
 import { User } from 'firebase/app';
 import { from, Observable } from 'rxjs';
-
-import { Event } from './event';
-import { Profile } from './profile';
-import { ProfileEvent } from './profile/profile-event';
 import { map } from 'rxjs/operators';
+
+import { EventDetail } from './event';
+import { Profile } from './profile';
+import { AddEvent } from './profile/add-event';
+import { ProfileEvent } from './profile/profile-event';
 
 @Injectable({
   providedIn: 'root',
@@ -17,31 +18,53 @@ export class AuthService {
   redirectUrl: string;
   user: Observable<User>;
   private registrations: AngularFirestoreCollection<Profile>;
-  private events: AngularFirestoreCollection<Event>;
-  private userEvents: AngularFirestoreCollection<Event>;
+  private events: AngularFirestoreCollection<EventDetail>;
 
   constructor(public afAuth: AngularFireAuth, public db: AngularFirestore) {
     this.afAuth.authState.subscribe(this.firebaseAuthChangeListener);
     this.registrations = db.collection<Profile>('registrations');
-    this.events = db.collection<Event>('events');
+    this.events = db.collection<EventDetail>('events');
     this.user = this.afAuth.authState;
+  }
+
+  getCurrentProfileEvents(): Observable<ProfileEvent[]> {
+    const id = this.getCurrentUserId();
+    return this.registrations.doc(id).collection<ProfileEvent>('events').valueChanges();
   }
 
   getProfileEventDocument(eventId: string) {
     const id = this.getCurrentUserId();
     return this.registrations.doc(id)
-      .collection<ProfileEvent>('events', events => events.where('id', '==', eventId))
+      .collection<ProfileEvent>('events', events => events.where('eventId', '==', eventId))
       .snapshotChanges();
   }
 
   updateEvent(pid: string, event: ProfileEvent) {
     const id = this.getCurrentUserId();
     const eventObj = {
-      id: event.id,
+      id: event.eventId,
       title: event.title,
       attending: event.attending
     };
     return from(this.registrations.doc(id).collection<ProfileEvent>('events').doc(pid).set(eventObj));
+  }
+
+  addProfileEvent(addEvent: AddEvent) {
+    const eventObj = {
+      id: addEvent.eventId,
+      title: addEvent.title,
+      attending: addEvent.attending
+    };
+    const id = this.getCurrentUserId();
+    this.registrations.doc(id).collection('events').add(eventObj);
+  }
+
+  getEvents(): Observable<DocumentChangeAction<EventDetail>[]> {
+    return this.events.snapshotChanges();
+  }
+
+  getEvent(eventId: string): Observable<Event> {
+    return this.events.doc<Event>(eventId).valueChanges();
   }
 
   isLoggedIn(): boolean {
@@ -99,30 +122,11 @@ export class AuthService {
     return this.registrations.doc<Profile>(id).valueChanges();
   }
 
-  getCurrentProfileEvents(): Observable<ProfileEvent[]> {
-    const id = this.getCurrentUserId();
-    return this.registrations.doc(id).collection<ProfileEvent>('events').valueChanges();
-  }
-
-  getEvents(): Observable<DocumentChangeAction<Event>[]> {
-    return this.events.snapshotChanges();
-  }
-
-  getEvent(eventId: string): Observable<Event> {
-    return this.events.doc<Event>(eventId).valueChanges();
-  }
 
 
 
-  addProfileEvent(event: ProfileEvent) {
-    const eventObj = {
-      id: event.id,
-      title: event.title,
-      attending: event.attending
-    };
-    const id = this.getCurrentUserId();
-    this.registrations.doc(id).collection('events').add(eventObj);
-  }
+
+
 
   updateProfile(profile: Profile) {
     const profileObj = {

@@ -4,7 +4,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../auth.service';
 import { Profile } from '../profile';
 import { Address } from '../address';
-import { Event } from '../event';
 import { ProfileEvent } from './profile-event';
 
 @Component({

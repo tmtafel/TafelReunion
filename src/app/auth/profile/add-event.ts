@@ -1,5 +1,4 @@
-
-export class ProfileEvent {
+export class AddEvent {
     eventId: string;
     title: string;
     attending: boolean;

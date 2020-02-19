@@ -1,6 +1,4 @@
 import { Address } from './address';
-import { Event } from './event';
-import { ProfileEvent } from './profile/profile-event';
 
 export class Profile {
     id: string;
@@ -9,6 +7,7 @@ export class Profile {
     lastName: string;
     address: Address;
     phone: string;
+
     constructor(id: string, email: string) {
         this.id = id;
         this.email = email;
