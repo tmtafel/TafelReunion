@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="row justify-content-between align-items-center">
+  <div class="row justify-content-center align-items-center">
     <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
       <div class="row">
-          <h1 class="col-12">Login</h1>
+        <h1 class="col-12">Login</h1>
       </div>
       <div class="row justify-content-center">
         <div class="col-12">
@@ -16,20 +16,18 @@
               <input type="password" class="form-control" formControlName="password">
               <label class="error">{{errorMessage}}</label>
             </div>
-            <button type="submit" (click)="login()" class="btn btn-secondary text-center">Login</button>
-
+            <div class="text-center">
+              <button type="submit" (click)="login()" class="btn btn-secondary">Login</button>
+            </div>
           </form>
         </div>
       </div>
       <div class="row">
-          <p>{{message}}</p>
+        <p>{{message}}</p>
       </div>
-    </div>
-
-    <div class="col-lg-4 col-md-3 col-12">
-      <div class="row justify-content-center">
+      <div class="row justify-content-center pt-5">
         <div class="col-12">
-          <p class="text-center">No account yet? <a href="/register">Create an account</a></p>
+          <p class="text-center">No account yet? <a href="/register">Register Here</a></p>
         </div>
       </div>
     </div>
