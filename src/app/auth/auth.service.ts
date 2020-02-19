@@ -19,24 +19,38 @@ export class AuthService {
   user: Observable<User>;
   private registrations: AngularFirestoreCollection<Profile>;
   private events: AngularFirestoreCollection<EventDetail>;
+  private profileEvents: AngularFirestoreCollection<ProfileEvent>;
 
   constructor(public afAuth: AngularFireAuth, public db: AngularFirestore) {
-    this.afAuth.authState.subscribe(this.firebaseAuthChangeListener);
     this.registrations = db.collection<Profile>('registrations');
     this.events = db.collection<EventDetail>('events');
+
+    this.afAuth.authState.subscribe(this.firebaseAuthChangeListener);
     this.user = this.afAuth.authState;
   }
 
   getCurrentProfileEvents(): Observable<ProfileEvent[]> {
-    const id = this.getCurrentUserId();
-    return this.registrations.doc(id).collection<ProfileEvent>('events').valueChanges();
+    return this.profileEvents.snapshotChanges().pipe(
+      map(evts => {
+        return evts.map(e => {
+          const evt = e.payload.doc.data();
+          evt.profileEventId = e.payload.doc.id;
+          return evt;
+        });
+      }));
   }
 
-  getProfileEventDocument(eventId: string) {
+  getProfileEventDocument(eventId: string): Observable<ProfileEvent> {
     const id = this.getCurrentUserId();
-    return this.registrations.doc(id)
-      .collection<ProfileEvent>('events', events => events.where('eventId', '==', eventId))
-      .snapshotChanges();
+    return this.registrations.doc(id).collection<ProfileEvent>('events', events => events.where('eventId', '==', eventId))
+      .snapshotChanges().pipe(map(evts => {
+        if (evts.length > 0) {
+          const evt = evts[0].payload.doc.data();
+          evt.profileEventId = evts[0].payload.doc.id;
+          return evt;
+        }
+        return null;
+      }));
   }
 
   updateEvent(pid: string, event: ProfileEvent) {
@@ -60,7 +74,7 @@ export class AuthService {
   }
 
   getEvents(): Observable<DocumentChangeAction<EventDetail>[]> {
-    return this.events.snapshotChanges();
+    return this.events.stateChanges();
   }
 
   getEvent(eventId: string): Observable<Event> {
@@ -161,6 +175,9 @@ export class AuthService {
     if (user !== null) {
       const json = JSON.stringify(user);
       localStorage.setItem('user', json);
+      if (typeof (this.registrations) !== 'undefined') {
+        this.profileEvents = this.registrations.doc(user.uid).collection<ProfileEvent>('events');
+      }
     } else {
       localStorage.setItem('user', null);
     }

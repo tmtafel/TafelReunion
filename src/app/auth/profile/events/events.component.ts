@@ -20,6 +20,7 @@ export class EventsComponent implements OnInit {
     this.events = [];
     this.authService.getCurrentProfileEvents().subscribe(userEvents => {
       this.events = userEvents;
+      debugger;
       this.authService.getEvents().subscribe(allEvents => {
         allEvents.forEach(evt => {
           const id = evt.payload.doc.id;

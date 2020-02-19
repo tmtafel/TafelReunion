@@ -22,11 +22,8 @@ export class EventComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       // event id, not from profile
       this.id = params.get('id');
-      this.authService.getProfileEventDocument(this.id).subscribe(evts => {
-        if (evts.length > 0) {
-          const pid = evts[0].payload.doc.id;
-          this.event = evts[0].payload.doc.data();
-        }
+      this.authService.getProfileEventDocument(this.id).subscribe(evt => {
+        this.event = evt;
       });
     });
   }
