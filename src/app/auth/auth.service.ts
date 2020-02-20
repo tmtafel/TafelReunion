@@ -6,7 +6,7 @@ import { User } from 'firebase/app';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { EventDetail } from './event';
+import { EventDetail } from './event-detail';
 import { Profile } from './profile';
 import { AddEvent } from './profile/add-event';
 import { ProfileEvent } from './profile/profile-event';
@@ -19,7 +19,6 @@ export class AuthService {
   user: Observable<User>;
   private registrations: AngularFirestoreCollection<Profile>;
   private events: AngularFirestoreCollection<EventDetail>;
-  private profileEvents: AngularFirestoreCollection<ProfileEvent>;
 
   constructor(public afAuth: AngularFireAuth, public db: AngularFirestore) {
     this.registrations = db.collection<Profile>('registrations');
@@ -30,14 +29,14 @@ export class AuthService {
   }
 
   getCurrentProfileEvents(): Observable<ProfileEvent[]> {
-    return this.profileEvents.snapshotChanges().pipe(
-      map(evts => {
-        return evts.map(e => {
-          const evt = e.payload.doc.data();
-          evt.profileEventId = e.payload.doc.id;
-          return evt;
-        });
-      }));
+    const id = this.getCurrentUserId();
+    return this.registrations.doc(id).collection<ProfileEvent>('events').snapshotChanges().pipe(map(evts => {
+      return evts.map(evt => {
+        const event = evt.payload.doc.data();
+        event.profileEventId = evt.payload.doc.id;
+        return event;
+      });
+    }));
   }
 
   getProfileEventDocument(eventId: string): Observable<ProfileEvent> {
@@ -53,32 +52,41 @@ export class AuthService {
       }));
   }
 
-  updateEvent(pid: string, event: ProfileEvent) {
+  updateEvent(event: ProfileEvent): Observable<boolean> {
     const id = this.getCurrentUserId();
     const eventObj = {
       id: event.eventId,
       title: event.title,
       attending: event.attending
     };
-    return from(this.registrations.doc(id).collection<ProfileEvent>('events').doc(pid).set(eventObj));
+    return from(this.registrations.doc(id).collection<ProfileEvent>('events').doc(event.profileEventId).set(eventObj)
+      .then(() => {
+        return true;
+      }).catch(err => {
+        return false;
+      }));
   }
 
   addProfileEvent(addEvent: AddEvent) {
     const eventObj = {
-      id: addEvent.eventId,
+      eventId: addEvent.eventId,
       title: addEvent.title,
       attending: addEvent.attending
     };
     const id = this.getCurrentUserId();
-    this.registrations.doc(id).collection('events').add(eventObj);
+    return from(this.registrations.doc(id).collection('events').add(eventObj));
   }
 
   getEvents(): Observable<DocumentChangeAction<EventDetail>[]> {
-    return this.events.stateChanges();
+    return this.events.snapshotChanges();
   }
 
-  getEvent(eventId: string): Observable<Event> {
-    return this.events.doc<Event>(eventId).valueChanges();
+  getEvent(eventId: string): Observable<EventDetail> {
+    return this.events.doc<EventDetail>(eventId).snapshotChanges().pipe(map(evtDtl => {
+      const eventDetail = evtDtl.payload.data();
+      eventDetail.eventId = evtDtl.payload.id;
+      return eventDetail;
+    }));
   }
 
   isLoggedIn(): boolean {
@@ -130,12 +138,6 @@ export class AuthService {
     return this.registrations.doc<Profile>(id).valueChanges();
   }
 
-
-
-
-
-
-
   updateProfile(profile: Profile) {
     const profileObj = {
       firstName: profile.firstName,
@@ -175,9 +177,6 @@ export class AuthService {
     if (user !== null) {
       const json = JSON.stringify(user);
       localStorage.setItem('user', json);
-      if (typeof (this.registrations) !== 'undefined') {
-        this.profileEvents = this.registrations.doc(user.uid).collection<ProfileEvent>('events');
-      }
     } else {
       localStorage.setItem('user', null);
     }

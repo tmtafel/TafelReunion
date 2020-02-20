@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getCurrentProfile().subscribe(profile => {
-      this.showDatabaseLink = profile.email === "tmtafel@gmail.com";
+      this.showDatabaseLink = profile.email === 'tmtafel@gmail.com';
     });
   }
 
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
 
   goToDatabase() {
     const url = 'https://console.firebase.google.com/project/tafelreunion/database';
-    window.open(url, "_blank");
+    window.open(url, '_blank');
   }
 
 }

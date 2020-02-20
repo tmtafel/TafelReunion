@@ -1,6 +1,20 @@
-<div *ngIf="loaded">
-  <mat-checkbox [checked]="event.attending" id="{{event.id}}" name="{{event.title}}" (change)="updateCheckbox($event)">{{event.title}}</mat-checkbox>
-</div>
-<div *ngIf="!loaded">
-  <h1>LOADING...</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-12" *ngIf="loaded">
+      <h2>{{eventDetail.title}}</h2>
+      <h4>{{eventDetail.when.toDate() | date:'MMMM dd h:mm a'}}</h4>
+      <address>
+        {{eventDetail.address.street}}<br />
+        {{eventDetail.address.city}}, {{eventDetail.address.state}} {{eventDetail.address.zip}}
+      </address>
+      <p>
+        <strong>About:</strong><br />
+        {{eventDetail.about}}
+      </p>
+      <mat-checkbox [checked]="attending" (change)="updateCheckbox($event)">Going</mat-checkbox>
+    </div>
+    <div class="col-12" *ngIf="!loaded">
+      <h1>LOADING...</h1>
+    </div>
+  </div>
 </div>

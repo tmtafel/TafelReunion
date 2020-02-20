@@ -4,6 +4,8 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 import { AuthService } from '../auth.service';
 import { ProfileEvent } from '../profile/profile-event';
+import { EventDetail } from '../event-detail';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-event',
@@ -12,9 +14,14 @@ import { ProfileEvent } from '../profile/profile-event';
 })
 export class EventComponent implements OnInit {
   id: string;
+  attending = false;
+  profileEventLoaded = false;
+  profileEvent: ProfileEvent;
+
+  eventDetailLoaded = false;
+  eventDetail: EventDetail;
   loaded = false;
-  event: ProfileEvent;
-  constructor(private route: ActivatedRoute, private authService: AuthService) {
+  constructor(private route: ActivatedRoute, private authService: AuthService, private snackBar: MatSnackBar) {
 
   }
 
@@ -22,36 +29,34 @@ export class EventComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       // event id, not from profile
       this.id = params.get('id');
-      this.authService.getProfileEventDocument(this.id).subscribe(evt => {
-        this.event = evt;
+      this.authService.getEvent(this.id).subscribe(evtDtl => {
+        this.eventDetail = evtDtl;
+        this.eventDetailLoaded = true;
+        this.checkIfLoaded();
+      });
+      this.authService.getProfileEventDocument(this.id).subscribe(prflEvt => {
+        this.profileEvent = prflEvt;
+        // this.attending = this.profileEvent.attending;
+        this.profileEventLoaded = true;
+        this.checkIfLoaded();
       });
     });
   }
 
-  // updateCheckbox(evt: MatCheckboxChange) {
-  //   console.log(evt);
-  //   const id = evt.source.id;
-  //   const title = evt.source.name;
-  //   const attending = evt.checked;
-  //   const pEvent = new ProfileEvent(id, title, attending);
-  //   this.authService.getProfileEventDocument(pEvent).subscribe(evts => {
-  //     if (evts.length > 0) {
-  //       const pid = evts[0].payload.doc.id;
-  //       this.authService.updateEvent(pid, pEvent).subscribe(() => {
-  //         // this.snackBar.open('updated!!', 'exit', {
-  //         //   duration: 2000,
-  //         // });
-  //       }, err => {
-  //         console.log(err);
-  //         alert('Error!!');
-  //       });
-  //     } else {
-  //       alert('cannot find profile event');
-  //     }
-  //   }, err => {
-  //     console.log(err);
-  //     alert('Error!!');
-  //   });
+  checkIfLoaded() {
+    this.loaded = this.eventDetailLoaded && this.profileEventLoaded;
+  }
+
+  updateCheckbox(evt: MatCheckboxChange) {
+    console.log(evt);
+    this.profileEvent.attending = evt.checked;
+    this.authService.updateEvent(this.profileEvent).subscribe(() => {
+      this.snackBar.open('updated!!', 'exit', {
+        duration: 2000,
+      });
+    }, err => {
+      console.log(err);
+      alert('Error!!');
+    });
+  }
 }
-
-

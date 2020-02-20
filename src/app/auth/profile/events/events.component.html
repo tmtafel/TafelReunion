@@ -1,5 +1,5 @@
-<div *ngIf="loaded">
-  <a *ngFor="let event of events" [routerLink]="['/event', event.id]">
+<div *ngIf="profileEvents$ | async">
+  <a *ngFor="let event of profileEvents$ | async" [routerLink]="['/event', event.eventId]">
     <mat-card [class.mat-elevation-z2]>
       <mat-card-header>
         <mat-card-title>{{event.title}}</mat-card-title>
@@ -10,6 +10,6 @@
     </mat-card>
   </a>
 </div>
-<div *ngIf="!loaded">
+<div *ngIf="!(profileEvents$) | async">
   <h1>LOADING...</h1>
 </div>

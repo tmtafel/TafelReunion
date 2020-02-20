@@ -1,12 +1,11 @@
 import { Address } from './address';
+import {firestore} from 'firebase/app';
+import Timestamp = firestore.Timestamp;
 
 export class EventDetail {
     title: string;
-    when: string;
+    when: Timestamp;
     address: Address;
     about: string;
-
-    getDate(): Date {
-        return new Date(this.when);
-    }
+    eventId: string;
 }

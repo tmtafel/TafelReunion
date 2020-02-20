@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 import { AuthService } from '../../auth.service';
 import { AddEvent } from '../add-event';
@@ -11,16 +12,18 @@ import { ProfileEvent } from '../profile-event';
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit {
-  events: ProfileEvent[];
+  // events: ProfileEvent[];
+  profileEvents$: Observable<ProfileEvent[]>;
+  profileEventIds: string[];
   loaded = false;
 
-  constructor(private authService: AuthService, private snackBar: MatSnackBar) { }
+  constructor(private authService: AuthService, private snackBar: MatSnackBar) {
+    this.profileEvents$ = this.authService.getCurrentProfileEvents();
+  }
 
   ngOnInit() {
-    this.events = [];
-    this.authService.getCurrentProfileEvents().subscribe(userEvents => {
-      this.events = userEvents;
-      debugger;
+    this.profileEvents$.subscribe(evts => {
+      this.profileEventIds = evts.map(evt => evt.eventId);
       this.authService.getEvents().subscribe(allEvents => {
         allEvents.forEach(evt => {
           const id = evt.payload.doc.id;
@@ -29,15 +32,15 @@ export class EventsComponent implements OnInit {
             this.authService.addProfileEvent(addEvent);
           }
         });
-        this.loaded = true;
       });
     });
+
   }
 
   profileNeedsEvent(id: string): boolean {
     let idNotFound = true;
-    this.events.forEach(event => {
-      if (event.eventId === id) {
+    this.profileEventIds.forEach(eventId => {
+      if (eventId === id) {
         idNotFound = false;
       }
     });
