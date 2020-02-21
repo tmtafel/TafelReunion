@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { AuthService } from '../../auth.service';
 import { AddEvent } from '../add-event';
-import { ProfileEvent } from '../profile-event';
+import { ProfileEvent } from '../../profile-event';
 
 @Component({
   selector: 'app-events',
@@ -12,9 +12,7 @@ import { ProfileEvent } from '../profile-event';
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit {
-  // events: ProfileEvent[];
   profileEvents$: Observable<ProfileEvent[]>;
-  profileEventIds: string[];
   loaded = false;
 
   constructor(private authService: AuthService, private snackBar: MatSnackBar) {
@@ -23,27 +21,14 @@ export class EventsComponent implements OnInit {
 
   ngOnInit() {
     this.profileEvents$.subscribe(evts => {
-      this.profileEventIds = evts.map(evt => evt.eventId);
       this.authService.getEvents().subscribe(allEvents => {
         allEvents.forEach(evt => {
-          const id = evt.payload.doc.id;
-          if (this.profileNeedsEvent(id)) {
-            const addEvent = new AddEvent(id, evt.payload.doc.data().title);
+          if (evts.filter(e => e.eventId === evt.eventId).length < 1) {
+            const addEvent = new AddEvent(evt.eventId, evt.title);
             this.authService.addProfileEvent(addEvent);
           }
         });
       });
     });
-
-  }
-
-  profileNeedsEvent(id: string): boolean {
-    let idNotFound = true;
-    this.profileEventIds.forEach(eventId => {
-      if (eventId === id) {
-        idNotFound = false;
-      }
-    });
-    return idNotFound;
   }
 }

@@ -1,5 +1,5 @@
 import { Address } from './address';
-import {firestore} from 'firebase/app';
+import { firestore } from 'firebase/app';
 import Timestamp = firestore.Timestamp;
 
 export class EventDetail {
@@ -8,4 +8,8 @@ export class EventDetail {
     address: Address;
     about: string;
     eventId: string;
+    pricePerPerson: number;
+    signupOpenTill: Timestamp;
+
+    
 }

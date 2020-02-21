@@ -1,6 +1,7 @@
 <div class="container">
-  <div class="row">
-    <div class="col-12" *ngIf="loaded">
+  <div class="row justify-content-between" *ngIf="loaded">
+    <div class="col">
+
       <h2>{{eventDetail.title}}</h2>
       <h4>{{eventDetail.when.toDate() | date:'MMMM dd h:mm a'}}</h4>
       <address>
@@ -11,10 +12,21 @@
         <strong>About:</strong><br />
         {{eventDetail.about}}
       </p>
-      <mat-checkbox [checked]="attending" (change)="updateCheckbox($event)">Going</mat-checkbox>
     </div>
-    <div class="col-12" *ngIf="!loaded">
-      <h1>LOADING...</h1>
+    <div class="col" *ngIf="signupOpen">
+      <mat-slide-toggle [checked]="attending" (change)="updateCheckbox($event)">Going</mat-slide-toggle>
+      <div class *ngIf="attending">
+        <mat-form-field appearance="fill">
+          <mat-label>How many people?</mat-label>
+          <input matInput type="number">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row justify-content-center" *ngIf="!loaded">
+      <div class="col">
+        <h1>LOADING...</h1>
+      </div>
     </div>
   </div>
 </div>
