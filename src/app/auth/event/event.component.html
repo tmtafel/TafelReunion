@@ -2,18 +2,18 @@
   <div class="row justify-content-between" *ngIf="loaded">
     <div class="col">
 
-      <h2>{{eventDetail.title}}</h2>
-      <h4>{{eventDetail.when.toDate() | date:'MMMM dd h:mm a'}}</h4>
+      <h2>{{title}}</h2>
+      <h4>{{when | date:'MMMM dd h:mm a'}}</h4>
       <address>
-        {{eventDetail.address.street}}<br />
-        {{eventDetail.address.city}}, {{eventDetail.address.state}} {{eventDetail.address.zip}}
+        {{address.street}}<br />
+        {{address.city}}, {{address.state}} {{address.zip}}
       </address>
       <p>
         <strong>About:</strong><br />
-        {{eventDetail.about}}
+        {{summary}}
       </p>
     </div>
-    <div class="col" *ngIf="signupOpen">
+    <div class="col" *ngIf="loaded">
       <mat-slide-toggle [checked]="attending" (change)="updateCheckbox($event)">Going</mat-slide-toggle>
       <div class *ngIf="attending">
         <mat-form-field appearance="fill">

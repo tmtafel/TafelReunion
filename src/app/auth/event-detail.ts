@@ -3,13 +3,21 @@ import { firestore } from 'firebase/app';
 import Timestamp = firestore.Timestamp;
 
 export class EventDetail {
-    title: string;
-    when: Timestamp;
+
     address: Address;
-    about: string;
+    title: string;
     eventId: string;
     pricePerPerson: number;
     signupOpenTill: Timestamp;
+    summary: string;
+    when: Timestamp;
 
-    
+
+    constructor() {
+        
+    }
+
+    signupOpen(): boolean {
+        return Date.now() > this.signupOpenTill.toMillis();
+    }
 }
