@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-
-import { AuthService } from '../auth.service';
-import { ProfileEvent } from '../profile-event';
-import { EventDetail } from '../event-detail';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { EventService } from '../event.service';
-import { Address } from '../address';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { Address } from '../address';
+import { AuthService } from '../auth.service';
+import { EventDetail } from '../event';
 
 @Component({
   selector: 'app-event',
@@ -28,10 +26,10 @@ export class EventComponent implements OnInit {
 
   profileEventLoaded = false;
   eventDetailLoaded = false;
-  loaded: Observable<boolean>;
+  loaded = false;
 
   signupOpen = true;
-  constructor(private route: ActivatedRoute, private authService: AuthService, private eventService: EventService, private snackBar: MatSnackBar) {
+  constructor(private route: ActivatedRoute, private authService: AuthService, private snackBar: MatSnackBar) {
 
   }
 
@@ -39,12 +37,11 @@ export class EventComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       this.getDetails(id);
-      this.getInvites(id);
     });
   }
 
   getDetails(id: string) {
-    this.eventService.getEvent(id).subscribe(evtDtl => {
+    this.authService.getEventDetail(id).subscribe(evtDtl => {
       this.address = evtDtl.address;
       this.title = evtDtl.title;
       this.pricePerPerson = evtDtl.pricePerPerson;
@@ -52,14 +49,6 @@ export class EventComponent implements OnInit {
       this.summary = evtDtl.summary;
       this.when = evtDtl.when.toDate();
       this.eventDetailLoaded = true;
-      this.checkIfLoaded();
-    });
-  }
-
-  getInvites(id: string) {
-    this.authService.getProfileEventDocument(id).subscribe(prflEvt => {
-      this.attending = prflEvt.attending;
-      this.profileEventLoaded = true;
       this.checkIfLoaded();
     });
   }
@@ -83,7 +72,7 @@ export class EventComponent implements OnInit {
 
   showMessage(message: string, duration = 2000) {
     this.snackBar.open(message, 'X', {
-      duration: duration
+      duration
     });
   }
 }

@@ -1,9 +1,15 @@
 
-export class ProfileEvent {
+export interface IRsvp {
     eventId: string;
     title: string;
     attending: boolean;
-    profileEventId: string;
+}
+
+export class Rsvp implements IRsvp {
+    eventId: string;
+    title: string;
+    attending: boolean;
+    id: string;
 
     constructor(eventId: string, title: string, attending = false) {
         this.eventId = eventId;

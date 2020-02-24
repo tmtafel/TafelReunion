@@ -1,0 +1,15 @@
+<div *ngIf="rsvps">
+  <a *ngFor="let rsvp of rsvps" [routerLink]="['/event', rsvp.eventId]">
+    <mat-card [class.mat-elevation-z2]>
+      <mat-card-header>
+        <mat-card-title>{{rsvp.title}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Content needed
+      </mat-card-content>
+    </mat-card>
+  </a>
+</div>
+<div *ngIf="!(rsvps)">
+  <h1>LOADING...</h1>
+</div>

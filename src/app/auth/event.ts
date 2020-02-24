@@ -14,7 +14,7 @@ export class EventDetail {
 
 
     constructor() {
-        
+
     }
 
     signupOpen(): boolean {

@@ -6,10 +6,10 @@ import { User } from 'firebase/app';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { EventDetail } from './event-detail';
+import { EventDetail } from './event';
 import { Profile } from './profile';
 import { AddEvent } from './profile/add-event';
-import { ProfileEvent } from './profile-event';
+import { Rsvp } from './rsvp';
 
 @Injectable({
   providedIn: 'root',
@@ -28,39 +28,38 @@ export class AuthService {
     this.user = this.afAuth.authState;
   }
 
-  getCurrentProfileEvents(): Observable<ProfileEvent[]> {
+  getRsvps(): Observable<Rsvp[]> {
     const id = this.getCurrentUserId();
-    return this.registrations.doc(id).collection<ProfileEvent>('events').snapshotChanges().pipe(map(evts => {
-      return evts.map(evt => {
-        const event = evt.payload.doc.data();
-        event.profileEventId = evt.payload.doc.id;
-        return event;
+    return this.registrations.doc(id).collection<Rsvp>('events').snapshotChanges().pipe(map(rsvps => {
+      return rsvps.map(r => {
+        const rsvp = r.payload.doc.data();
+        rsvp.id = r.payload.doc.id;
+        return rsvp;
       });
     }));
   }
 
-  getProfileEventDocument(eventId: string): Observable<ProfileEvent> {
+  getRsvp(rsvpId: string): Observable<Rsvp> {
     const id = this.getCurrentUserId();
-    return this.registrations.doc(id).collection<ProfileEvent>('events', events => events.where('eventId', '==', eventId))
-      .snapshotChanges().pipe(map(evts => {
-        if (evts.length > 0) {
-          const evt = evts[0].payload.doc.data();
-          evt.profileEventId = evts[0].payload.doc.id;
-          return evt;
+    return this.registrations.doc(id).collection<Rsvp>('events', events => events.where('eventId', '==', rsvpId))
+      .snapshotChanges().pipe(map(rsvps => {
+        if (rsvps.length > 0) {
+          const rsvp = rsvps[0].payload.doc.data();
+          rsvp.id = rsvps[0].payload.doc.id;
+          return rsvp;
         }
         return null;
       }));
   }
 
-  updateEvent(event: ProfileEvent): Observable<boolean> {
+  updateRsvp(rsvp: Rsvp): Observable<boolean> {
     const id = this.getCurrentUserId();
-    const eventObj = {
-      eventId: event.eventId,
-      title: event.title,
-      attending: event.attending,
-
+    const rsvpObj = {
+      eventId: rsvp.eventId,
+      title: rsvp.title,
+      attending: rsvp.attending,
     };
-    return from(this.registrations.doc(id).collection<ProfileEvent>('events').doc(event.profileEventId).set(eventObj)
+    return from(this.registrations.doc(id).collection<Rsvp>('events').doc(rsvp.id).set(rsvpObj)
       .then(() => {
         return true;
       }).catch(err => {
@@ -68,17 +67,17 @@ export class AuthService {
       }));
   }
 
-  addProfileEvent(addEvent: AddEvent): Observable<boolean> {
-    const eventObj = {
-      eventId: addEvent.eventId,
-      title: addEvent.title,
-      attending: addEvent.attending
+  addRsvp(eventId: string, title: string): Observable<boolean> {
+    const rsvpObj = {
+      eventId,
+      title,
+      attending: false
     };
     const id = this.getCurrentUserId();
     return from(
-      this.registrations.doc(id).collection('events').add(eventObj)
-        .then(() => { return true; })
-        .catch(err => { return false; }));
+      this.registrations.doc(id).collection('events').add(rsvpObj)
+        .then(() => true)
+        .catch(err => false));
   }
 
   getEvents(): Observable<EventDetail[]> {

@@ -1,7 +1,6 @@
 <div class="container">
   <div class="row justify-content-between" *ngIf="loaded">
     <div class="col">
-
       <h2>{{title}}</h2>
       <h4>{{when | date:'MMMM dd h:mm a'}}</h4>
       <address>
@@ -22,11 +21,10 @@
         </mat-form-field>
       </div>
     </div>
-
-    <div class="row justify-content-center" *ngIf="!loaded">
-      <div class="col">
-        <h1>LOADING...</h1>
-      </div>
+  </div>
+  <div class="row justify-content-center" *ngIf="!loaded">
+    <div class="col">
+      <h1>LOADING...</h1>
     </div>
   </div>
 </div>
