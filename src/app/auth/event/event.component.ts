@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Address } from '../address';
 import { AuthService } from '../auth.service';
-import { EventDetail } from '../event';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Rsvp } from '../rsvp';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-event',
@@ -15,8 +16,13 @@ import { EventDetail } from '../event';
   styleUrls: ['./event.component.scss']
 })
 export class EventComponent implements OnInit {
+
+  attending$: Observable<boolean>;
+
   eventId: string;
-  attending = false;
+
+  rsvp: Rsvp;
+
   title: string;
   address: Address;
   pricePerPerson: number;
@@ -24,55 +30,102 @@ export class EventComponent implements OnInit {
   summary: string;
   when: Date;
 
-  profileEventLoaded = false;
-  eventDetailLoaded = false;
-  loaded = false;
+  detailsLoaded = false;
+  rsvpLoaded = false;
 
   signupOpen = true;
-  constructor(private route: ActivatedRoute, private authService: AuthService, private snackBar: MatSnackBar) {
 
+  constructor(private route: ActivatedRoute, private authService: AuthService, private snackBar: MatSnackBar, public dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      this.getDetails(id);
+      this.eventId = params.get('id');
+      this.getDetails();
+      this.getRsvp();
     });
   }
 
-  getDetails(id: string) {
-    this.authService.getEventDetail(id).subscribe(evtDtl => {
+  getRsvp() {
+    this.authService.getRsvp(this.eventId).subscribe(rsvp => {
+      this.rsvp = rsvp;
+      this.attending$ = this.authService.isCurrentUserAttendingEvent(this.rsvp.id);
+      this.rsvpLoaded = true;
+    });
+  }
+
+  getDetails() {
+    this.authService.getEvent(this.eventId).subscribe(evtDtl => {
       this.address = evtDtl.address;
       this.title = evtDtl.title;
       this.pricePerPerson = evtDtl.pricePerPerson;
       this.signupOpenTill = evtDtl.signupOpenTill.toDate();
       this.summary = evtDtl.summary;
       this.when = evtDtl.when.toDate();
-      this.eventDetailLoaded = true;
-      this.checkIfLoaded();
+      this.detailsLoaded = true;
     });
   }
 
-  checkIfLoaded() {
-    this.loaded = this.eventDetailLoaded && this.profileEventLoaded;
-  }
-
-  // updateCheckbox(evt: MatSlideToggleChange) {
-  //   this.profileEvent.attending = evt.checked;
-  //   this.authService.updateEvent(this.profileEvent).subscribe(() => {
-  //     const message = this.profileEvent.attending ?
-  //       `We now have you attending the ${this.profileEvent.title}` :
-  //       `Sorry to see you will not be attending`
-  //     this.showMessage(message);
-  //   }, err => {
-  //     console.log(err);
-  //     this.showMessage('Error with updating your event, please try again.');
-  //   });
-  // }
-
-  showMessage(message: string, duration = 2000) {
+  showMessage(message: string, duration = 5000) {
     this.snackBar.open(message, 'X', {
       duration
     });
   }
+
+  removeFromEvent(): void {
+    this.rsvp.attending = false;
+    this.authService.updateRsvp(this.rsvp).then(success => {
+      if (success) {
+        this.showMessage(`We now no longer have you attending the ${this.title} event`);
+      } else {
+        this.showMessage('Error with updating your event, please try again.');
+      }
+    }, err => {
+      console.log(err);
+      this.showMessage('Error with updating your event, please try again.');
+    });
+  }
+  signUp(): void {
+    const rsvp = this.rsvp;
+    const dialogAttending = this.dialog.open(DialogAttending, {
+      width: '250px',
+      data: { rsvp }
+    });
+
+    dialogAttending.afterClosed().subscribe(result => {
+      if (result) {
+        this.rsvp = result.rsvp;
+        this.rsvp.attending = true;
+        this.authService.updateRsvp(this.rsvp).then(success => {
+          if (success) {
+            this.showMessage(`We now have you attending the ${this.title} event`);
+          } else {
+            this.showMessage('Error with updating your event, please try again.');
+          }
+        }, err => {
+          console.log(err);
+          this.showMessage('Error with updating your event, please try again.');
+        });
+      }
+    });
+  }
+}
+
+@Component({
+  // tslint:disable-next-line:component-selector
+  selector: 'dialog-attending',
+  templateUrl: 'dialog-attending.html',
+})
+
+// tslint:disable-next-line:component-class-suffix
+export class DialogAttending {
+
+  constructor(
+    public dialogAttending: MatDialogRef<DialogAttending>,
+    @Inject(MAT_DIALOG_DATA) public data: Rsvp) { }
+
+  onNoClick(): void {
+    this.dialogAttending.close();
+  }
+
 }

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../../auth.service';
+import { Event } from '../../event';
 import { Rsvp } from '../../rsvp';
-import { EventDetail } from '../../event';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -13,18 +13,21 @@ import { EventDetail } from '../../event';
 })
 export class RsvpsComponent implements OnInit {
 
-  rsvps: Rsvp[];
-  events: EventDetail[];
-
+  rsvps$: Observable<Rsvp[]>;
+  events: Event[];
+  loaded = false;
   constructor(private authService: AuthService) {
+    this.rsvps$ = authService.getRsvps();
+
   }
 
   ngOnInit() {
     this.authService.getRsvps().subscribe(rsvps => {
-      this.rsvps = rsvps;
-      this.authService.getEvents().subscribe(events => {
-        this.events = events;
-      }).unsubscrib;
+      const rsvpsNeeded = this.authService.getEvents().filter(event => rsvps.filter(rsvp => rsvp.eventId === event.id).length === 0);
+      if (rsvpsNeeded.length > 0) {
+        const event = rsvpsNeeded[0];
+        this.authService.addRsvp(event);
+      }
     });
   }
 }

@@ -1,6 +1,13 @@
 <div class="container">
-  <div class="row justify-content-between" *ngIf="loaded">
-    <div class="col">
+  <div class="row">
+    <div class="col-12 pb-4">
+      <button mat-raised-button routerLink="/profile">
+        <i class="material-icons">arrow_back</i>Back
+      </button>
+    </div>
+  </div>
+  <div class="row justify-content-between" *ngIf="(rsvpLoaded && detailsLoaded)">
+    <div class="col" *ngIf="detailsLoaded">
       <h2>{{title}}</h2>
       <h4>{{when | date:'MMMM dd h:mm a'}}</h4>
       <address>
@@ -12,17 +19,12 @@
         {{summary}}
       </p>
     </div>
-    <div class="col" *ngIf="loaded">
-      <mat-slide-toggle [checked]="attending" (change)="updateCheckbox($event)">Going</mat-slide-toggle>
-      <div class *ngIf="attending">
-        <mat-form-field appearance="fill">
-          <mat-label>How many people?</mat-label>
-          <input matInput type="number">
-        </mat-form-field>
-      </div>
+    <div class="col" *ngIf="rsvpLoaded">
+      <button *ngIf="!(attending$ | async)" mat-raised-button (click)="signUp()">Click here to sign up</button>
+      <button *ngIf="(attending$ | async)" mat-raised-button (click)="removeFromEvent()">Click here remove yourself</button>
     </div>
   </div>
-  <div class="row justify-content-center" *ngIf="!loaded">
+  <div class="row justify-content-center" *ngIf="!(rsvpLoaded && detailsLoaded)">
     <div class="col">
       <h1>LOADING...</h1>
     </div>

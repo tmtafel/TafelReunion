@@ -2,11 +2,11 @@ import { Address } from './address';
 import { firestore } from 'firebase/app';
 import Timestamp = firestore.Timestamp;
 
-export class EventDetail {
+export class Event {
 
     address: Address;
     title: string;
-    eventId: string;
+    id: string;
     pricePerPerson: number;
     signupOpenTill: Timestamp;
     summary: string;

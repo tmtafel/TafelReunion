@@ -14,7 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { PhoneComponent } from './profile/phone/phone.component';
 import { AddressComponent } from './profile/address/address.component';
 import { NameComponent } from './profile/name/name.component';
-import { EventComponent } from './event/event.component';
+import { EventComponent, DialogAttending } from './event/event.component';
 import { RsvpsComponent } from './profile/rsvps/rsvps.component';
 
 @NgModule({
@@ -36,7 +36,11 @@ import { RsvpsComponent } from './profile/rsvps/rsvps.component';
     AddressComponent,
     NameComponent,
     EventComponent,
-    RsvpsComponent
+    RsvpsComponent,
+    DialogAttending
+  ],
+  entryComponents: [
+    DialogAttending
   ]
 })
 export class AuthModule { }

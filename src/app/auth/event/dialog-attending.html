@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{data.rsvp.title}}</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>How many people?</mat-label>
+    <input matInput type="number" required [(ngModel)]="data.rsvp.numberOfPeople">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Let's Go</button>
+</div>
