@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '../../auth.service';
 import { Event } from '../../event';
 import { Rsvp } from '../../rsvp';
+import { AuthService } from '../../services/auth.service';
+import { EventService } from '../../services/event.service';
+import { RsvpService } from '../../services/rsvp.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,19 +17,20 @@ export class RsvpsComponent implements OnInit {
 
   rsvps$: Observable<Rsvp[]>;
   events: Event[];
-  loaded = false;
-  constructor(private authService: AuthService) {
-    this.rsvps$ = authService.getRsvps();
-
+  loading = false;
+  constructor(private rsvpService: RsvpService, private eventService: EventService) {
+    this.rsvps$ = rsvpService.getRsvpsObservable();
   }
 
   ngOnInit() {
-    this.authService.getRsvps().subscribe(rsvps => {
-      const rsvpsNeeded = this.authService.getEvents().filter(event => rsvps.filter(rsvp => rsvp.eventId === event.id).length === 0);
-      if (rsvpsNeeded.length > 0) {
-        const event = rsvpsNeeded[0];
-        this.authService.addRsvp(event);
-      }
-    });
+    const rsvps = this.rsvpService.getRsvps();
+    const events = this.eventService.getEvents();
+    if ((rsvps !== null || typeof rsvps !== 'undefined') && (events !== null || typeof events !== 'undefined')) {
+      events.forEach(evt => {
+        if (rsvps.filter(r => r.eventId === evt.id).length === 0) {
+          this.rsvpService.addRsvp(evt);
+        }
+      });
+    }
   }
 }

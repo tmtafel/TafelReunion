@@ -6,25 +6,30 @@
       </button>
     </div>
   </div>
-  <div class="row justify-content-between" *ngIf="(rsvpLoaded && detailsLoaded)">
-    <div class="col" *ngIf="detailsLoaded">
-      <h2>{{title}}</h2>
+  <div class="row" *ngIf="loaded">
+    <div class="col-12 col-sm-7 col-md-8 col-lg-9 col-xl-9">
+      <h2>{{event.title}}</h2>
       <h4>{{when | date:'MMMM dd h:mm a'}}</h4>
       <address>
-        {{address.street}}<br />
-        {{address.city}}, {{address.state}} {{address.zip}}
+        {{event.address.street}}<br />
+        {{event.address.city}}, {{event.address.state}} {{event.address.zip}}
       </address>
       <p>
         <strong>About:</strong><br />
-        {{summary}}
+        {{event.summary}}
       </p>
     </div>
-    <div class="col" *ngIf="rsvpLoaded">
-      <button *ngIf="!(attending$ | async)" mat-raised-button (click)="signUp()">Click here to sign up</button>
-      <button *ngIf="(attending$ | async)" mat-raised-button (click)="removeFromEvent()">Click here remove yourself</button>
+    <div class="col-12 col-sm-5 col-md-4 col-lg-3 col-xl-3 text-center text-sm-right">
+      <div *ngIf="!(attending$ | async)">
+        <button mat-raised-button (click)="signUp()">Sign Up</button>
+      </div>
+      <div *ngIf="(attending$ | async)">
+        <h5>We have you as attending this Event with a total of {{this.rsvp.numberOfPeople}} people</h5>
+        <button mat-raised-button (click)="signUp()">Change Reservation</button>
+      </div>
     </div>
   </div>
-  <div class="row justify-content-center" *ngIf="!(rsvpLoaded && detailsLoaded)">
+  <div class="row justify-content-center" *ngIf="!loaded">
     <div class="col">
       <h1>LOADING...</h1>
     </div>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeEvent } from '../home-event';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/auth/auth.service';
 import { map } from 'rxjs/operators';
+import { AuthService } from 'src/app/auth/services/auth.service';
+
+import { HomeEvent } from '../home-event';
 
 @Component({
   selector: 'app-home-events',

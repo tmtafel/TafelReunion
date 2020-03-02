@@ -6,6 +6,7 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Let's Go</button>
+  <button *ngIf="!data.rsvp.attending" mat-button (click)="onNoClick()">Nevermind</button>
+  <button mat-button (click)="onYesClick()" cdkFocusInitial>Let's Go</button>
+  <button *ngIf="data.rsvp.attending" mat-button (click)="onNoClick()">Cancle my Reservation</button>
 </div>

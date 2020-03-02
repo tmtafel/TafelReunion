@@ -4,8 +4,8 @@ import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { User } from 'firebase';
 
-import { AuthService } from '../auth.service';
 import { Profile } from '../profile';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',

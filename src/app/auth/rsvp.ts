@@ -11,7 +11,7 @@ export class Rsvp implements IRsvp {
     attending: boolean;
     numberOfPeople: number;
 
-    id: string;
+    id?: string;
 
     constructor(eventId: string, title: string, attending = false, numberOfPeople = 1) {
         this.eventId = eventId;

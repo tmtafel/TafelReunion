@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
 import { map } from 'rxjs/operators';
+
+import { AuthService } from '../auth/services/auth.service';
 
 @Component({
   selector: 'app-home',
