@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import { User } from 'firebase/app';
 import { from, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
-import { Event } from '../event';
 import { Profile } from '../profile';
-import { Rsvp } from '../rsvp';
 
 @Injectable({
   providedIn: 'root',
@@ -25,33 +22,27 @@ export class AuthService {
     this.user = this.afAuth.authState;
   }
 
-
-
-
-
   isLoggedIn(): boolean {
     try {
       const user = JSON.parse(localStorage.getItem('user'));
-      const loggedIn = user !== null;
-      console.log(loggedIn ? 'User is logged in' : 'User is not logged in');
-      return loggedIn;
+      return user !== null;
     } catch (error) {
       console.log(error);
       return false;
     }
   }
 
-  login(email: string, password: string): Observable<firebase.auth.UserCredential> {
-    return from(this.afAuth.auth.signInWithEmailAndPassword(email, password));
+  login(email: string, password: string): Promise<firebase.auth.UserCredential> {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
-  logout(): Observable<boolean> {
+  logout(): Promise<boolean> {
     localStorage.setItem('user', null);
-    return from(this.afAuth.auth.signOut().then(() => {
+    return this.afAuth.auth.signOut().then(() => {
       return true;
-    }).catch(err => {
+    }).catch(() => {
       return false;
-    }));
+    });
   }
 
   createLogin(email: string, password: string): Observable<firebase.auth.UserCredential> {
@@ -74,7 +65,7 @@ export class AuthService {
     };
     return from(this.registrations.doc(profile.id).set(profileObj).then(() => {
       return true;
-    }).catch(err => {
+    }).catch(() => {
       return false;
     }));
   }
@@ -102,7 +93,7 @@ export class AuthService {
     };
     return from(this.registrations.doc(profile.id).set(profileObj).then(() => {
       return true;
-    }).catch(err => {
+    }).catch(() => {
       return false;
     }));
   }

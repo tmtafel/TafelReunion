@@ -9,20 +9,13 @@
           <h2>Loading...</h2>
         </mat-card-content>
         <mat-card-content *ngIf="loaded">
-          <mat-tab-group>
-            <mat-tab label="Events">
-              <rsvps></rsvps>
-            </mat-tab>
-            <mat-tab label="Info" class="row">
-              <profile-name [firstName]="profile.firstName" (firstNameChange)="updateFirstName($event)" [lastName]="profile.lastName"
-                (lastNameChange)="updateLastName($event)"></profile-name>
-              <hr />
-              <profile-address [address]="profile.address" (addressChange)="updateAddress($event)"></profile-address>
-              <hr />
-              <profile-phone [phone]="profile.phone" (phoneChange)="updatePhone($event)"></profile-phone>
-              <button mat-raised-button (click)="updateProfile()">Update</button>
-            </mat-tab>
-          </mat-tab-group>
+          <profile-name [firstName]="profile.firstName" (firstNameChange)="updateFirstName($event)" [lastName]="profile.lastName"
+            (lastNameChange)="updateLastName($event)"></profile-name>
+          <hr />
+          <profile-address [address]="profile.address" (addressChange)="updateAddress($event)"></profile-address>
+          <hr />
+          <profile-phone [phone]="profile.phone" (phoneChange)="updatePhone($event)"></profile-phone>
+          <button mat-raised-button (click)="updateProfile()">Update</button>
         </mat-card-content>
       </mat-card>
     </div>

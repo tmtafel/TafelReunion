@@ -11,19 +11,5 @@ import { AuthService } from './auth/services/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  loggedIn$: Observable<boolean>;
-  constructor(public authService: AuthService, public router: Router) {
-    this.loggedIn$ = this.authService.user.pipe(map(u => u !== null));
-  }
-
-  login() {
-    this.router.navigateByUrl('/login');
-  }
-
-  logout() {
-    this.authService.logout().subscribe(success => {
-      this.router.navigateByUrl('/');
-    });
-  }
-
+  constructor() { }
 }

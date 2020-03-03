@@ -74,11 +74,11 @@ export class EventComponent implements OnInit {
           this.rsvpService.updateRsvp(newRsvp).then(success => {
             if (success) {
               this.rsvp = this.rsvpService.getRsvp(this.event.id);
-              // if (this.rsvp.attending) {
-              //   this.showMessage(`We now have you attending the ${this.rsvp.title} event with ${this.rsvp.numberOfPeople} people total`);
-              // } else {
-              //   this.showMessage(`We now no longer have you attending the ${this.rsvp.title} event`);
-              // }
+              if (this.rsvp.attending) {
+                this.showMessage(`Signup Success`);
+              } else {
+                this.showMessage(`We now no longer have you attending this event`);
+              }
             } else {
               this.showMessage('Error with updating your event, please try again.');
             }

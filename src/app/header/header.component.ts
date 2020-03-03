@@ -11,16 +11,12 @@ import { AuthService } from '../auth/services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  showDatabaseLink = false;
   loggedIn$: Observable<boolean>;
   constructor(public authService: AuthService, public router: Router) {
     this.loggedIn$ = this.authService.user.pipe(map(u => u !== null));
   }
 
   ngOnInit() {
-    this.authService.getCurrentProfile().subscribe(profile => {
-      this.showDatabaseLink = profile.email === 'tmtafel@gmail.com';
-    });
   }
 
   login() {
@@ -28,14 +24,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout().subscribe(success => {
+    this.authService.logout().then(success => {
       this.router.navigateByUrl('/');
     });
-  }
-
-  goToDatabase() {
-    const url = 'https://console.firebase.google.com/project/tafelreunion/database';
-    window.open(url, '_blank');
   }
 
 }
