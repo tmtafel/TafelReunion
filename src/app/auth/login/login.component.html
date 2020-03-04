@@ -10,13 +10,13 @@
             <mat-form-field>
               <input matInput placeholder="Email" formControlName="email" required>
               <mat-error>
-                Please provide a valid email address
+                {{emailError}}
               </mat-error>
             </mat-form-field>
             <mat-form-field>
               <input matInput type="password" placeholder="Password" formControlName="password" required>
               <mat-error>
-                Password Empty
+                {{passwordError}}
               </mat-error>
             </mat-form-field>
             <div class="text-center pt-5">

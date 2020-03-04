@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { NavigationExtras, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
-import { MAT_BOTTOM_SHEET_DATA, MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-login',
@@ -41,10 +42,6 @@ export class LoginComponent implements OnInit {
 
   validateEmail(email: string, password: string) {
     this.authService.login(email, password).then(credential => {
-      if (credential.user !== null) {
-        const json = JSON.stringify(credential.user);
-        localStorage.setItem('user', json);
-      }
       const redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/profile';
       const navigationExtras: NavigationExtras = {
         queryParamsHandling: 'preserve',
@@ -52,31 +49,18 @@ export class LoginComponent implements OnInit {
       };
       this.router.navigateByUrl(redirect, navigationExtras);
     }, error => {
-      this.loginForm.controls.password.asyncValidator
-      this.passwordError = error.code.toString().trim().replace('auth/', '').replace(/-/gi, ' ');
+      const errorCode = error.code.toString();
+      const errorMessage = error.message.toString();
+      console.log(errorMessage);
+
+      const errorTitle = errorCode.trim().replace('auth/', '').replace(/-/gi, ' ');
+      if ((errorCode === 'auth/invalid-email') || (errorCode === 'auth/user-disabled') || (errorCode === 'auth/user-not-found')) {
+        this.emailError = errorTitle;
+        this.loginForm.controls.email.setErrors({ errorCode });
+      } else {
+        this.passwordError = errorTitle;
+        this.loginForm.controls.password.setErrors({ errorCode });
+      }
     });
-  }
-
-  bottomPopup(header: string, message: string) {
-    this.bottomSheet.open(LoginMessageComponent, {
-      data: { header, message }
-    });
-  }
-}
-
-@Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'login-message',
-  templateUrl: 'login-message.html',
-})
-export class LoginMessageComponent {
-  constructor(
-    private bottomSheetRef: MatBottomSheetRef<LoginMessageComponent>,
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: any) {
-  }
-
-  openLink(event: MouseEvent): void {
-    this.bottomSheetRef.dismiss();
-    event.preventDefault();
   }
 }

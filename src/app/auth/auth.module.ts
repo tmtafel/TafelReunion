@@ -9,13 +9,13 @@ import { environment } from 'src/environments/environment';
 import { MaterialModule } from '../shared/material.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { DialogAttending, EventComponent } from './event/event.component';
-import { LoginComponent, LoginMessageComponent } from './login/login.component';
+import { LoginComponent } from './login/login.component';
 import { AddressComponent } from './profile/address/address.component';
 import { NameComponent } from './profile/name/name.component';
 import { PhoneComponent } from './profile/phone/phone.component';
 import { ProfileComponent } from './profile/profile.component';
-import { RsvpsComponent } from './profile/rsvps/rsvps.component';
 import { RegisterComponent } from './register/register.component';
+import { RsvpsComponent } from './rsvps/rsvps.component';
 
 @NgModule({
   imports: [
@@ -37,12 +37,10 @@ import { RegisterComponent } from './register/register.component';
     NameComponent,
     EventComponent,
     RsvpsComponent,
-    DialogAttending,
-    LoginMessageComponent
+    DialogAttending
   ],
   entryComponents: [
-    DialogAttending,
-    LoginMessageComponent
+    DialogAttending
   ]
 })
 export class AuthModule { }

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Event } from '../../event';
-import { Rsvp } from '../../rsvp';
-import { AuthService } from '../../services/auth.service';
-import { EventService } from '../../services/event.service';
-import { RsvpService } from '../../services/rsvp.service';
+import { Event } from '../event';
+import { Rsvp } from '../rsvp';
+import { AuthService } from '../services/auth.service';
+import { EventService } from '../services/event.service';
+import { RsvpService } from '../services/rsvp.service';
 
 @Component({
   // tslint:disable-next-line:component-selector

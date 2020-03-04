@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './auth.guard';
+import { EventComponent } from './event/event.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
-import { EventComponent } from './event/event.component';
+import { RsvpsComponent } from './rsvps/rsvps.component';
 
 const authRoutes: Routes = [
   {
@@ -22,7 +23,12 @@ const authRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'event/:id',
+    path: 'events',
+    component: RsvpsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'events/:id',
     component: EventComponent,
     canActivate: [AuthGuard]
   }
