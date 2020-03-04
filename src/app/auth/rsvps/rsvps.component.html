@@ -1,22 +1,24 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <mat-card [class.mat-elevation-z2]>
-        <mat-card-header>
-          <mat-card-title>
-            Events
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content #gridView [ngStyle]="{ 'width.px': divSize }" [fxShow]="setColNum(gridView.style.width)">
-          <mat-grid-list cols="2" rowHeight="1:1">
-            <mat-grid-tile *ngFor="let rsvp of rsvps$ | async">
-              <h5>{{rsvp.title}}</h5>
-              <h6 *ngIf="rsvp.attending">Going<i class="far fa-thumbs-up pl-1"></i> </h6>
-              <span *ngIf="!rsvp.attending">Not Going<i class="far fa-thumbs-down pl-1"></i></span>
-              <a [routerLink]="['/events', rsvp.eventId]">Change Reservation</a>
-            </mat-grid-tile>
-          </mat-grid-list>
-          <!-- <mat-nav-list>
+
+      <mat-grid-list [cols]="breakpoint" rowHeight="1:1" (window:resize)="onResize($event)">
+        <mat-grid-tile *ngFor="let rsvp of rsvps$ | async">
+          <mat-card [class.mat-elevation-z2]>
+            <mat-card-header>
+              <mat-card-title>
+                {{rsvp.title}}
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content></mat-card-content>
+            <mat-card-actions>
+              <button mat-button [routerLink]="['/events', rsvp.eventId]">Change Reservation</button>
+            </mat-card-actions>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+      <!-- <mat-nav-list>
             <a *ngFor="let rsvp of rsvps$ | async" mat-list-item [routerLink]="['/events', rsvp.eventId]">
               <h5 matLine>{{rsvp.title}}</h5>
               <span matLine *ngIf="rsvp.attending">
@@ -30,8 +32,6 @@
               <h1>LOADING...</h1>
             </mat-list-item>
           </mat-nav-list> -->
-        </mat-card-content>
-      </mat-card>
     </div>
   </div>
 </div>

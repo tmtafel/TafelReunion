@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 
 import { Event } from '../event';
 import { Rsvp } from '../rsvp';
-import { AuthService } from '../services/auth.service';
 import { EventService } from '../services/event.service';
 import { RsvpService } from '../services/rsvp.service';
 
@@ -18,11 +17,13 @@ export class RsvpsComponent implements OnInit {
   rsvps$: Observable<Rsvp[]>;
   events: Event[];
   loading = false;
+  breakpoint: number;
   constructor(private rsvpService: RsvpService, private eventService: EventService) {
     this.rsvps$ = rsvpService.getRsvpsObservable();
   }
 
   ngOnInit() {
+    this.breakpoint = (window.innerWidth <= 400) ? 1 : 6;
     const rsvps = this.rsvpService.getRsvps();
     const events = this.eventService.getEvents();
     if ((rsvps !== null || typeof rsvps !== 'undefined') && (events !== null || typeof events !== 'undefined')) {
@@ -33,25 +34,34 @@ export class RsvpsComponent implements OnInit {
       });
     }
   }
-}
+  // breakpoints: 
+  //   Extra small screen / phone
+  //   xs: 0,
 
+  //   Small screen / phone
+  //   sm: 576px,
 
-@ViewChild('gridView') gridView;
+  //   Medium screen / tablet
+  //   md: 768px,
 
-  columnNum = 3;
+  //   Large screen / desktop
+  //   lg: 992px,
 
-  divSize = 900;
+  //   Extra large screen / wide desktop
+  //   xl: 1200px
 
-  setColNum(div){
-    // console.log(div);
-    if(this.gridView.nativeElement.offsetWidth < 400){
-      this.columnNum = 1;
+  onResize(event) {
+    const width = event.target.innerWidth;
+    if (width > 1200) {
+      this.breakpoint = 5;
+    } else if (width > 992) {
+      this.breakpoint = 4;
+    } else if (width > 768) {
+      this.breakpoint = 3;
+    } else if (width > 576) {
+      this.breakpoint = 2;
+    } else {
+      this.breakpoint = 1;
     }
-    if(this.gridView.nativeElement.offsetWidth >= 400 
-        && this.gridView.nativeElement.offsetWidth < 800){
-      this.columnNum = 2;
-    }
-    if(this.gridView.nativeElement.offsetWidth >= 800){
-      this.columnNum = 3;
-    }
+  }
 }
