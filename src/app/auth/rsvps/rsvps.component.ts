@@ -34,3 +34,24 @@ export class RsvpsComponent implements OnInit {
     }
   }
 }
+
+
+@ViewChild('gridView') gridView;
+
+  columnNum = 3;
+
+  divSize = 900;
+
+  setColNum(div){
+    // console.log(div);
+    if(this.gridView.nativeElement.offsetWidth < 400){
+      this.columnNum = 1;
+    }
+    if(this.gridView.nativeElement.offsetWidth >= 400 
+        && this.gridView.nativeElement.offsetWidth < 800){
+      this.columnNum = 2;
+    }
+    if(this.gridView.nativeElement.offsetWidth >= 800){
+      this.columnNum = 3;
+    }
+}
