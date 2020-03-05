@@ -23,7 +23,7 @@ export class RsvpsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.breakpoint = (window.innerWidth <= 400) ? 1 : 6;
+    this.selectCols(window.innerWidth);
     const rsvps = this.rsvpService.getRsvps();
     const events = this.eventService.getEvents();
     if ((rsvps !== null || typeof rsvps !== 'undefined') && (events !== null || typeof events !== 'undefined')) {
@@ -34,34 +34,17 @@ export class RsvpsComponent implements OnInit {
       });
     }
   }
-  // breakpoints: 
-  //   Extra small screen / phone
-  //   xs: 0,
 
-  //   Small screen / phone
-  //   sm: 576px,
-
-  //   Medium screen / tablet
-  //   md: 768px,
-
-  //   Large screen / desktop
-  //   lg: 992px,
-
-  //   Extra large screen / wide desktop
-  //   xl: 1200px
-
-  onResize(event) {
-    const width = event.target.innerWidth;
-    if (width > 1200) {
-      this.breakpoint = 5;
-    } else if (width > 992) {
-      this.breakpoint = 4;
-    } else if (width > 768) {
+  selectCols(width: number) {
+    if (width > 992) {
       this.breakpoint = 3;
     } else if (width > 576) {
       this.breakpoint = 2;
     } else {
       this.breakpoint = 1;
     }
+  }
+  onResize(event) {
+    this.selectCols(event.target.innerWidth);
   }
 }

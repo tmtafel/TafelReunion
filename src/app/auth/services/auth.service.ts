@@ -61,7 +61,8 @@ export class AuthService {
         zip: profile.address.zip,
         country: profile.address.country
       },
-      phone: profile.phone
+      phone: profile.phone,
+      branch: profile.branch
     };
     return from(this.registrations.doc(profile.id).set(profileObj).then(() => {
       return true;
@@ -89,7 +90,8 @@ export class AuthService {
         zip: profile.address.zip,
         country: profile.address.country
       },
-      phone: profile.phone
+      phone: profile.phone,
+      branch: profile.branch
     };
     return from(this.registrations.doc(profile.id).set(profileObj).then(() => {
       return true;

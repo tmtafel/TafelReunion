@@ -16,6 +16,7 @@ import { PhoneComponent } from './profile/phone/phone.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { RsvpsComponent } from './rsvps/rsvps.component';
+import { BranchComponent } from './profile/branch/branch.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { RsvpsComponent } from './rsvps/rsvps.component';
     NameComponent,
     EventComponent,
     RsvpsComponent,
-    DialogAttending
+    DialogAttending,
+    BranchComponent
   ],
   entryComponents: [
     DialogAttending

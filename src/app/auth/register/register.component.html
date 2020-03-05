@@ -95,6 +95,20 @@
             </div>
           </form>
         </mat-step>
+        <mat-step [stepControl]="branchFormGroup">
+            <form [formGroup]="branchFormGroup">
+              <ng-template matStepLabel>Family Branch</ng-template>
+              <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="branchFormCtrl" placeholder="Paul Tafel">
+              </mat-form-field>
+              <div class="pt-3 d-flex justify-content-between">
+                <button [disabled]="branchFormGroup.pristine || branchFormGroup.invalid" mat-button mat-raised-button (click)="saveFamilyBranch(stepper)">
+                  Save Phone
+                </button>
+              </div>
+            </form>
+          </mat-step>
       </mat-vertical-stepper>
     </div>
   </div>

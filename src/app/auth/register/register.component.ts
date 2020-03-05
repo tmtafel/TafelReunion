@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   loginFormGroup: FormGroup;
   addressFormGroup: FormGroup;
   phoneFormGroup: FormGroup;
+  branchFormGroup: FormGroup;
 
   profile: Profile;
   errorMessage: string;
@@ -66,6 +67,14 @@ export class RegisterComponent implements OnInit {
     this.phoneFormGroup.valueChanges.subscribe(pfg => {
       this.profile.phone = pfg.phoneFormCtrl;
     });
+
+    this.branchFormGroup = this.formBuilder.group({
+      branchFormCtrl: ['', [Validators.required]]
+    });
+
+    this.branchFormGroup.valueChanges.subscribe(bfg => {
+      this.profile.branch = bfg.branchFormCtrl;
+    });
   }
 
   createAccount(stepper: MatStepper) {
@@ -84,7 +93,6 @@ export class RegisterComponent implements OnInit {
   createUserDocument(stepper: MatStepper) {
     console.log(this.profile);
     this.authService.register(this.profile).subscribe(() => {
-      // this.router.navigate([`/profile/${this.user.uid}`]);
       stepper.next();
     }, err => {
       console.log(err);
@@ -103,10 +111,19 @@ export class RegisterComponent implements OnInit {
 
   savePhoneNumber(stepper: MatStepper) {
     this.authService.updateProfile(this.profile).subscribe(() => {
-      this.router.navigate([`/profile`]);
+      stepper.next();
     }, err => {
       console.log(err);
       this.phoneFormGroup.setErrors(err.message);
+    });
+  }
+
+  saveFamilyBranch(stepper: MatStepper) {
+    this.authService.updateProfile(this.profile).subscribe(() => {
+      this.router.navigate([`/profile`]);
+    }, err => {
+      console.log(err);
+      this.branchFormGroup.setErrors(err.message);
     });
   }
 }

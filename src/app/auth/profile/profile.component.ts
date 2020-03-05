@@ -38,6 +38,10 @@ export class ProfileComponent implements OnInit {
     this.profile.phone = newNumber;
   }
 
+  updateBranch(newBranch: string) {
+    this.profile.branch = newBranch;
+  }
+
   updateProfile() {
     if (typeof this.profile.id === 'undefined') {
       this.profile.id = this.authService.getCurrentUserId();

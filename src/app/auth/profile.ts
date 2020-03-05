@@ -7,6 +7,7 @@ export class Profile {
     lastName: string;
     address: Address;
     phone: string;
+    branch: string;
 
     constructor(id: string, email: string) {
         this.id = id;
