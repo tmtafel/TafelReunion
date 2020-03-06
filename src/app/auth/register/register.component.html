@@ -17,9 +17,17 @@
             <div class="py-3">
               <mat-form-field appearance="legacy">
                 <mat-label>Password</mat-label>
-                <input matInput type="password" formControlName="passwordFormCtrl" placeholder="Your password">
+                <input matInput type="password" formControlName="passwordFormCtrl" placeholder="Your Password">
                 <mat-icon matSuffix>lock</mat-icon>
                 <mat-error>Minimum of 6 characters</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="py-3">
+              <mat-form-field appearance="legacy">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput type="password" formControlName="confirmPasswordFormCtrl" placeholder="Confirm Password">
+                <mat-icon matSuffix>lock</mat-icon>
+                <mat-error>Passwords don't match</mat-error>
               </mat-form-field>
             </div>
             <div class="pt-3 d-flex justify-content-center">
@@ -75,7 +83,7 @@
               <input formControlName="countryFormCtrl" matInput placeholder="Country">
             </mat-form-field>
             <div class="pt-3 d-flex justify-content-between">
-              <button [disabled]="addressFormGroup.pristine || addressFormGroup.invalid" mat-button mat-raised-button (click)="addAddressToDocument(stepper)">
+              <button [disabled]="addressFormGroup.pristine || addressFormGroup.invalid" mat-button mat-raised-button matStepperNext>
                 Save Address
               </button>
             </div>
@@ -89,26 +97,26 @@
               <input matInput formControlName="phoneFormCtrl" placeholder="Phone">
             </mat-form-field>
             <div class="pt-3 d-flex justify-content-between">
-              <button [disabled]="phoneFormGroup.pristine || phoneFormGroup.invalid" mat-button mat-raised-button (click)="savePhoneNumber(stepper)">
+              <button [disabled]="phoneFormGroup.pristine || phoneFormGroup.invalid" mat-button mat-raised-button matStepperNext>
                 Save Phone
               </button>
             </div>
           </form>
         </mat-step>
         <mat-step [stepControl]="branchFormGroup">
-            <form [formGroup]="branchFormGroup">
-              <ng-template matStepLabel>Family Branch</ng-template>
-              <mat-form-field>
-                <mat-label>Name</mat-label>
-                <input matInput formControlName="branchFormCtrl" placeholder="Paul Tafel">
-              </mat-form-field>
-              <div class="pt-3 d-flex justify-content-between">
-                <button [disabled]="branchFormGroup.pristine || branchFormGroup.invalid" mat-button mat-raised-button (click)="saveFamilyBranch(stepper)">
-                  Save Phone
-                </button>
-              </div>
-            </form>
-          </mat-step>
+          <form [formGroup]="branchFormGroup">
+            <ng-template matStepLabel>Family Branch</ng-template>
+            <mat-form-field>
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="branchFormCtrl" placeholder="Paul Tafel">
+            </mat-form-field>
+            <div class="pt-3 d-flex justify-content-between">
+              <button [disabled]="branchFormGroup.pristine || branchFormGroup.invalid" mat-button mat-raised-button (click)="saveProfile()">
+                Save Phone
+              </button>
+            </div>
+          </form>
+        </mat-step>
       </mat-vertical-stepper>
     </div>
   </div>

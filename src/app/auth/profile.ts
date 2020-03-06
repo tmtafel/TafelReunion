@@ -21,6 +21,7 @@ export class Profile {
         this.address.zip = '';
         this.address.country = '';
         this.phone = '';
+        this.branch = '';
     }
 }
 

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Address } from '../address';
 import { Profile } from '../profile';
 import { AuthService } from '../services/auth.service';
+import { ProfileService } from '../services/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,13 +14,19 @@ export class ProfileComponent implements OnInit {
   loaded = false;
   profile: Profile;
 
-  constructor(private authService: AuthService) {
+  constructor(private profileService: ProfileService) {
   }
 
   ngOnInit() {
-    this.authService.getCurrentProfile().subscribe(profile => {
-      this.profile = profile;
-      this.loaded = true;
+    this.profile = this.profileService.getCurrentProfile();
+  }
+
+  updateProfile() {
+    this.profileService.updateProfile(this.profile).then(() => {
+      alert('Updated!!');
+    }, err => {
+      console.log(err);
+      alert('Error!!');
     });
   }
 
@@ -42,15 +49,4 @@ export class ProfileComponent implements OnInit {
     this.profile.branch = newBranch;
   }
 
-  updateProfile() {
-    if (typeof this.profile.id === 'undefined') {
-      this.profile.id = this.authService.getCurrentUserId();
-    }
-    this.authService.updateProfile(this.profile).subscribe(() => {
-      alert('Updated!!');
-    }, err => {
-      console.log(err);
-      alert('Error!!');
-    });
-  }
 }
