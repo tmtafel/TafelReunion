@@ -17,6 +17,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { RsvpsComponent } from './rsvps/rsvps.component';
 import { BranchComponent } from './profile/branch/branch.component';
+import { RegisterLoginComponent } from './register/register-login/register-login.component';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { BranchComponent } from './profile/branch/branch.component';
     EventComponent,
     RsvpsComponent,
     DialogAttending,
-    BranchComponent
+    BranchComponent,
+    RegisterLoginComponent
   ],
   entryComponents: [
     DialogAttending

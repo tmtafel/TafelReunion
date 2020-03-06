@@ -4,37 +4,7 @@
     <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
       <mat-vertical-stepper [linear]="true" #stepper>
         <mat-step [stepControl]="loginFormGroup">
-          <form [formGroup]="loginFormGroup">
-            <ng-template matStepLabel>Create a Login</ng-template>
-            <div>
-              <mat-form-field appearance="legacy">
-                <mat-label>Email Address:</mat-label>
-                <input matInput type="email" formControlName="emailFormCtrl" placeholder="Your email">
-                <mat-icon matSuffix>mail_outline</mat-icon>
-                <mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="py-3">
-              <mat-form-field appearance="legacy">
-                <mat-label>Password</mat-label>
-                <input matInput type="password" formControlName="passwordFormCtrl" placeholder="Your Password">
-                <mat-icon matSuffix>lock</mat-icon>
-                <mat-error>Minimum of 6 characters</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="py-3">
-              <mat-form-field appearance="legacy">
-                <mat-label>Confirm Password</mat-label>
-                <input matInput type="password" formControlName="confirmPasswordFormCtrl" placeholder="Confirm Password">
-                <mat-icon matSuffix>lock</mat-icon>
-                <mat-error>Passwords don't match</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="pt-3 d-flex justify-content-center">
-              <button [disabled]="loginFormGroup.pristine || loginFormGroup.invalid" mat-button mat-raised-button (click)="createAccount(stepper)">Create
-                Login</button>
-            </div>
-          </form>
+          <register-login></register-login>
         </mat-step>
         <mat-step [stepControl]="nameFormGroup">
           <form [formGroup]="nameFormGroup">
