@@ -14,6 +14,7 @@ export class ProfileService {
   constructor(authService: AuthService, public db: AngularFirestore) {
     this.userId = authService.getCurrentUserId();
     this.registrations = db.collection<Profile>('registrations');
+    this.profile = db.doc<Profile>(`registrations/${this.userId}`).valueChanges();
     if (this.userId !== null) {
       db.doc<Profile>(`registrations/${this.userId}`).snapshotChanges().subscribe(this.profileChangeListener);
     }

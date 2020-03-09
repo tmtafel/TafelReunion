@@ -1,32 +1,35 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 pb-4">
+    <div class="col-12 d-flex justify-content-between">
       <button mat-raised-button routerLink="/events">
         <i class="material-icons">arrow_back</i>Back
       </button>
+      <button mat-raised-button (click)="signUp()">
+        {{(attending$ | async) ? 'Change Reservation' : 'Sign Up'}}
+      </button>
+    </div>
+    <div class="col-12 pt-3 pb-4 text-right">
+      <h5 *ngIf="(attending$ | async)">We have you as attending with {{this.rsvp.numberOfPeople}} {{(this.rsvp.numberOfPeople === 1) ? 'person' : 'people'}}
+      </h5>
     </div>
   </div>
   <div class="row" *ngIf="loaded">
-    <div class="col-12 col-sm-7 col-md-8 col-lg-9 col-xl-9">
+    <div class="col-12 col-sm-6">
       <h2>{{event.title}}</h2>
       <h4>{{when | date:'MMMM dd h:mm a'}}</h4>
       <address>
         {{event.address.street}}<br />
         {{event.address.city}}, {{event.address.state}} {{event.address.zip}}
       </address>
-      <p>
-        <strong>About:</strong><br />
-        {{event.summary}}
-      </p>
     </div>
-    <div class="col-12 col-sm-5 col-md-4 col-lg-3 col-xl-3 text-center text-sm-right">
-      <div *ngIf="!(attending$ | async)">
-        <button mat-raised-button (click)="signUp()">Sign Up</button>
-      </div>
-      <div *ngIf="(attending$ | async)">
-        <h5>We have you as attending this Event with a total of {{this.rsvp.numberOfPeople}} people</h5>
-        <button mat-raised-button (click)="signUp()">Change Reservation</button>
-      </div>
+    <div class="col-12 col-sm-6">
+      <img class="w-100" mat-card-image src="../../../assets/barrel-racks.jpg">
+    </div>
+    <div class="col-12">
+      <p>
+        <strong>About:</strong>
+      </p>
+      <p [innerHtml]="event.summary"></p>
     </div>
   </div>
   <div class="row justify-content-center" *ngIf="!loaded">

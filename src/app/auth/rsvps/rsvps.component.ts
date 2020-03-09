@@ -23,7 +23,6 @@ export class RsvpsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.selectCols(window.innerWidth);
     const rsvps = this.rsvpService.getRsvps();
     const events = this.eventService.getEvents();
     if ((rsvps !== null || typeof rsvps !== 'undefined') && (events !== null || typeof events !== 'undefined')) {
@@ -33,18 +32,5 @@ export class RsvpsComponent implements OnInit {
         }
       });
     }
-  }
-
-  selectCols(width: number) {
-    if (width > 992) {
-      this.breakpoint = 3;
-    } else if (width > 576) {
-      this.breakpoint = 2;
-    } else {
-      this.breakpoint = 1;
-    }
-  }
-  onResize(event) {
-    this.selectCols(event.target.innerWidth);
   }
 }

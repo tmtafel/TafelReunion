@@ -4,6 +4,7 @@ import { Address } from '../address';
 import { Profile } from '../profile';
 import { AuthService } from '../services/auth.service';
 import { ProfileService } from '../services/profile.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile',
@@ -11,10 +12,9 @@ import { ProfileService } from '../services/profile.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  loaded = false;
   profile: Profile;
 
-  constructor(private profileService: ProfileService) {
+  constructor(private profileService: ProfileService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -23,10 +23,10 @@ export class ProfileComponent implements OnInit {
 
   updateProfile() {
     this.profileService.updateProfile(this.profile).then(() => {
-      alert('Updated!!');
+      this.snackBar.open('Updated', 'X', { duration: 3000 });
     }, err => {
       console.log(err);
-      alert('Error!!');
+      this.snackBar.open('Error', 'X', { duration: 3000 });
     });
   }
 
