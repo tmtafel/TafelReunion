@@ -14,23 +14,24 @@ import { RsvpService } from '../services/rsvp.service';
 })
 export class RsvpsComponent implements OnInit {
 
-  rsvps$: Observable<Rsvp[]>;
-  events: Event[];
+  rsvps: Rsvp[];
   loading = false;
   breakpoint: number;
   constructor(private rsvpService: RsvpService, private eventService: EventService) {
-    this.rsvps$ = rsvpService.getRsvpsObservable();
+
   }
 
   ngOnInit() {
-    const rsvps = this.rsvpService.getRsvps();
-    const events = this.eventService.getEvents();
-    if ((rsvps !== null || typeof rsvps !== 'undefined') && (events !== null || typeof events !== 'undefined')) {
-      events.forEach(evt => {
-        if (rsvps.filter(r => r.eventId === evt.id).length === 0) {
-          this.rsvpService.addRsvp(evt);
+    this.rsvps = this.eventService.getEvents().map(evt => new Rsvp(evt.id, evt.title));
+
+    this.rsvpService.getRsvpsObservable().subscribe(rsvps => {
+      this.rsvps.forEach(rsvp => {
+        const cRsvp = rsvps.filter(r => r.eventId === rsvp.eventId)[0];
+        if (typeof (cRsvp) !== 'undefined' && cRsvp !== null) {
+          rsvp.attending = cRsvp.attending;
+          rsvp.numberOfPeople = cRsvp.numberOfPeople;
         }
       });
-    }
+    });
   }
 }

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from './auth.service';
-import { AngularFirestore, DocumentChangeAction, DocumentSnapshot, Action, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Profile } from '../profile';
+import { Action, AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, DocumentSnapshot } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { Profile } from '../profile';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,32 +17,21 @@ export class ProfileService {
     this.userId = authService.getCurrentUserId();
     this.registrations = db.collection<Profile>('registrations');
     this.profile = db.doc<Profile>(`registrations/${this.userId}`).valueChanges();
-    if (this.userId !== null) {
-      db.doc<Profile>(`registrations/${this.userId}`).snapshotChanges().subscribe(this.profileChangeListener);
-    }
   }
 
-  private profileChangeListener(profileDoc: Action<DocumentSnapshot<Profile>>) {
-    if (profileDoc !== null) {
-      const profile = profileDoc.payload.data();
-      profile.id = profileDoc.payload.id;
-      const json = JSON.stringify(profile);
-      localStorage.setItem('profile', json);
-    } else {
-      localStorage.setItem('profile', null);
-    }
-  }
-  getCurrentProfile(): Profile {
-    try {
-      const profile = JSON.parse(localStorage.getItem('profile')) as Profile;
-      return profile;
-    } catch (error) {
-      console.log(error);
+  getCurrentProfile(): Observable<Profile> {
+    return this.registrations.doc<Profile>(this.userId)
+    .snapshotChanges().pipe(map(profile => {
+      if (profile) {
+        const prfl = profile.payload.data();
+        prfl.id = profile.payload.id;
+        return prfl;
+      }
       return null;
-    }
+    }));
   }
 
-  updateProfile(profile: Profile): Promise<boolean> {
+  updateProfile(profile: Profile): Promise<Profile> {
     const profileObj = {
       firstName: profile.firstName,
       lastName: profile.lastName,
@@ -57,9 +48,9 @@ export class ProfileService {
     };
 
     return this.registrations.doc(profile.id).set(profileObj).then(() => {
-      return true;
+      return profile;
     }).catch(() => {
-      return false;
+      return null;
     });
   }
 }

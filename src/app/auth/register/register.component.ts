@@ -90,13 +90,8 @@ export class RegisterComponent implements OnInit {
     const password = this.loginFormGroup.controls.passwordFormCtrl.value;
     const email = this.loginFormGroup.controls.emailFormCtrl.value;
     this.authService.register(email, password).then(credential => {
-      this.db.doc<Profile>(`registrations/${credential.user.uid}`).valueChanges().subscribe(profile => {
-        if (profile) {
-          this.profile = profile;
-          this.profile.id = credential.user.uid;
-          stepper.next();
-        }
-      });
+      this.profile = new Profile(credential.user.uid, credential.user.email);
+      stepper.next();
     }, err => {
       console.log(err);
       this.loginFormGroup.controls.emailFormCtrl.setErrors(err.code);
@@ -111,6 +106,7 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
+  
   MustMatch(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[controlName];

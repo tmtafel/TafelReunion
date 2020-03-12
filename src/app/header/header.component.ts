@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -12,7 +12,8 @@ import { AuthService } from '../auth/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   loggedIn$: Observable<boolean>;
-  constructor(public authService: AuthService, public router: Router) {
+  currentUrl: string;
+  constructor(public authService: AuthService, public router: Router, private route: ActivatedRoute) {
     this.loggedIn$ = this.authService.user.pipe(map(u => u !== null));
   }
 
