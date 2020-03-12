@@ -15,7 +15,7 @@ import { HomeEventsComponent } from './home/home-events/home-events.component';
 import { HomeEventComponent } from './home/home-event/home-event.component';
 import { HeaderComponent } from './header/header.component';
 import { HotelComponent } from './home/hotel/hotel.component';
-
+import { MatCarouselModule } from '@ngmodule/material-carousel';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +33,8 @@ import { HotelComponent } from './home/hotel/hotel.component';
     BrowserAnimationsModule,
     AuthModule,
     AdminModule,
-    FormsModule
+    FormsModule,
+    MatCarouselModule.forRoot()
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

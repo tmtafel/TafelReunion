@@ -3,8 +3,13 @@
     <mat-card-title>HOTEL DISTIL</mat-card-title>
     <mat-card-subtitle>You can cancel Hotel with 48-hour notice</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src="../../../assets/hotel-distil.jpg" alt="Hotel Distil">
+  <!-- <img mat-card-image src="../../../assets/hotel-distil.jpg" alt="Hotel Distil"> -->
+  <mat-card-content>
+    <mat-carousel>
+      <mat-carousel-slide #matCarouselSlide *ngFor="let slide of slides; let i = index" [image]="slide.image" overlayColor="#00000040" [hideOverlay]="false"></mat-carousel-slide>
+    </mat-carousel>
+  </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button>Book Hotel</button>
+    <button mat-raised-button (click)="goToHotelBooking()">Book Hotel</button>
   </mat-card-actions>
 </mat-card>
