@@ -16,6 +16,7 @@ import { HomeEventComponent } from './home/home-event/home-event.component';
 import { HeaderComponent } from './header/header.component';
 import { HotelComponent } from './home/hotel/hotel.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
     HomeEventsComponent,
     HomeEventComponent,
     HeaderComponent,
-    HotelComponent
+    HotelComponent,
+    FileUploadComponent
   ],
   imports: [
     MaterialModule,
