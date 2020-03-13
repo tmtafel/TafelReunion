@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HotelService } from 'src/app/services/hotel.service';
+import { Hotel } from 'src/app/shared/hotel';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-hotel',
@@ -6,18 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hotel.component.scss']
 })
 export class HotelComponent implements OnInit {
-  slides = [];
+  hotels$: Hotel[];
   url = 'https://www.marriott.com/event-reservations/reservation-link.mi?id=1564439582731&key=GRP&app=resvlink';
-  constructor() { }
+  constructor(private db: AngularFirestore) { }
 
   ngOnInit() {
-    this.slides.push({ image: '../../../assets/distil.jpg' });
-    this.slides.push({ image: '../../../assets/aloft.jpg' });
-    this.slides.push({ image: '../../../assets/moxy.jpg' });
+    this.hotels = this.db..getHotels();
   }
 
   goToHotelBooking() {
-    window.open(this.url, "_blank");
+    window.open(this.url, '_blank');
   }
 
 }
