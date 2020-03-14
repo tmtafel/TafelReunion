@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './admin/admin.component';
-import { ManageGuestsComponent } from './manage-guests/manage-guests.component';
+import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
 
 const adminRoutes: Routes = [
   {
@@ -16,7 +16,7 @@ const adminRoutes: Routes = [
         path: '',
         canActivateChild: [AuthGuard],
         children: [
-          { path: 'guests', component: ManageGuestsComponent },
+          { path: 'hotels', component: ManageHotelsComponent },
           { path: '', component: AdminDashboardComponent }
         ]
       }

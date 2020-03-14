@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Hotel } from 'src/app/shared/hotel';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { map } from 'rxjs/operators';
+import { Hotel } from '../hotel';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -19,7 +19,7 @@ export class HotelComponent implements OnInit {
 
   ngOnInit() {
     try {
-      this.storage.ref(`/hotels/${this.hotel.name}.jpg`).getDownloadURL().subscribe(url => {
+      this.storage.ref(`hotels/${this.hotel.name.toLowerCase()}.jpg`).getDownloadURL().subscribe(url => {
         this.imageUrl = url;
       });
     } catch (err) {

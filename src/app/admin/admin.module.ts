@@ -4,17 +4,19 @@ import { NgModule } from '@angular/core';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin/admin.component';
-import { ManageGuestsComponent } from './manage-guests/manage-guests.component';
+import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
+import { MaterialModule } from '../shared/material.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    MaterialModule
   ],
   declarations: [
     AdminComponent,
     AdminDashboardComponent,
-    ManageGuestsComponent
+    ManageHotelsComponent
   ]
 })
 export class AdminModule { }
