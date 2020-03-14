@@ -1,23 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Hotel } from 'src/app/shared/hotel';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-hotel',
+  // tslint:disable-next-line:component-selector
+  selector: 'hotel',
   templateUrl: './hotel.component.html',
   styleUrls: ['./hotel.component.scss']
 })
 export class HotelComponent implements OnInit {
-  hotels$: Observable<Hotel[]>;
-  url = 'https://www.marriott.com/event-reservations/reservation-link.mi?id=1564439582731&key=GRP&app=resvlink';
-  constructor(private db: AngularFirestore) { }
+  @Input() hotel: Hotel;
+
+  imageUrl: '';
+  constructor(private storage: AngularFireStorage) { }
 
   ngOnInit() {
-    this.hotels$ = this.db.collection<Hotel>('hotels').valueChanges();
-  }
-
-  goToHotelBooking() {
-    window.open(this.url, '_blank');
+    try {
+      this.storage.ref(`/hotels/${this.hotel.name}.jpg`).getDownloadURL().subscribe(url => {
+        this.imageUrl = url;
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { RsvpsComponent } from './rsvps/rsvps.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 const authRoutes: Routes = [
   {
@@ -31,6 +32,10 @@ const authRoutes: Routes = [
     path: 'events/:id',
     component: EventComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'upload',
+    component: FileUploadComponent
   }
 ];
 

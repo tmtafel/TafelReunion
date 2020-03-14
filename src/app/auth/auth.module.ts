@@ -17,6 +17,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { RsvpsComponent } from './rsvps/rsvps.component';
 import { BranchComponent } from './profile/branch/branch.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 @NgModule({
   imports: [
@@ -27,7 +30,9 @@ import { BranchComponent } from './profile/branch/branch.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    MaterialModule
+    MaterialModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule
   ],
   declarations: [
     LoginComponent,
@@ -39,7 +44,8 @@ import { BranchComponent } from './profile/branch/branch.component';
     EventComponent,
     RsvpsComponent,
     DialogAttending,
-    BranchComponent
+    BranchComponent,
+    FileUploadComponent
   ],
   entryComponents: [
     DialogAttending

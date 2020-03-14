@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { finalize } from "rxjs/operators";
+import { finalize } from 'rxjs/operators';
 import { FileService } from './file.service';
 
 @Component({
@@ -13,7 +13,9 @@ export class FileUploadComponent implements OnInit {
   url: string;
   id: string;
   file: string;
-  constructor(@Inject(AngularFireStorage) private storage: AngularFireStorage, @Inject(FileService) private fileService: FileService) { }
+  constructor(
+    @Inject(AngularFireStorage) private storage: AngularFireStorage,
+    @Inject(FileService) private fileService: FileService) { }
 
   ngOnInit() {
     this.fileService.getImageDetailList();
@@ -24,7 +26,7 @@ export class FileUploadComponent implements OnInit {
   }
 
   save() {
-    var name = this.selectedImage.name;
+    const name = this.selectedImage.name;
     const fileRef = this.storage.ref(name);
     this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
       finalize(() => {
@@ -32,11 +34,11 @@ export class FileUploadComponent implements OnInit {
           this.url = url;
           this.fileService.insertImageDetails(this.id, this.url);
           alert('Upload Successful');
-        })
+        });
       })
     ).subscribe();
   }
-  
+
   view() {
     this.fileService.getImage(this.file);
   }

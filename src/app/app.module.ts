@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,8 +15,7 @@ import { HomeEventsComponent } from './home/home-events/home-events.component';
 import { HomeEventComponent } from './home/home-event/home-event.component';
 import { HeaderComponent } from './header/header.component';
 import { HotelComponent } from './home/hotel/hotel.component';
-import { MatCarouselModule } from '@ngmodule/material-carousel';
-import { FileUploadComponent } from './file-upload/file-upload.component';
+import { HotelsComponent } from './home/hotels/hotels.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +26,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     HomeEventComponent,
     HeaderComponent,
     HotelComponent,
-    FileUploadComponent
+    HotelsComponent
   ],
   imports: [
     MaterialModule,
@@ -35,8 +34,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     BrowserAnimationsModule,
     AuthModule,
     AdminModule,
-    FormsModule,
-    MatCarouselModule.forRoot()
+    FormsModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
