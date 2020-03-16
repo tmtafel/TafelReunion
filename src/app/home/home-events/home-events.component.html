@@ -5,7 +5,8 @@
   <mat-card-content>
     <mat-list role="list">
       <mat-list-item role="listitem" *ngFor="let event of events">
-        <app-home-event [event]="event"></app-home-event>
+        <div class="home-event" [innerHtml]="sanitize(event.html)">
+        </div>
       </mat-list-item>
     </mat-list>
   </mat-card-content>

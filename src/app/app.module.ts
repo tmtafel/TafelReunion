@@ -12,9 +12,7 @@ import { MaterialModule } from './shared/material.module';
 import { CitiesComponent } from './home/cities/cities.component';
 import { NearbyComponent } from './home/nearby/nearby.component';
 import { HomeEventsComponent } from './home/home-events/home-events.component';
-import { HomeEventComponent } from './home/home-event/home-event.component';
 import { HeaderComponent } from './header/header.component';
-import { HotelComponent } from './home/hotel/hotel.component';
 import { HotelsComponent } from './home/hotels/hotels.component';
 @NgModule({
   declarations: [
@@ -23,9 +21,7 @@ import { HotelsComponent } from './home/hotels/hotels.component';
     CitiesComponent,
     NearbyComponent,
     HomeEventsComponent,
-    HomeEventComponent,
     HeaderComponent,
-    HotelComponent,
     HotelsComponent
   ],
   imports: [

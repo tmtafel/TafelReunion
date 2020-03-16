@@ -20,20 +20,26 @@ export class ManageHotelsComponent implements OnInit {
       return hotels.map(htl => {
         const hotel = htl.payload.doc.data();
         hotel.id = htl.payload.doc.id;
+        this.getImageUrl(hotel.name).subscribe(url => {
+          hotel.imageUrl = url;
+        });
         return hotel;
       });
     }));
   }
 
-  getImageUrl(hotelName: string): string {
+  getImageUrl(hotelName: string): Observable<string> {
     try {
-      this.storage.ref(`hotels/${hotelName.toLowerCase()}.jpg`).getDownloadURL().pipe(url => {
+      return this.storage.ref(`hotels/${hotelName.toLowerCase()}.jpg`).getDownloadURL().pipe(map(url => {
         return url;
-      });
+      }));
     } catch (err) {
       console.log(err);
-      return '';
     }
+  }
+
+  editHotel(id: string) {
+    console.log(id);
   }
 
 }

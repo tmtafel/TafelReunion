@@ -43,6 +43,7 @@ export class ProfileComponent implements OnInit {
   updateAddress(newAddress: Address) {
     this.profile.address = newAddress;
   }
+  
   updatePhone(newNumber: string) {
     this.profile.phone = newNumber;
   }

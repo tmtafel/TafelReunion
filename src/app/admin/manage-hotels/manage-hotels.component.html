@@ -5,7 +5,7 @@
         <mat-card-header>
           <mat-card-title>{{hotel.name}}</mat-card-title>
         </mat-card-header>
-        <img mat-card-image src="getImageUrl(hotel.name)" alt="{{hotel.name}}">
+        <img mat-card-image src="{{hotel.imageUrl}}" alt="{{hotel.name}}">
         <mat-card-content>
           <address>
             {{hotel.address.street}}<br />
@@ -14,7 +14,7 @@
           </address>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button></button>
+          <button mat-raised-button mat-button  [routerLink]="['/admin/hotels', hotel.id]">Edit Hotel</button>
         </mat-card-actions>
       </mat-card>
     </div>
