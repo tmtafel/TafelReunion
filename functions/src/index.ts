@@ -4,84 +4,55 @@ import * as functions from 'firebase-functions';
 admin.initializeApp(functions.config().firebase);
 const db = admin.firestore();
 
-export interface IEvent {
-    eventId: string;
-    title: string;
-}
-
-
-
 export const createRegistration = functions.auth.user().onCreate(async (user, context) => {
-    const registration = db.doc(`registrations/${user.uid}`);
-    return registration.set({
-        address: {
-            city: '',
-            country: '',
-            state: '',
-            street: '',
-            zip: ''
-        },
-        branch: '',
-        email: user.email,
-        firstName: '',
-        lastName: '',
-        phone: ''
-    }).then(() => {
-        console.log(`Created Registration ${user.uid}`);
-        const events = db.collection("events");
-        return events.listDocuments().then(docs => {
-            docs.forEach(async doc => {
-                let evtObj;
-                await doc.get().then(data => {
-                    const evt = data.data() as IEvent;
-                    return evtObj = {
-                        eventId: evt.eventId,
-                        title: evt.title,
-                        attending: false,
-                        numberOfPeople: 1
-                    };
-                }).catch(() => {
-                    console.log("error reading data in doc");
-                    return;
-                });
-                if (evtObj) {
-                    await registration.collection('events').add(evtObj);
-                }
-                return;
-            });
-        }).catch(() => {
-            console.log(`Error Listing docs`);
-            return;
+    try {
+        const id = user.uid;
+        await db.doc(`registrations/${id}`).set({
+            address: {
+                city: '',
+                country: '',
+                state: '',
+                street: '',
+                zip: ''
+            },
+            branch: '',
+            email: user.email,
+            firstName: '',
+            lastName: '',
+            phone: ''
         });
-    }).catch(() => {
-        console.log(`Error Creating registrsagion`);
+        const events = await db.collection('events').listDocuments();
+        const eventObjs = events.map(evt => {
+            return {
+                eventId: evt.id,
+                attending: false,
+                numberOfPeople: 1
+            };
+        });
+        const promises: Promise<FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>>[] = [];
+        eventObjs.forEach(evtObj => {
+            const p = db.collection(`/registrations/${id}/events`).add(evtObj);
+            promises.push(p);
+        });
+        return await Promise.all(promises);
+    } catch (err) {
+        console.error(err);
         return;
-    });;
+    }
 });
 
-
-
-
-export const deleteRegistration = functions.auth.user().onDelete((user) => {
+export const deleteRegistration = functions.auth.user().onDelete(async (user) => {
     const registrations = db.collection("registrations");
     const uid = user.uid;
     const registration = registrations.doc(uid);
-    const rsvps = registration.collection('events');
-    rsvps.listDocuments().then((docs) => {
-        docs.forEach(async doc => {
-            await doc.delete();
-        });
-        return;
-    }).catch(() => {
-        console.log("Error listing documents document");
-        return;
+    const rsvps = await registration.collection('events').listDocuments();
+    const promises: Promise<FirebaseFirestore.WriteResult>[] = [];
+    rsvps.forEach(rsvp => {
+        const p = rsvp.delete();
+        promises.push(p);
     });
 
-    return registrations.doc(uid).delete().then(() => {
-        console.log(`Registration ${uid} successfully deleted!`);
-        return;
-    }).catch(() => {
-        console.log("Error removing registration");
-        return;
-    });
+    await Promise.all(promises);
+
+    return registration.delete();
 });

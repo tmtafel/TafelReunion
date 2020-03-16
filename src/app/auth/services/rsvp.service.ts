@@ -15,23 +15,6 @@ export class RsvpService {
   rsvps: Observable<Rsvp[]>;
   constructor(authService: AuthService, public db: AngularFirestore) {
     this.userId = authService.getCurrentUserId();
-    if (this.userId !== null) {
-      db.collection<Rsvp>(`registrations/${this.userId}/events`).snapshotChanges().subscribe(this.rsvpsChangeListener);
-    }
-  }
-
-  private rsvpsChangeListener(rsvpsDoc: DocumentChangeAction<Rsvp>[]) {
-    if (rsvpsDoc !== null) {
-      const rsvps = rsvpsDoc.map(rsvpDoc => {
-        const rsvp = rsvpDoc.payload.doc.data();
-        rsvp.id = rsvpDoc.payload.doc.id;
-        return rsvp;
-      });
-      const json = JSON.stringify(rsvps);
-      localStorage.setItem('rsvps', json);
-    } else {
-      localStorage.setItem('rsvps', null);
-    }
   }
 
   getRsvpsObservable(): Observable<Rsvp[]> {
@@ -43,16 +26,6 @@ export class RsvpService {
           return rsvp;
         });
       }));
-  }
-
-  getRsvps(): Rsvp[] {
-    try {
-      const rsvps = JSON.parse(localStorage.getItem('rsvps')) as Rsvp[];
-      return rsvps;
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
   }
 
   getRsvpObservable(eventId: string): Observable<Rsvp> {
@@ -67,32 +40,7 @@ export class RsvpService {
       }));
   }
 
-  getRsvp(eventId: string): Rsvp {
-    try {
-      const rsvps = JSON.parse(localStorage.getItem('rsvps')) as Rsvp[];
-      const filteredRsvps = rsvps.filter(r => r.eventId === eventId);
-      return filteredRsvps.length > 0 ? filteredRsvps[0] : null;
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  }
-
-
-  addRsvp(event: Event): Promise<boolean> {
-    const rsvpObj = {
-      eventId: event.id,
-      title: event.title,
-      attending: false,
-      numberOfPeople: 1
-    };
-    return this.db.collection<Rsvp>(`registrations/${this.userId}/events`).add(rsvpObj)
-      .then(() => true)
-      .catch(err => false);
-  }
-
-
-  updateRsvp(rsvp: Rsvp): Promise<boolean> {
+  updateRsvp(rsvp: Rsvp): Promise<Rsvp> {
     const rsvpObj = {
       attending: rsvp.attending,
       eventId: rsvp.eventId,
@@ -102,9 +50,9 @@ export class RsvpService {
     const rsvpDoc = this.db.doc(`registrations/${this.userId}/events/${rsvp.id}`);
     return rsvpDoc.update(rsvpObj)
       .then(() => {
-        return true;
+        return rsvp;
       }).catch(err => {
-        return false;
+        return null;
       });
   }
 

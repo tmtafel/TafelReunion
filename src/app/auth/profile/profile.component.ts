@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Address } from '../address';
 import { Profile } from '../profile';
 import { AuthService } from '../services/auth.service';
 import { ProfileService } from '../services/profile.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +18,9 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.profile = this.profileService.getCurrentProfile();
+    this.profileService.getCurrentProfile().subscribe(profile => {
+      this.profile = profile;
+    });
   }
 
   updateProfile() {
@@ -41,6 +43,7 @@ export class ProfileComponent implements OnInit {
   updateAddress(newAddress: Address) {
     this.profile.address = newAddress;
   }
+  
   updatePhone(newNumber: string) {
     this.profile.phone = newNumber;
   }

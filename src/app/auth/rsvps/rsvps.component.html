@@ -4,8 +4,8 @@
       <h2 class="text-center">Events</h2>
     </div>
   </div>
-  <div class="row align-items-center">
-    <div class="col-lg-6 col-12 py-3" *ngFor="let rsvp of rsvps$ | async">
+  <div class="row align-items-center" *ngIf="rsvps">
+    <div class="col-lg-6 col-12 py-3" *ngFor="let rsvp of rsvps">
       <mat-card [class.mat-elevation-z6]="true">
         <img mat-card-image src="../../../assets/barrel-racks.jpg">
         <mat-card-content>

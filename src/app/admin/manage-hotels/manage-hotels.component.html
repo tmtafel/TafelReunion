@@ -1,0 +1,22 @@
+<div class="container-fluid" *ngIf="hotels$">
+  <div class="row  justify-content-center">
+    <div class="col-12 col-sm-6 col-md-4 py-3" *ngFor="let hotel of hotels$ | async">
+      <mat-card [class.mat-elevation-z6]="true">
+        <mat-card-header>
+          <mat-card-title>{{hotel.name}}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src="{{hotel.imageUrl}}" alt="{{hotel.name}}">
+        <mat-card-content>
+          <address>
+            {{hotel.address.street}}<br />
+            {{hotel.address.city}}, {{hotel.address.state}} {{hotel.address.zip}}<br />
+            {{hotel.phone}}
+          </address>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button mat-button  [routerLink]="['/admin/hotels', hotel.id]">Edit Hotel</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -11,6 +11,7 @@ export class Event {
     signupOpenTill: Timestamp;
     summary: string;
     when: Timestamp;
+    imageUrl: string;
 
 
     constructor() {

@@ -17,8 +17,8 @@ import { RsvpService } from '../services/rsvp.service';
 })
 export class EventComponent implements OnInit {
 
+  attending: boolean;
   attending$: Observable<boolean>;
-
   eventId: string;
 
   rsvp: Rsvp;
@@ -45,12 +45,14 @@ export class EventComponent implements OnInit {
       this.eventId = params.get('id');
       this.event = this.eventService.getEvent(this.eventId);
       this.when = this.eventService.getEventDate(this.eventId);
-      this.rsvp = this.rsvpService.getRsvp(this.eventId);
-      if (this.rsvp) {
-        this.numberOfPeople = this.rsvp.numberOfPeople;
-        this.attending$ = this.rsvpService.isCurrentUserAttendingEvent(this.rsvp.id);
+      this.rsvpService.getRsvpObservable(this.eventId).subscribe(rsvp => {
+        this.numberOfPeople = rsvp.numberOfPeople;
+        this.attending = rsvp.attending;
+        this.rsvp = new Rsvp(this.eventId, this.event.title, this.attending, this.numberOfPeople);
+        this.rsvp.id = rsvp.id;
+        this.attending$ = this.rsvpService.isCurrentUserAttendingEvent(rsvp.id);
         this.loaded = true;
-      }
+      });
     });
   }
 
@@ -63,7 +65,7 @@ export class EventComponent implements OnInit {
   signUp(): void {
     const rsvp = new Rsvp(this.eventId, this.event.title, this.rsvp.attending, this.rsvp.numberOfPeople);
     const dialogAttending = this.dialog.open(DialogAttending, {
-      width: '250px',
+      width: '300px',
       data: { rsvp }
     });
 
@@ -71,9 +73,9 @@ export class EventComponent implements OnInit {
       if (newRsvp) {
         newRsvp.id = this.rsvp.id;
         if (this.rsvp !== newRsvp) {
-          this.rsvpService.updateRsvp(newRsvp).then(success => {
-            if (success) {
-              this.rsvp = this.rsvpService.getRsvp(this.event.id);
+          this.rsvpService.updateRsvp(newRsvp).then(updatedRsvp => {
+            if (updatedRsvp) {
+              this.rsvp = updatedRsvp;
               if (this.rsvp.attending) {
                 this.showMessage(`Signup Success`);
               } else {

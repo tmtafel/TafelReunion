@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,10 +12,8 @@ import { MaterialModule } from './shared/material.module';
 import { CitiesComponent } from './home/cities/cities.component';
 import { NearbyComponent } from './home/nearby/nearby.component';
 import { HomeEventsComponent } from './home/home-events/home-events.component';
-import { HomeEventComponent } from './home/home-event/home-event.component';
 import { HeaderComponent } from './header/header.component';
-import { HotelComponent } from './home/hotel/hotel.component';
-
+import { HotelsComponent } from './home/hotels/hotels.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,9 +21,8 @@ import { HotelComponent } from './home/hotel/hotel.component';
     CitiesComponent,
     NearbyComponent,
     HomeEventsComponent,
-    HomeEventComponent,
     HeaderComponent,
-    HotelComponent
+    HotelsComponent
   ],
   imports: [
     MaterialModule,
