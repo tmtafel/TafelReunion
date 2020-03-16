@@ -15,8 +15,7 @@ export class EventWhenComponent implements OnInit {
   date: Date;
   time: Date;
   dateFormControl: FormControl;
-  private exportTime = { hour: 7, minute: 15, meriden: 'PM', format: 24 };
-
+  timeFormControl: FormControl;
   constructor() {
   }
 
@@ -25,7 +24,7 @@ export class EventWhenComponent implements OnInit {
     this.date = this.when;
     this.time = this.when;
     this.dateFormControl = new FormControl(this.date);
-    // this.timeFormControl = new FormControl(this.time);
+    this.timeFormControl = new FormControl(this.time);
   }
 
   dateChanged(evt: MatDatepickerInputEvent<Date>) {
