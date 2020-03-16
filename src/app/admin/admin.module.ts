@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
+import { MaterialTimePickerModule } from '@candidosales/material-time-picker';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -28,7 +28,8 @@ import { EventWhenComponent } from './manage-event/event-when/event-when.compone
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    MaterialTimePickerModule
   ],
   declarations: [
     AdminComponent,

@@ -12,6 +12,6 @@
   </mat-form-field>
   <mat-form-field class="col-12">
     <mat-label>Choose a time</mat-label>
-    <input matInput type="time" [formControl]="timeFormControl">
+    <material-timepicker color="primary" label="Hour 2" appearance="standard" [userTime]="exportTime" (change)="onChangeHour($event)" revertLabel="Remove" submitLabel="Ok"></material-timepicker>
   </mat-form-field>
 </div>
