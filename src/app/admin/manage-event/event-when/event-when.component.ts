@@ -19,11 +19,12 @@ export class EventWhenComponent implements OnInit {
   timeFormControl: FormControl;
 
   constructor() {
-    this.date = this.when;
-    this.time = this.when;
   }
 
   ngOnInit() {
+
+    this.date = this.when;
+    this.time = this.when;
     this.dateFormControl = new FormControl(this.date);
     this.timeFormControl = new FormControl(this.time);
   }
