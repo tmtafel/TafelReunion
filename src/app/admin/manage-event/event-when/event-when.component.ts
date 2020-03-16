@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'event-when',
@@ -15,7 +16,22 @@ export class EventWhenComponent implements OnInit {
   date: Date;
   time: Date;
   dateFormControl: FormControl;
-  timeFormControl: FormControl;
+
+  darkTheme: NgxMaterialTimepickerTheme = {
+    container: {
+      bodyBackgroundColor: '#555',
+      buttonColor: '#fff'
+    },
+    dial: {
+      dialBackgroundColor: '#f44336',
+    },
+    clockFace: {
+      clockFaceBackgroundColor: '#f44336',
+      clockHandColor: '#f44336',
+      clockFaceTimeInactiveColor: '#fff'
+    }
+  };
+
   constructor() {
   }
 
@@ -24,7 +40,7 @@ export class EventWhenComponent implements OnInit {
     this.date = this.when;
     this.time = this.when;
     this.dateFormControl = new FormControl(this.date);
-    this.timeFormControl = new FormControl(this.time);
+    // this.timeFormControl = new FormControl(this.time);
   }
 
   dateChanged(evt: MatDatepickerInputEvent<Date>) {
