@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Address } from 'src/app/auth/address';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Hotel } from 'src/app/home/hotel';
 import { Event } from 'src/app/auth/event';
 import { firestore } from 'firebase/app';
 import Timestamp = firestore.Timestamp;

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { NgxCurrencyModule } from 'ngx-currency';
-
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -23,6 +23,7 @@ import { EventTitleComponent } from './manage-event/event-title/event-title.comp
 import { EventPriceComponent } from './manage-event/event-price/event-price.component';
 import { EventWhenComponent } from './manage-event/event-when/event-when.component';
 import { EventSignupOpenTillComponent } from './manage-event/event-signup-open-till/event-signup-open-till.component';
+import { EventSummaryComponent } from './manage-event/event-summary/event-summary.component';
 
 
 @NgModule({
@@ -34,7 +35,9 @@ import { EventSignupOpenTillComponent } from './manage-event/event-signup-open-t
     ReactiveFormsModule,
     MatFileUploadModule,
     NgxMaterialTimepickerModule,
-    NgxCurrencyModule
+    NgxCurrencyModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ],
   declarations: [
     AdminComponent,
@@ -52,7 +55,8 @@ import { EventSignupOpenTillComponent } from './manage-event/event-signup-open-t
     EventTitleComponent,
     EventPriceComponent,
     EventWhenComponent,
-    EventSignupOpenTillComponent
+    EventSignupOpenTillComponent,
+    EventSummaryComponent
   ]
 })
 export class AdminModule { }

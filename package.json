@@ -26,6 +26,7 @@
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@material-ui/core": "^4.9.5",
     "@ngmodule/material-carousel": "^0.6.0",
+    "angular-froala-wysiwyg": "^3.1.0",
     "angular-material-fileupload": "^2.0.0",
     "bootstrap": "^4.4.1",
     "firebase": "^7.7.0",
