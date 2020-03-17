@@ -24,7 +24,6 @@
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
     "@fortawesome/fontawesome-free": "^5.12.1",
-    "@ngmodule/material-carousel": "^0.6.0",
     "angular-froala-wysiwyg": "^3.1.0",
     "angular-material-fileupload": "^2.0.0",
     "bootstrap": "^4.4.1",
