@@ -5,6 +5,6 @@
   </div>
 <div class="row">
   <mat-form-field class="col-12">
-    <input matInput [formControl]="priceFormControl">
+    <input currencyMask matInput [formControl]="priceFormControl" [options]="{align: 'left' }">
   </mat-form-field>
 </div>

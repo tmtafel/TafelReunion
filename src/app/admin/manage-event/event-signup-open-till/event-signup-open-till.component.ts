@@ -5,14 +5,14 @@ import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'event-when',
-  templateUrl: './event-when.component.html',
-  styleUrls: ['./event-when.component.scss']
+  selector: 'event-signup-open-till',
+  templateUrl: './event-signup-open-till.component.html',
+  styleUrls: ['./event-signup-open-till.component.scss']
 })
-export class EventWhenComponent implements OnInit {
+export class EventSignupOpenTillComponent implements OnInit {
 
-  @Input() when: Date;
-  @Output() whenChange: EventEmitter<Date> = new EventEmitter();
+  @Input() signupOpenTill: Date;
+  @Output() signupOpenTillChange: EventEmitter<Date> = new EventEmitter();
 
   dateFormControl: FormControl;
   timeFormControl: FormControl;
@@ -39,12 +39,12 @@ export class EventWhenComponent implements OnInit {
   };
 
   constructor() {
-    this.minDate = new Date(2020, 7, 6);
+    this.minDate = new Date(Date.now());
     this.maxDate = new Date(2020, 7, 9);
   }
 
   ngOnInit() {
-    const dt = new Date(this.when);
+    const dt = new Date(this.signupOpenTill);
     this.date = dt;
     this.dateFormControl = new FormControl(dt);
 
@@ -71,7 +71,7 @@ export class EventWhenComponent implements OnInit {
       const month = this.date.getMonth();
       const year = this.date.getFullYear();
       const newDate = new Date(year, month, day, hour, minute, 0);
-      this.whenChange.emit(newDate);
+      this.signupOpenTillChange.emit(newDate);
     } catch (error) {
       console.log(error);
     }

@@ -35,9 +35,9 @@ export class ManageEventComponent implements OnInit {
       this.db.doc<Event>(`events/${this.eventId}`).valueChanges().subscribe(evt => {
         this.title = evt.title ? evt.title : null;
         this.address = evt.address ? evt.address as Address : null;
-        this.signupOpenTill = evt.signupOpenTill ? evt.signupOpenTill.toDate() : null;
-        this.pricePerPerson = evt.pricePerPerson ? evt.pricePerPerson : null;
         this.when = evt.when ? evt.when.toDate() : null;
+        this.signupOpenTill = evt.signupOpenTill ? evt.signupOpenTill.toDate() : this.when;
+        this.pricePerPerson = evt.pricePerPerson ? evt.pricePerPerson : null;
         this.summary = evt.summary ? evt.summary : null;
         this.imageUrl = evt.imageUrl ? evt.imageUrl : null;
         this.loaded = true;
@@ -53,7 +53,7 @@ export class ManageEventComponent implements OnInit {
     this.address = newAddress;
   }
 
-  updateSignUpOpenTill(newDate: Date) {
+  updateSignupOpenTill(newDate: Date) {
     this.signupOpenTill = newDate;
   }
 

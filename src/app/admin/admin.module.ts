@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
@@ -21,6 +22,8 @@ import { EventImageComponent } from './manage-event/event-image/event-image.comp
 import { EventTitleComponent } from './manage-event/event-title/event-title.component';
 import { EventPriceComponent } from './manage-event/event-price/event-price.component';
 import { EventWhenComponent } from './manage-event/event-when/event-when.component';
+import { EventSignupOpenTillComponent } from './manage-event/event-signup-open-till/event-signup-open-till.component';
+
 
 @NgModule({
   imports: [
@@ -30,7 +33,8 @@ import { EventWhenComponent } from './manage-event/event-when/event-when.compone
     FormsModule,
     ReactiveFormsModule,
     MatFileUploadModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    NgxCurrencyModule
   ],
   declarations: [
     AdminComponent,
@@ -47,7 +51,8 @@ import { EventWhenComponent } from './manage-event/event-when/event-when.compone
     EventImageComponent,
     EventTitleComponent,
     EventPriceComponent,
-    EventWhenComponent
+    EventWhenComponent,
+    EventSignupOpenTillComponent
   ]
 })
 export class AdminModule { }

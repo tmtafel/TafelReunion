@@ -1,10 +1,11 @@
 <div class="row" *ngIf="loaded && !updating">
   <div class="col-12">
-    <event-when [when]="when" (whenChange)="updateWhen($event)"></event-when>
-    <event-image [url]="imageUrl" [eventId]="eventId" (imageUrlChange)="updateImageUrl($event)"></event-image>
     <event-title [title]="title" (titleChange)="updateTitle($event)"></event-title>
+    <event-when [when]="when" (whenChange)="updateWhen($event)"></event-when>
+    <event-signup-open-till [signupOpenTill]="signupOpenTill" (signupOpenTillChange)="updateSignupOpenTill($event)"></event-signup-open-till>
+    <event-image [url]="imageUrl" [eventId]="eventId" (imageUrlChange)="updateImageUrl($event)"></event-image>
     <event-address [address]="address" (addressChange)="updateAddress($event)"></event-address>
-    <event-price [price]="price" (priceChange)="updatePricePerPerson($event)"></event-price>
+    <event-price [price]="pricePerPerson" (priceChange)="updatePricePerPerson($event)"></event-price>
   </div>
   <div class="col-12">
     <button mat-button mat-raised-button (click)="updateEvent()">Update</button>

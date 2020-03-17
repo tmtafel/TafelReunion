@@ -15,7 +15,8 @@ export class EventPriceComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.priceFormControl = new FormControl(this.price);
+    this.priceFormControl = new FormControl();
+    this.priceFormControl.setValue(this.price);
     this.priceFormControl.valueChanges.subscribe(newprice => {
       this.price = newprice;
       this.priceChange.emit(newprice);
