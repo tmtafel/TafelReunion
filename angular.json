@@ -133,5 +133,8 @@
       }
     }
   },
-  "defaultProject": "TafelReunion"
+  "defaultProject": "TafelReunion",
+  "cli": {
+    "analytics": false
+  }
 }
