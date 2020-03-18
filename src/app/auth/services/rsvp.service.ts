@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
-import { from, Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Event } from '../event';
 import { Rsvp } from '../rsvp';
 import { AuthService } from './auth.service';
 
@@ -51,7 +50,7 @@ export class RsvpService {
     return rsvpDoc.update(rsvpObj)
       .then(() => {
         return rsvp;
-      }).catch(err => {
+      }).catch(() => {
         return null;
       });
   }

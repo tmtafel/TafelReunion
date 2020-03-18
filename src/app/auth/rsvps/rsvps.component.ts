@@ -22,7 +22,11 @@ export class RsvpsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.rsvps = this.eventService.getEvents().map(evt => new Rsvp(evt.id, evt.title));
+    this.rsvps = this.eventService.getEvents().map(evt => {
+      const rsvp = new Rsvp(evt.id, evt.title);
+      rsvp.imageUrl = evt.imageUrl;
+      return rsvp;
+    });
 
     this.rsvpService.getRsvpsObservable().subscribe(rsvps => {
       this.rsvps.forEach(rsvp => {

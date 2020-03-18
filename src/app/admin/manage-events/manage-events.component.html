@@ -5,14 +5,7 @@
         <mat-card-header>
           <mat-card-title>{{event.title}}</mat-card-title>
         </mat-card-header>
-        <img mat-card-image src="{{event.imageUrl}}" alt="{{event.title}}">
-        <mat-card-content>
-          <address>
-            {{event.address.street}}<br />
-            {{event.address.city}}, {{event.address.state}} {{event.address.zip}}<br />
-            {{event.phone}}
-          </address>
-        </mat-card-content>
+        <img *ngIf="event.imageUrl" mat-card-image src="{{event.imageUrl}}" alt="{{event.title}}">
         <mat-card-actions>
           <button mat-raised-button mat-button  [routerLink]="['/admin/events', event.id]">Edit Event</button>
         </mat-card-actions>

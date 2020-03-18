@@ -16,7 +16,6 @@ import { RsvpService } from '../services/rsvp.service';
   styleUrls: ['./event.component.scss']
 })
 export class EventComponent implements OnInit {
-
   attending: boolean;
   attending$: Observable<boolean>;
   eventId: string;
