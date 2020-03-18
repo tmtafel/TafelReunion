@@ -8,6 +8,7 @@ export class Profile {
     address: Address;
     phone: string;
     branch: string;
+    admin: boolean;
 
     constructor(id: string, email: string) {
         this.id = id;
@@ -22,6 +23,7 @@ export class Profile {
         this.address.country = '';
         this.phone = '';
         this.branch = '';
+        this.admin = false;
     }
 }
 
