@@ -56,3 +56,39 @@ export const deleteRegistration = functions.auth.user().onDelete(async (user) =>
 
     return registration.delete();
 });
+
+export const getUsers = functions.https.onRequest(async (req, res) => {
+    try {
+        const users = await admin.auth().listUsers();
+        const usersJson = JSON.stringify(users);
+        res.send(usersJson);
+    } catch (err) {
+        const errJson = JSON.stringify(err);
+        res.redirect(303, errJson);
+    }
+});
+
+export const getUser = functions.https.onRequest(async (req, res) => {
+    try {
+        const email = req.query.email;
+        const user = await admin.auth().getUserByEmail(email);
+        const userJson = JSON.stringify(user);
+        res.send(userJson);
+    } catch (err) {
+        const errJson = JSON.stringify(err);
+        res.redirect(303, errJson);
+    }
+});
+
+export const setUserAsAdmin = functions.https.onRequest(async (req, res) => {
+    try {
+        const id = req.query.id;
+        admin.app().auth().
+        const user = await admin.auth().setCustomUserClaims(id, );
+        const userJson = JSON.stringify(user);
+        res.send(userJson);
+    } catch (err) {
+        const errJson = JSON.stringify(err);
+        res.redirect(303, errJson);
+    }
+});

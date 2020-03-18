@@ -1,22 +1,17 @@
 <div class="row">
-  <div class="col-12 col-sm-6 col-md-4">
+  <div class="col-12">
     <mat-card>
       <img *ngIf="url" mat-card-image src="{{url}}" alt="{{name}}">
-      <mat-card-content *ngIf="(previewUrl) && (url)">
-        <h2 class="text-center">
-          <i class="material-icons">swap_vert</i>
-        </h2>
-      </mat-card-content>
-      <img *ngIf="previewUrl" mat-card-image src="{{previewUrl}}" alt="{{name}}">
       <mat-card-actions>
         <button mat-button mat-raised-button (click)="fileUploadClick()" *ngIf="!(name)">
           <mat-icon>file_upload</mat-icon> Choose File
         </button>
         <button mat-button mat-raised-button (click)="onSubmit()" *ngIf="name">
-          <mat-icon>file_upload</mat-icon> {{((url) ? 'Change Image' : 'Upload Image')}}
+          <mat-icon>file_upload</mat-icon> {{((url) ? 'Replace Image' : 'Upload Image')}}
         </button>
         <input (change)="fileProgress($event)" type="file" id="fileUpload" accept="image/*" style="display:none;" />
       </mat-card-actions>
+      <img *ngIf="previewUrl" mat-card-image src="{{previewUrl}}" alt="{{name}}">
     </mat-card>
   </div>
 </div>

@@ -44,7 +44,8 @@ export class ProfileService {
         country: profile.address.country
       },
       phone: profile.phone,
-      branch: profile.branch
+      branch: profile.branch,
+      admin: profile.admin
     };
 
     return this.registrations.doc(profile.id).set(profileObj).then(() => {

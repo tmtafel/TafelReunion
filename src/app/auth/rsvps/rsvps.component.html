@@ -7,7 +7,7 @@
   <div class="row align-items-center" *ngIf="rsvps">
     <div class="col-lg-6 col-12 py-3" *ngFor="let rsvp of rsvps">
       <mat-card [class.mat-elevation-z6]="true">
-        <img mat-card-image src="../../../assets/barrel-racks.jpg">
+        <img mat-card-image src="{{rsvp.imageUrl}}">
         <mat-card-content>
           <div class="d-flex w-100 justify-content-between align-items-center">
             <h4>{{rsvp.title}}</h4>
