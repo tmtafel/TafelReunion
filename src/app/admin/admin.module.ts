@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
@@ -24,6 +23,7 @@ import { HotelNameComponent } from './manage-hotel/hotel-name/hotel-name.compone
 import { HotelPhoneComponent } from './manage-hotel/hotel-phone/hotel-phone.component';
 import { ManageHotelComponent } from './manage-hotel/manage-hotel.component';
 import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   imports: [
@@ -34,8 +34,7 @@ import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
     ReactiveFormsModule,
     NgxMaterialTimepickerModule,
     NgxCurrencyModule,
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot()
+    CKEditorModule
   ],
   declarations: [
     AdminComponent,

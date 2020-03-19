@@ -7,7 +7,7 @@
         </mat-card-header>
         <img *ngIf="event.imageUrl" mat-card-image src="{{event.imageUrl}}" alt="{{event.title}}">
         <mat-card-actions>
-          <button mat-raised-button mat-button  [routerLink]="['/admin/events', event.id]">Edit Event</button>
+          <button mat-raised-button mat-button [routerLink]="['/admin/events', event.id]">Edit Event</button>
         </mat-card-actions>
       </mat-card>
     </div>

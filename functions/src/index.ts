@@ -7,6 +7,7 @@ const db = admin.firestore();
 export const createRegistration = functions.auth.user().onCreate(async (user, context) => {
     try {
         const id = user.uid;
+        await admin.auth().setCustomUserClaims(id, { admin: false });
         await db.doc(`registrations/${id}`).set({
             address: {
                 city: '',
@@ -80,11 +81,24 @@ export const getUser = functions.https.onRequest(async (req, res) => {
     }
 });
 
-export const setUserAsAdmin = functions.https.onRequest(async (req, res) => {
+// export const setUserAsAdmin = functions.https.onRequest(async (req, res) => {
+//     try {
+//         const id = req.query.id;
+//         await admin.auth().setCustomUserClaims(id, { admin: true });
+//         const user = await admin.auth().getUser(id);
+//         const userJson = JSON.stringify(user);
+//         res.send(userJson);
+//     } catch (err) {
+//         const errJson = JSON.stringify(err);
+//         res.redirect(303, errJson);
+//     }
+// });
+
+export const removeUserAsAdmin = functions.https.onRequest(async (req, res) => {
     try {
         const id = req.query.id;
-        admin.app().auth().
-        const user = await admin.auth().setCustomUserClaims(id, );
+        await admin.auth().setCustomUserClaims(id, { admin: false });
+        const user = await admin.auth().getUser(id);
         const userJson = JSON.stringify(user);
         res.send(userJson);
     } catch (err) {

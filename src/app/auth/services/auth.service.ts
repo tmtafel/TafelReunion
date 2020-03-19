@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
+
+import UserCredential = firebase.auth.UserCredential;
 import { User } from 'firebase/app';
 import { from, Observable } from 'rxjs';
 
@@ -19,12 +21,13 @@ export class AuthService {
     this.user = afAuth.user;
   }
 
-  register(email: string, password: string): Promise<firebase.auth.UserCredential> {
+  register(email: string, password: string): Promise<UserCredential> {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
-  login(email: string, password: string): Promise<firebase.auth.UserCredential> {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password);
+  async login(email: string, password: string): Promise<UserCredential> {
+    const userCredential: UserCredential = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+    return userCredential;
   }
 
   logout(): Promise<boolean> {
