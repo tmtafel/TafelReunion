@@ -4,5 +4,7 @@
   </h6>
 </div>
 <div class="row">
-  <ckeditor [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
+  <div class="col-12">
+    <ckeditor [editor]="Editor" data="{{summary}}" (change)="onChange($event)"></ckeditor>
+  </div>
 </div>
