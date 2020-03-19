@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="row">
-    <div class="col-12 d-flex justify-content-between">
+  <div class="row pb-4">
+    <div class="col-12 d-flex justify-content-between pb-3">
       <button mat-raised-button routerLink="/events">
         <i class="material-icons">arrow_back</i>Back
       </button>
@@ -8,9 +8,10 @@
         {{(attending$ | async) ? 'Change Reservation' : 'Sign Up'}}
       </button>
     </div>
-    <div class="col-12 pt-3 pb-4 text-right">
-      <h5 *ngIf="(attending$ | async)">We have you as attending with {{this.rsvp.numberOfPeople}} {{(this.rsvp.numberOfPeople === 1) ? 'person' : 'people'}}
-      </h5>
+    <div *ngIf="(attending$ | async)" class="col-12 text-right">
+      <h5>We have you attending with {{this.rsvp.numberOfPeople}} {{(this.rsvp.numberOfPeople === 1) ? 'person' : 'people'}}</h5>
+      <h5>Total: {{this.numberOfPeople * this.event.pricePerPerson | currency}}</h5>
+      <button mat-raised-button (click)="payHere()">Pay Here</button>
     </div>
   </div>
   <div class="row" *ngIf="loaded">
@@ -21,9 +22,12 @@
         {{event.address.street}}<br />
         {{event.address.city}}, {{event.address.state}} {{event.address.zip}}
       </address>
+      <h6>
+        Cost: {{this.event.pricePerPerson | currency}} per person
+      </h6>
     </div>
     <div class="col-12 col-sm-6">
-      <img class="w-100" mat-card-image src="{{event.imageUrl}}">
+      <img class="w-100" src="{{event.imageUrl}}">
     </div>
     <div class="col-12">
       <p>

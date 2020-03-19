@@ -4,7 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { Address } from '../address';
 import { Event } from '../event';
 import { Rsvp } from '../rsvp';
 import { EventService } from '../services/event.service';
@@ -61,6 +60,10 @@ export class EventComponent implements OnInit {
     });
   }
 
+  payHere() {
+    alert('Still need to set up');
+  }
+  
   signUp(): void {
     const rsvp = new Rsvp(this.eventId, this.event.title, this.rsvp.attending, this.rsvp.numberOfPeople);
     const dialogAttending = this.dialog.open(DialogAttending, {
