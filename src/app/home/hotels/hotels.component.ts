@@ -20,4 +20,12 @@ export class HotelsComponent {
     window.open(this.url, '_blank');
   }
 
+  getPhoneNumberFormatted(phone: string) {
+    const phoneStripped = phone.replace(/\D/g, '');
+    if (phoneStripped.length !== 10) { return phone; }
+    const areaCode = phoneStripped.substring(0, 3);
+    const prefix = phoneStripped.substring(3, 6);
+    const lineNumber = phoneStripped.substr(6, 10);
+    return `${areaCode}-${prefix}-${lineNumber}`;
+  }
 }
