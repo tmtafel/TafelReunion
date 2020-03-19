@@ -12,9 +12,11 @@ import { AuthService } from '../auth/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   loggedIn$: Observable<boolean>;
+  isAdmin$: Observable<boolean>;
   currentUrl: string;
   constructor(public authService: AuthService, public router: Router, private route: ActivatedRoute) {
     this.loggedIn$ = this.authService.user.pipe(map(u => u !== null));
+
   }
 
   ngOnInit() {

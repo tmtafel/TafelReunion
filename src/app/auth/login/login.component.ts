@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.isLoggedIn()) {
-      this.router.navigateByUrl(`profile`);
+      this.router.navigateByUrl(`events`);
     }
   }
 
@@ -42,12 +42,15 @@ export class LoginComponent implements OnInit {
 
   validateEmail(email: string, password: string) {
     this.authService.login(email, password).then(credential => {
-      const redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/profile';
-      const navigationExtras: NavigationExtras = {
-        queryParamsHandling: 'preserve',
-        preserveFragment: true
-      };
-      this.router.navigateByUrl(redirect, navigationExtras);
+      if (this.authService.redirectUrl) {
+        const redirect = this.router.parseUrl(this.authService.redirectUrl);
+        const navigationExtras: NavigationExtras = {
+          queryParamsHandling: 'preserve',
+          preserveFragment: true
+        };
+        this.router.navigateByUrl(redirect, navigationExtras);
+      }
+      this.router.navigateByUrl('login');
     }, error => {
       const errorCode = error.code.toString();
       const errorMessage = error.message.toString();

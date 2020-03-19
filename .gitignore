@@ -44,3 +44,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+src/assets/hosting.ZGlzdC9UYWZlbFJldW5pb24.cache
+*.cache
+src/assets/tafelreunion-firebase-adminsdk-9gzxl-475e1cf184.json
+.firebase/hosting.ZGlzdC9UYWZlbFJldW5pb24.cache
