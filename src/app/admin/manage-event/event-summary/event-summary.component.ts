@@ -11,17 +11,18 @@ export class EventSummaryComponent implements OnInit {
 
   @Input() summary: string;
   @Output() summaryChange: EventEmitter<string> = new EventEmitter();
-  summaryFormControl: FormControl;
 
   public Editor = ClassicEditor;
   constructor() { }
 
   ngOnInit() {
-    this.summaryFormControl = new FormControl(this.summary);
-    this.summaryFormControl.valueChanges.subscribe(newsummary => {
-      this.summary = newsummary;
-      this.summaryChange.emit(newsummary);
-    });
+    console.log(this.Editor);
+    debugger;
+    // this.summaryFormControl = new FormControl(this.summary);
+    // this.summaryFormControl.valueChanges.subscribe(newsummary => {
+    //   this.summary = newsummary;
+    //   this.summaryChange.emit(newsummary);
+    // });
   }
 
 }
