@@ -3,8 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SelectivePreloadingStrategyService } from '../../selective-preloading-strategy.service';
-
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -15,8 +13,7 @@ export class AdminDashboardComponent implements OnInit {
   token: Observable<string>;
   modules: string[];
 
-  constructor(private route: ActivatedRoute, preloadStrategy: SelectivePreloadingStrategyService) {
-    this.modules = preloadStrategy.preloadedModules;
+  constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit() {

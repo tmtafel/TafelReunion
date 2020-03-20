@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AuthService } from '../auth/services/auth.service';
+import { ProfileService } from '../auth/services/profile.service';
 
 @Component({
   selector: 'app-header',
@@ -14,9 +15,8 @@ export class HeaderComponent implements OnInit {
   loggedIn$: Observable<boolean>;
   isAdmin$: Observable<boolean>;
   currentUrl: string;
-  constructor(public authService: AuthService, public router: Router, private route: ActivatedRoute) {
+  constructor(public authService: AuthService, public router: Router) {
     this.loggedIn$ = this.authService.user.pipe(map(u => u !== null));
-
   }
 
   ngOnInit() {

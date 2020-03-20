@@ -27,6 +27,7 @@ export class AuthService {
 
   async login(email: string, password: string): Promise<UserCredential> {
     const userCredential: UserCredential = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+    this.firebaseAuthChangeListener(userCredential.user);
     return userCredential;
   }
 

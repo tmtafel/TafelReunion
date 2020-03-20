@@ -81,6 +81,20 @@ export const getUser = functions.https.onRequest(async (req, res) => {
     }
 });
 
+export const isUserAdmin = functions.https.onRequest(async (req, res) => {
+    try {
+        const id = req.query.id;
+        const user = await admin.auth().getUser(id);
+        if (user.customClaims) {
+            res.send(user.customClaims);
+        }
+        res.send(false);
+    } catch (err) {
+        console.log(err);
+        res.send(false);
+    }
+});
+
 // export const setUserAsAdmin = functions.https.onRequest(async (req, res) => {
 //     try {
 //         const id = req.query.id;

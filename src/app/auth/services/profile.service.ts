@@ -11,24 +11,45 @@ import { AuthService } from './auth.service';
 })
 export class ProfileService {
   userId: string;
-  profile: Observable<Profile>;
   private registrations: AngularFirestoreCollection<Profile>;
   constructor(authService: AuthService, public db: AngularFirestore) {
     this.userId = authService.getCurrentUserId();
     this.registrations = db.collection<Profile>('registrations');
-    this.profile = db.doc<Profile>(`registrations/${this.userId}`).valueChanges();
+    this.db.doc<Profile>(`registrations/${this.userId}`).valueChanges().subscribe(this.profileChangeListener);
+  }
+
+  private profileChangeListener(prfl: Profile) {
+    if (prfl) {
+      const json = JSON.stringify(prfl);
+      localStorage.setItem('profile', json);
+    } else {
+      localStorage.setItem('profile', null);
+    }
+  }
+
+  isAdmin(): boolean {
+    try {
+      const profile = JSON.parse(localStorage.getItem('profile')) as Profile;
+      if (profile && profile.admin) {
+        return profile.admin;
+      }
+      return false;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
 
   getCurrentProfile(): Observable<Profile> {
     return this.registrations.doc<Profile>(this.userId)
-    .snapshotChanges().pipe(map(profile => {
-      if (profile) {
-        const prfl = profile.payload.data();
-        prfl.id = profile.payload.id;
-        return prfl;
-      }
-      return null;
-    }));
+      .snapshotChanges().pipe(map(profile => {
+        if (profile) {
+          const prfl = profile.payload.data();
+          prfl.id = profile.payload.id;
+          return prfl;
+        }
+        return null;
+      }));
   }
 
   updateProfile(profile: Profile): Promise<Profile> {
