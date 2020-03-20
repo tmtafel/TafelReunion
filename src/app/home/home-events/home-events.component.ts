@@ -1,10 +1,10 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 import { HomeEvent } from '../home-event';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home-events',
@@ -19,7 +19,7 @@ export class HomeEventsComponent implements OnInit {
     new HomeEvent('Historic Churchill Downs', 'img', '', '../../assets/twinspires-100x100.png'),
     new HomeEvent('Farm to Table Dinner', 'i', 'fas fa-utensils fa-lg')
   ];
-  
+
   loggedIn$: Observable<boolean>;
   constructor(public authService: AuthService, private sanitizer: DomSanitizer) {
     this.loggedIn$ = this.authService.user.pipe(map(u => u !== null));

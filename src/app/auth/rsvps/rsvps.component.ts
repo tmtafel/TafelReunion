@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
-import { Event } from '../event';
 import { Rsvp } from '../rsvp';
 import { EventService } from '../services/event.service';
 import { RsvpService } from '../services/rsvp.service';

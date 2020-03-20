@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Address } from 'src/app/auth/address';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Event } from 'src/app/auth/event';
+import { ActivatedRoute } from '@angular/router';
 import { firestore } from 'firebase/app';
+import { Address } from 'src/app/auth/address';
+import { Event } from 'src/app/auth/event/event';
+
 import Timestamp = firestore.Timestamp;
 
 @Component({

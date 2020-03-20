@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Event } from 'src/app/auth/event';
+import { Event } from 'src/app/auth/event/event';
 
 @Component({
   selector: 'app-manage-events',

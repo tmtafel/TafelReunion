@@ -4,10 +4,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { Event } from '../event';
 import { Rsvp } from '../rsvp';
 import { EventService } from '../services/event.service';
 import { RsvpService } from '../services/rsvp.service';
+import { Event } from './event';
 
 @Component({
   selector: 'app-event',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, NavigationExtras, Route, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Route, Router, RouterStateSnapshot } from '@angular/router';
 
-import { AuthService } from './services/auth.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,15 +27,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     if (this.authService.isLoggedIn()) {
       return true;
     }
-    this.authService.redirectUrl = url;
-    const sessionId = Math.floor(Math.random() * 99999) + 10001;
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        session_id: sessionId
-      },
-      fragment: 'anchor'
-    };
-    this.router.navigate(['/login'], navigationExtras);
+    this.router.navigate(['/login']);
     return false;
   }
 }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Action, AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, DocumentSnapshot } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { AuthService } from '../auth.service';
 import { Profile } from '../profile';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,12 @@ import { AuthService } from './auth.service';
 export class ProfileService {
   userId: string;
   private registrations: AngularFirestoreCollection<Profile>;
+  profile: Observable<Profile>;
   constructor(authService: AuthService, public db: AngularFirestore) {
     this.userId = authService.getCurrentUserId();
     this.registrations = db.collection<Profile>('registrations');
     this.db.doc<Profile>(`registrations/${this.userId}`).valueChanges().subscribe(this.profileChangeListener);
+    this.profile = this.db.doc<Profile>(`registrations/${this.userId}`).valueChanges();
   }
 
   private profileChangeListener(prfl: Profile) {
@@ -41,8 +43,8 @@ export class ProfileService {
   }
 
   getCurrentProfile(): Observable<Profile> {
-    return this.registrations.doc<Profile>(this.userId)
-      .snapshotChanges().pipe(map(profile => {
+    if (this.userId) {
+      return this.registrations.doc<Profile>(this.userId).snapshotChanges().pipe(map(profile => {
         if (profile) {
           const prfl = profile.payload.data();
           prfl.id = profile.payload.id;
@@ -50,6 +52,8 @@ export class ProfileService {
         }
         return null;
       }));
+    }
+    return null;
   }
 
   updateProfile(profile: Profile): Promise<Profile> {

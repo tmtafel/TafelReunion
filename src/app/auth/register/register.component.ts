@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 
+import { AuthService } from '../auth.service';
 import { Profile } from '../profile';
-import { AuthService } from '../services/auth.service';
 import { ProfileService } from '../services/profile.service';
 
 @Component({

@@ -1,6 +1,7 @@
-import { Address } from './address';
 import { firestore } from 'firebase/app';
+
 import Timestamp = firestore.Timestamp;
+import { Address } from '../address';
 
 export class Event {
 

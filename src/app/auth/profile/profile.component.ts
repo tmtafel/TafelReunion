@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Address } from '../address';
 import { Profile } from '../profile';
-import { AuthService } from '../services/auth.service';
 import { ProfileService } from '../services/profile.service';
 
 @Component({
@@ -19,57 +18,56 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.profileService.getCurrentProfile().subscribe(profile => {
-      this.profile = profile;
+      if (profile) {
+        this.profile = profile;
+      }
     });
   }
 
   updateProfile() {
     try {
-      if(!(this.profile.email)){
+      if (!(this.profile.email)) {
         this.profile.email = '';
       }
-      if(!(this.profile.firstName)){
+      if (!(this.profile.firstName)) {
         this.profile.firstName = '';
       }
-      if(!(this.profile.lastName)){
+      if (!(this.profile.lastName)) {
         this.profile.lastName = '';
       }
-      if(!(this.profile.address)){
-        if(!(this.profile.address.street)){
-          this.profile.address.street = ''
+      if (!(this.profile.address)) {
+        if (!(this.profile.address.street)) {
+          this.profile.address.street = '';
         }
-        if(!(this.profile.address.city)){
-          this.profile.address.city = ''
+        if (!(this.profile.address.city)) {
+          this.profile.address.city = '';
         }
-        if(!(this.profile.address.state)){
-          this.profile.address.state = ''
+        if (!(this.profile.address.state)) {
+          this.profile.address.state = '';
         }
-        if(!(this.profile.address.zip)){
-          this.profile.address.zip = ''
+        if (!(this.profile.address.zip)) {
+          this.profile.address.zip = '';
         }
-        if(!(this.profile.address.country)){
-          this.profile.address.country = ''
+        if (!(this.profile.address.country)) {
+          this.profile.address.country = '';
         }
       }
-      if(!(this.profile.phone)){
+      if (!(this.profile.phone)) {
         this.profile.phone = '';
       }
-      if(!(this.profile.branch)){
+      if (!(this.profile.branch)) {
         this.profile.branch = '';
       }
 
-      if(!(this.profile.admin)){
+      if (!(this.profile.admin)) {
         this.profile.admin = false;
       }
       this.profileService.updateProfile(this.profile).then(() => {
-        
-
         this.snackBar.open('Updated', 'X', { duration: 3000 });
       });
     } catch (err) {
       console.log(err);
       this.snackBar.open('Error check log for details', 'X', { duration: 3000 });
-
     }
   }
 

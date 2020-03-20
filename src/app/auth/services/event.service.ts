@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { firestore } from 'firebase/app';
-import Timestamp = firestore.Timestamp;
 
-import { Event } from '../event';
+import { Event } from '../event/event';
 
 @Injectable({
   providedIn: 'root'

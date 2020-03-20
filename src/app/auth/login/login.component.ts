@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 
-import { AuthService } from '../services/auth.service';
-
 import UserCredential = firebase.auth.UserCredential;
+import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -36,14 +35,6 @@ export class LoginComponent implements OnInit {
       if (credential) {
         const json = JSON.stringify(credential.user);
         localStorage.setItem('user', json);
-        if (this.authService.redirectUrl) {
-          const redirect = this.router.parseUrl(this.authService.redirectUrl);
-          const navigationExtras: NavigationExtras = {
-            queryParamsHandling: 'preserve',
-            preserveFragment: true
-          };
-          this.router.navigateByUrl(redirect, navigationExtras);
-        }
         this.router.navigateByUrl('events');
       }
     } catch (error) {
