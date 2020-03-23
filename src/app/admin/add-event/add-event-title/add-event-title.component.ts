@@ -3,13 +3,14 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'event-title',
-  templateUrl: './event-title.component.html',
-  styleUrls: ['./event-title.component.scss']
+  selector: 'add-event-title',
+  templateUrl: './add-event-title.component.html',
+  styleUrls: ['./add-event-title.component.scss']
 })
-export class EventTitleComponent implements OnInit {
+export class AddEventTitleComponent implements OnInit {
 
-  @Input() title: string;
+  title: string = '';
+
   @Output() titleChange: EventEmitter<string> = new EventEmitter();
   titleFormControl: FormControl;
   constructor() { }

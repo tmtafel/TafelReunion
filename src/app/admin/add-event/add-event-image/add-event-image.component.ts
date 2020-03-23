@@ -4,9 +4,9 @@ import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'event-image',
-  templateUrl: './event-image.component.html',
-  styleUrls: ['./event-image.component.scss']
+  selector: 'add-event-image',
+  templateUrl: './add-event-image.component.html',
+  styleUrls: ['./add-event-image.component.scss']
 })
 export class EventImageComponent implements OnInit {
 
