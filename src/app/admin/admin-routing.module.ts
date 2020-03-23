@@ -22,7 +22,7 @@ const adminRoutes: Routes = [
         component: AdminDashboardComponent
       },
       {
-        path: 'addEvent',
+        path: 'addevent',
         component: AddEventComponent
       },
       {

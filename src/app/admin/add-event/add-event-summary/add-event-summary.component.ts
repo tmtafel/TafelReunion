@@ -10,9 +10,7 @@ import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 })
 export class AddEventSummaryComponent implements OnInit {
 
-  @Input() summary: string;
   @Output() summaryChange: EventEmitter<string> = new EventEmitter();
-
   @ViewChild('editor') editorComponent: CKEditorComponent;
   public Editor = ClassicEditor;
   constructor() { }

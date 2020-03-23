@@ -40,54 +40,54 @@ export class AddEventComponent implements OnInit {
     this.title = newTitle;
   }
 
-  updateAddress(newAddress: Address) {
-    this.address = newAddress;
-  }
+  // updateAddress(newAddress: Address) {
+  //   this.address = newAddress;
+  // }
 
-  updateSignupOpenTill(newDate: Date) {
-    this.signupOpenTill = newDate;
-  }
+  // updateSignupOpenTill(newDate: Date) {
+  //   this.signupOpenTill = newDate;
+  // }
 
-  updatePricePerPerson(newPrice: number) {
-    this.pricePerPerson = newPrice;
-  }
+  // updatePricePerPerson(newPrice: number) {
+  //   this.pricePerPerson = newPrice;
+  // }
 
-  updateWhen(newDate: Date) {
-    this.when = newDate;
-  }
+  // updateWhen(newDate: Date) {
+  //   this.when = newDate;
+  // }
 
-  updateSummary(newSummary: string) {
-    this.summary = newSummary;
-  }
+  // updateSummary(newSummary: string) {
+  //   this.summary = newSummary;
+  // }
 
-  updateImageUrl(newUrl: string) {
-    this.imageUrl = newUrl;
-    this.updateEvent();
-  }
+  // updateImageUrl(newUrl: string) {
+  //   this.imageUrl = newUrl;
+  //   this.updateEvent();
+  // }
 
-  async updateEvent() {
-    try {
-      const eventObj = {
-        address: {
-          street: this.address.street,
-          city: this.address.city,
-          state: this.address.state,
-          zip: this.address.zip,
-          country: this.address.country
-        },
-        title: this.title,
-        pricePerPerson: this.pricePerPerson,
-        signupOpenTill: this.signupOpenTill,
-        when: this.when,
-        summary: this.summary,
-        imageUrl: this.imageUrl
-      };
-      const newEvent = await this.db.collection(`events`).add(eventObj);
-      this.router.navigateByUrl(`events/${newEvent.id}`);
-    } catch (err) {
-      console.log(err);
-      alert('Error Occured creating event, check logs for details');
-    }
-  }
+  // async updateEvent() {
+  //   try {
+  //     const eventObj = {
+  //       address: {
+  //         street: this.address.street,
+  //         city: this.address.city,
+  //         state: this.address.state,
+  //         zip: this.address.zip,
+  //         country: this.address.country
+  //       },
+  //       title: this.title,
+  //       pricePerPerson: this.pricePerPerson,
+  //       signupOpenTill: this.signupOpenTill,
+  //       when: this.when,
+  //       summary: this.summary,
+  //       imageUrl: this.imageUrl
+  //     };
+  //     const newEvent = await this.db.collection(`events`).add(eventObj);
+  //     this.router.navigateByUrl(`events/${newEvent.id}`);
+  //   } catch (err) {
+  //     console.log(err);
+  //     alert('Error Occured creating event, check logs for details');
+  //   }
+  // }
 
 }
