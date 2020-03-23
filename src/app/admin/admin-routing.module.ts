@@ -8,6 +8,7 @@ import { ManageEventComponent } from './manage-event/manage-event.component';
 import { ManageEventsComponent } from './manage-events/manage-events.component';
 import { ManageHotelComponent } from './manage-hotel/manage-hotel.component';
 import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
+import { AddEventComponent } from './add-event/add-event.component';
 
 const adminRoutes: Routes = [
   {
@@ -19,6 +20,10 @@ const adminRoutes: Routes = [
       {
         path: '',
         component: AdminDashboardComponent
+      },
+      {
+        path: 'addEvent',
+        component: AddEventComponent
       },
       {
         path: 'hotels',

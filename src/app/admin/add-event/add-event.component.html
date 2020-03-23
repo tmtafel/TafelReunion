@@ -1,10 +1,7 @@
 <div class="row">
-  <div class="col-12 justify-content-between d-flex">
+  <div class="col-12">
     <button mat-raised-button routerLink="/admin/events">
       <i class="material-icons">arrow_back</i>Back
-    </button>
-    <button mat-raised-button (click)="procedeToDelete()">
-      <i class="material-icons">delete_forever</i>Delete
     </button>
   </div>
 </div>
@@ -22,15 +19,5 @@
   <event-summary class="col-12" [summary]="summary" (summaryChange)="updateSummary($event)"></event-summary>
   <div class="col-12 py-5 text-right">
     <button mat-button mat-raised-button (click)="updateEvent()">Update</button>
-  </div>
-</div>
-<div class="row justify-content-center" *ngIf="!loaded">
-  <div class="col">
-    <h1>LOADING...</h1>
-  </div>
-</div>
-<div class="row justify-content-center" *ngIf="updating">
-  <div class="col">
-    <h1>UPDATING...</h1>
   </div>
 </div>

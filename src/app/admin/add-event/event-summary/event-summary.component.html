@@ -1,0 +1,10 @@
+<div class="row pt-3">
+  <h6 class="col-12">
+    Summary
+  </h6>
+</div>
+<div class="row">
+  <div class="col-12">
+    <ckeditor [editor]="Editor" data="{{summary}}" (change)="onChange($event)"></ckeditor>
+  </div>
+</div>

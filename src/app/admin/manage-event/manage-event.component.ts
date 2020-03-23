@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ActivatedRoute } from '@angular/router';
-import { firestore } from 'firebase/app';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'src/app/auth/address';
 import { Event } from 'src/app/auth/event/event';
 
-import Timestamp = firestore.Timestamp;
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-manage-event',
@@ -26,8 +28,12 @@ export class ManageEventComponent implements OnInit {
   loaded = false;
   updating = false;
 
-  constructor(private route: ActivatedRoute, private db: AngularFirestore) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private db: AngularFirestore,
+    public dialog: MatDialog,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -100,6 +106,53 @@ export class ManageEventComponent implements OnInit {
     }).finally(() => {
       this.updating = false;
     });
+  }
+
+  procedeToDelete() {
+    const id = this.eventId;
+    const deleteEvent = this.dialog.open(DeleteEvent, {
+      width: '300px',
+      data: { id }
+    });
+
+    deleteEvent.afterClosed().subscribe(deleted => {
+      if (deleted) {
+        this.router.navigateByUrl('/admin/events');
+      }
+    });
+  }
+}
+
+@Component({
+  // tslint:disable-next-line:component-selector
+  selector: 'delete-event',
+  templateUrl: 'delete-event.html',
+})
+
+// tslint:disable-next-line:component-class-suffix
+export class DeleteEvent {
+
+  constructor(public dialogAttending: MatDialogRef<DeleteEvent>, @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient) { }
+
+  onNoClick(): void {
+    this.dialogAttending.close(false);
+  }
+
+  onYesClick() {
+    try {
+      this.http.get(`https://us-central1-tafelreunion.cloudfunctions.net/deleteEvent?id=${this.data.id}`, { responseType: 'text' })
+        .pipe(
+          tap(deleted => {
+            if (deleted) {
+              this.dialogAttending.close(true);
+            }
+            this.dialogAttending.close(false);
+          }));
+    } catch (err) {
+      console.log(err);
+      alert('Error Deleting Event, check logs for details');
+      this.dialogAttending.close(false);
+    }
   }
 
 }

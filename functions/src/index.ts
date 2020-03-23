@@ -120,3 +120,21 @@ export const removeUserAsAdmin = functions.https.onRequest(async (req, res) => {
         res.redirect(303, errJson);
     }
 });
+
+export const deleteEvent = functions.https.onRequest(async (req, res) => {
+    try {
+        const id = req.query.id;
+        const promises: Promise<FirebaseFirestore.WriteResult>[] = [];
+        const users = await db.collection(`registrations`).listDocuments();
+        users.forEach(u => {
+            const p = db.doc(`registrations/${u.id}/events/${id}`).delete();
+            promises.push(p);
+        });
+        await Promise.all(promises);
+        await db.doc(`events/${id}`).delete();
+        res.sendStatus(200);
+    } catch (err) {
+        const errJson = JSON.stringify(err);
+        res.redirect(303, errJson);
+    }
+});

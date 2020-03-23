@@ -15,7 +15,7 @@ import { EventSignupOpenTillComponent } from './manage-event/event-signup-open-t
 import { EventSummaryComponent } from './manage-event/event-summary/event-summary.component';
 import { EventTitleComponent } from './manage-event/event-title/event-title.component';
 import { EventWhenComponent } from './manage-event/event-when/event-when.component';
-import { ManageEventComponent } from './manage-event/manage-event.component';
+import { ManageEventComponent, DeleteEvent } from './manage-event/manage-event.component';
 import { ManageEventsComponent } from './manage-events/manage-events.component';
 import { HotelAddressComponent } from './manage-hotel/hotel-address/hotel-address.component';
 import { HotelImageComponent } from './manage-hotel/hotel-image/hotel-image.component';
@@ -24,6 +24,7 @@ import { HotelPhoneComponent } from './manage-hotel/hotel-phone/hotel-phone.comp
 import { ManageHotelComponent } from './manage-hotel/manage-hotel.component';
 import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     ReactiveFormsModule,
     NgxMaterialTimepickerModule,
     NgxCurrencyModule,
-    CKEditorModule
+    CKEditorModule,
+    HttpClientModule
   ],
   declarations: [
     AdminComponent,
@@ -54,6 +56,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     EventWhenComponent,
     EventSignupOpenTillComponent,
     EventSummaryComponent
+  ],
+  entryComponents: [
+    DeleteEvent
   ]
 })
 export class AdminModule { }
