@@ -25,6 +25,7 @@ import { ManageHotelComponent } from './manage-hotel/manage-hotel.component';
 import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { HttpClientModule } from '@angular/common/http';
+import { AddEventTitleComponent } from './add-event/add-event-title/add-event-title.component';
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import { HttpClientModule } from '@angular/common/http';
     EventPriceComponent,
     EventWhenComponent,
     EventSignupOpenTillComponent,
-    EventSummaryComponent
+    EventSummaryComponent,
+    AddEventTitleComponent
   ],
   entryComponents: [
     DeleteEvent
