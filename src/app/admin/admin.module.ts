@@ -26,6 +26,12 @@ import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { AddEventTitleComponent } from './add-event/add-event-title/add-event-title.component';
+import { AddEventPriceComponent } from './add-event/add-event-price/add-event-price.component';
+import { AddEventSummaryComponent } from './add-event/add-event-summary/add-event-summary.component';
+import { AddEventImageComponent } from './add-event/add-event-image/add-event-image.component';
+import { AddEventAddressComponent } from './add-event/add-event-address/add-event-address.component';
+import { AddEventSignupOpenTillComponent } from './add-event/add-event-signup-open-till/add-event-signup-open-till.component';
+import { AddEventWhenComponent } from './add-event/add-event-when/add-event-when.component';
 
 @NgModule({
   imports: [
@@ -57,7 +63,13 @@ import { AddEventTitleComponent } from './add-event/add-event-title/add-event-ti
     EventWhenComponent,
     EventSignupOpenTillComponent,
     EventSummaryComponent,
-    AddEventTitleComponent
+    AddEventTitleComponent,
+    AddEventPriceComponent,
+    AddEventSummaryComponent,
+    AddEventImageComponent,
+    AddEventAddressComponent,
+    AddEventSignupOpenTillComponent,
+    AddEventWhenComponent
   ],
   entryComponents: [
     DeleteEvent

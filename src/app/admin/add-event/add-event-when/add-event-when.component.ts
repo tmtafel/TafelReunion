@@ -5,11 +5,11 @@ import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'event-when',
-  templateUrl: './event-when.component.html',
-  styleUrls: ['./event-when.component.scss']
+  selector: 'add-event-when',
+  templateUrl: './add-event-when.component.html',
+  styleUrls: ['./add-event-when.component.scss']
 })
-export class EventWhenComponent implements OnInit {
+export class AddEventWhenComponent implements OnInit {
 
   @Input() when: Date;
   @Output() whenChange: EventEmitter<Date> = new EventEmitter();

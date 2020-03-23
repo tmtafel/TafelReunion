@@ -3,11 +3,11 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'event-price',
-  templateUrl: './event-price.component.html',
-  styleUrls: ['./event-price.component.scss']
+  selector: 'add-event-price',
+  templateUrl: './add-event-price.component.html',
+  styleUrls: ['./add-event-price.component.scss']
 })
-export class EventPriceComponent implements OnInit {
+export class AddEventPriceComponent implements OnInit {
 
   @Input() price: string;
   @Output() priceChange: EventEmitter<string> = new EventEmitter();

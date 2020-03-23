@@ -8,16 +8,15 @@
 <div class="row" *ngIf="loaded && !updating">
   <div class="col-lg-6 col-12">
     <div class="row">
-      <event-title class="col-md-6 col-12" [title]="title" (titleChange)="updateTitle($event)"></event-title>
-      <event-price class="col-md-6 col-12" [price]="pricePerPerson" (priceChange)="updatePricePerPerson($event)"></event-price>
-      <event-when class="col-lg-6 col-sm-6 col-12" [when]="when" (whenChange)="updateWhen($event)"></event-when>
-      <event-signup-open-till class="col-lg-6 col-sm-6 col-12" [signupOpenTill]="signupOpenTill" (signupOpenTillChange)="updateSignupOpenTill($event)">
-      </event-signup-open-till>
-      <event-address class="col-12" [address]="address" (addressChange)="updateAddress($event)"></event-address>
+      <add-event-title class="col-md-6 col-12" [title]="title" (titleChange)="updateTitle($event)"></add-event-title>
+      <add-event-price class="col-md-6 col-12" [price]="pricePerPerson" (priceChange)="updatePricePerPerson($event)"></add-event-price>
+      <add-event-when class="col-lg-6 col-sm-6 col-12" [when]="when" (whenChange)="updateWhen($event)"></add-event-when>
+      <add-event-signup-open-till class="col-lg-6 col-sm-6 col-12" [signupOpenTill]="signupOpenTill" (signupOpenTillChange)="updateSignupOpenTill($event)"></add-event-signup-open-till>
+      <add-event-address class="col-12" [address]="address" (addressChange)="updateAddress($event)"></add-event-address>
     </div>
   </div>
-  <event-image class="col-lg-6 col-12" [url]="imageUrl" [eventId]="eventId" (imageUrlChange)="updateImageUrl($event)"></event-image>
-  <event-summary class="col-12" [summary]="summary" (summaryChange)="updateSummary($event)"></event-summary>
+  <add-event-image class="col-lg-6 col-12" [url]="imageUrl" [eventId]="eventId" (imageUrlChange)="updateImageUrl($event)"></add-event-image>
+  <add-event-summary class="col-12" [summary]="summary" (summaryChange)="updateSummary($event)"></add-event-summary>
   <div class="col-12 py-5 text-right">
     <button mat-button mat-raised-button (click)="updateEvent()">Update</button>
   </div>

@@ -8,7 +8,7 @@ import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
   templateUrl: './add-event-image.component.html',
   styleUrls: ['./add-event-image.component.scss']
 })
-export class EventImageComponent implements OnInit {
+export class AddEventImageComponent implements OnInit {
 
   @Input() url: string;
   @Input() eventId: string;

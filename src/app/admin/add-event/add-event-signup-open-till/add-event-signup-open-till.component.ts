@@ -5,11 +5,11 @@ import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'event-signup-open-till',
-  templateUrl: './event-signup-open-till.component.html',
-  styleUrls: ['./event-signup-open-till.component.scss']
+  selector: 'add-event-signup-open-till',
+  templateUrl: './add-event-signup-open-till.component.html',
+  styleUrls: ['./add-event-signup-open-till.component.scss']
 })
-export class EventSignupOpenTillComponent implements OnInit {
+export class AddEventSignupOpenTillComponent implements OnInit {
 
   @Input() signupOpenTill: Date;
   @Output() signupOpenTillChange: EventEmitter<Date> = new EventEmitter();
