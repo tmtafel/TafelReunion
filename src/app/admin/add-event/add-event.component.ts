@@ -10,8 +10,6 @@ import { Address } from '../../auth/address';
   styleUrls: ['./add-event.component.scss']
 })
 export class AddEventComponent implements OnInit {
-  eventId: string;
-
   title: string = null;
   address: Address = null;
   signupOpenTill: Date = null;
@@ -24,7 +22,18 @@ export class AddEventComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.title = '';
+    this.address = new Address();
+    this.address.street = '';
+    this.address.city = '';
+    this.address.state = '';
+    this.address.zip = '';
+    this.address.country = '';
+    this.when = new Date(2020, 8, 7, 12, 0, 0);
+    this.signupOpenTill = new Date(2020, 8, 7, 12, 0, 0);
+    this.pricePerPerson = 0;
+    this.summary = '';
+    this.imageUrl = '';
   }
 
   updateTitle(newTitle: string) {

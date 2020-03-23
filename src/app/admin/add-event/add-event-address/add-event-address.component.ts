@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Address } from 'src/app/auth/address';
+import { Address } from '../../../'
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'event-address',
-  templateUrl: './event-address.component.html',
-  styleUrls: ['./event-address.component.scss']
+  selector: 'add-event-address',
+  templateUrl: './add-event-address.component.html',
+  styleUrls: ['./add-event-address.component.scss']
 })
-export class EventAddressComponent implements OnInit {
+export class AddEventAddressComponent implements OnInit {
 
   @Input() address: Address;
   @Output() addressChange: EventEmitter<Address> = new EventEmitter();

@@ -11,7 +11,8 @@
       <event-title class="col-md-6 col-12" [title]="title" (titleChange)="updateTitle($event)"></event-title>
       <event-price class="col-md-6 col-12" [price]="pricePerPerson" (priceChange)="updatePricePerPerson($event)"></event-price>
       <event-when class="col-lg-6 col-sm-6 col-12" [when]="when" (whenChange)="updateWhen($event)"></event-when>
-      <event-signup-open-till class="col-lg-6 col-sm-6 col-12" [signupOpenTill]="signupOpenTill" (signupOpenTillChange)="updateSignupOpenTill($event)"></event-signup-open-till>
+      <event-signup-open-till class="col-lg-6 col-sm-6 col-12" [signupOpenTill]="signupOpenTill" (signupOpenTillChange)="updateSignupOpenTill($event)">
+      </event-signup-open-till>
       <event-address class="col-12" [address]="address" (addressChange)="updateAddress($event)"></event-address>
     </div>
   </div>
