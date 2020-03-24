@@ -18,7 +18,7 @@ import { EventSummaryComponent } from './manage-event/event-summary/event-summar
 import { EventTitleComponent } from './manage-event/event-title/event-title.component';
 import { EventWhenComponent } from './manage-event/event-when/event-when.component';
 import { DeleteEvent, ManageEventComponent } from './manage-event/manage-event.component';
-import { ManageEventsComponent } from './manage-events/manage-events.component';
+import { AddEvent, ManageEventsComponent } from './manage-events/manage-events.component';
 import { HotelAddressComponent } from './manage-hotel/hotel-address/hotel-address.component';
 import { HotelImageComponent } from './manage-hotel/hotel-image/hotel-image.component';
 import { HotelNameComponent } from './manage-hotel/hotel-name/hotel-name.component';
@@ -58,7 +58,8 @@ import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
     EventSummaryComponent
   ],
   entryComponents: [
-    DeleteEvent
+    DeleteEvent,
+    AddEvent
   ]
 })
 export class AdminModule { }
