@@ -35,6 +35,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
     exports: [
@@ -55,6 +56,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatDividerModule,
         MatExpansionModule,
         MatGridListModule,
+        MatFormFieldModule,
         MatIconModule,
         MatInputModule,
         MatListModule,

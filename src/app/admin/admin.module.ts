@@ -29,14 +29,14 @@ import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
 @NgModule({
   imports: [
     CommonModule,
-    AdminRoutingModule,
     MaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
     NgxMaterialTimepickerModule,
     NgxCurrencyModule,
     CKEditorModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AdminRoutingModule
   ],
   declarations: [
     AdminComponent,
