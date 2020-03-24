@@ -8,14 +8,15 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./add-event-title.component.scss']
 })
 export class AddEventTitleComponent implements OnInit {
-
+  @Input() title: string;
   @Output() titleChange: EventEmitter<string> = new EventEmitter();
   titleFormControl: FormControl;
   constructor() { }
 
   ngOnInit() {
-    this.titleFormControl = new FormControl();
+    this.titleFormControl = new FormControl(this.title);
     this.titleFormControl.valueChanges.subscribe(newtitle => {
+      this.title = newtitle;
       this.titleChange.emit(newtitle);
     });
   }

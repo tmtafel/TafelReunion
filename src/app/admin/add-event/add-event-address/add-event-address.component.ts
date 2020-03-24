@@ -9,10 +9,8 @@ import { Address } from 'src/app/auth/address';
   styleUrls: ['./add-event-address.component.scss']
 })
 export class AddEventAddressComponent implements OnInit {
-
-  @Input() address: Address;
   @Output() addressChange: EventEmitter<Address> = new EventEmitter();
-
+  address: Address;
   streetFormCtrl: FormControl;
   cityFormCtrl: FormControl;
   stateFormCtrl: FormControl;
@@ -23,31 +21,31 @@ export class AddEventAddressComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.streetFormCtrl = new FormControl(this.address.street);
+    this.streetFormCtrl = new FormControl('');
     this.streetFormCtrl.valueChanges.subscribe(newStreet => {
       this.address.street = newStreet;
       this.addressChange.emit(this.address);
     });
 
-    this.cityFormCtrl = new FormControl(this.address.city);
+    this.cityFormCtrl = new FormControl('');
     this.cityFormCtrl.valueChanges.subscribe(newCity => {
       this.address.city = newCity;
       this.addressChange.emit(this.address);
     });
 
-    this.stateFormCtrl = new FormControl(this.address.state);
+    this.stateFormCtrl = new FormControl('');
     this.stateFormCtrl.valueChanges.subscribe(newState => {
       this.address.state = newState;
       this.addressChange.emit(this.address);
     });
 
-    this.zipFormCtrl = new FormControl(this.address.zip);
+    this.zipFormCtrl = new FormControl('');
     this.zipFormCtrl.valueChanges.subscribe(newZip => {
       this.address.zip = newZip;
       this.addressChange.emit(this.address);
     });
 
-    this.countryFormCtrl = new FormControl(this.address.country);
+    this.countryFormCtrl = new FormControl('');
     this.countryFormCtrl.valueChanges.subscribe(newCountry => {
       this.address.country = newCountry;
       this.addressChange.emit(this.address);

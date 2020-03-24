@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
+import { NewImage } from './new-image';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -9,18 +10,10 @@ import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
   styleUrls: ['./add-event-image.component.scss']
 })
 export class AddEventImageComponent implements OnInit {
-
-  @Input() url: string;
-  @Input() eventId: string;
-  @Output() imageUrlChange: EventEmitter<string> = new EventEmitter();
-
-  name: string;
-  fileType: string;
-  fileData: File = null;
+  @Output() imageChange: EventEmitter<NewImage> = new EventEmitter();
   previewUrl: any = null;
-  storedUrl: any = null;
 
-  constructor(private storage: AngularFireStorage) { }
+  constructor() { }
 
   ngOnInit() {
   }
@@ -32,47 +25,30 @@ export class AddEventImageComponent implements OnInit {
 
   fileProgress(fileInput: any) {
     if (fileInput.target.files && fileInput.target.files[0]) {
-      this.fileData = fileInput.target.files[0] as File;
-      const mimeType = this.fileData.type;
+      const data = fileInput.target.files[0] as File;
+      const newImage = new NewImage(data);
+      const mimeType = newImage.fileData.type;
       if (mimeType.match(/image\/*/) == null) {
-        this.fileData = null;
+        newImage.fileData = null;
         alert('not an image');
         return;
       }
       const reader = new FileReader();
-      reader.readAsDataURL(this.fileData);
+      reader.readAsDataURL(newImage.fileData);
       reader.onload = (evt) => {
-        const name = this.fileData.name;
+        const name = newImage.fileData.name;
         if (name) {
-          const nameArray = this.fileData.name.split('.');
+          const nameArray = newImage.fileData.name.split('.');
           if (nameArray) {
             if (nameArray.length > 1) {
               this.previewUrl = reader.result;
-              this.fileType = nameArray.pop();
-              this.name = nameArray.join('-');
+              newImage.fileType = nameArray.pop();
+              newImage.name = nameArray.join('-');
+              this.imageChange.emit(newImage);
             }
           }
         }
       };
     }
   }
-
-  async onSubmit() {
-    if (!(this.eventId)) {
-      console.log('no event id');
-      return;
-    }
-    try {
-      const path = `hotels/${this.eventId}/${this.name}.${this.fileType}`;
-      const snapshot: UploadTaskSnapshot = await this.storage.upload(path, this.fileData);
-      const generatedUrl = await snapshot.ref.getDownloadURL();
-      this.previewUrl = generatedUrl;
-      this.imageUrlChange.emit(generatedUrl);
-    } catch (err) {
-      alert('error occured, check console for log');
-      console.error(err);
-    }
-  }
-
-
 }

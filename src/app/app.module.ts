@@ -14,7 +14,6 @@ import { NearbyComponent } from './home/nearby/nearby.component';
 import { HomeEventsComponent } from './home/home-events/home-events.component';
 import { HeaderComponent } from './header/header.component';
 import { HotelsComponent } from './home/hotels/hotels.component';
-import { AddEventComponent } from './admin/add-event/add-event.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,8 +22,7 @@ import { AddEventComponent } from './admin/add-event/add-event.component';
     NearbyComponent,
     HomeEventsComponent,
     HeaderComponent,
-    HotelsComponent,
-    AddEventComponent
+    HotelsComponent
   ],
   imports: [
     MaterialModule,

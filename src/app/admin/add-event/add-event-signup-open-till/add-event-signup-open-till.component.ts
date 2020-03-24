@@ -10,8 +10,6 @@ import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
   styleUrls: ['./add-event-signup-open-till.component.scss']
 })
 export class AddEventSignupOpenTillComponent implements OnInit {
-
-  @Input() signupOpenTill: Date;
   @Output() signupOpenTillChange: EventEmitter<Date> = new EventEmitter();
 
   dateFormControl: FormControl;
@@ -44,12 +42,10 @@ export class AddEventSignupOpenTillComponent implements OnInit {
   }
 
   ngOnInit() {
-    const dt = new Date(this.signupOpenTill);
-    this.date = dt;
+    const dt = new Date(2020, 8, 7, 12, 0, 0);
     this.dateFormControl = new FormControl(dt);
 
     const tm = this.getTimeForDatepicker(dt);
-    this.time = tm;
     this.timeFormControl = new FormControl(tm);
   }
 

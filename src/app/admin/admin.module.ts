@@ -32,6 +32,7 @@ import { HotelNameComponent } from './manage-hotel/hotel-name/hotel-name.compone
 import { HotelPhoneComponent } from './manage-hotel/hotel-phone/hotel-phone.component';
 import { ManageHotelComponent } from './manage-hotel/manage-hotel.component';
 import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
+import { AddEventComponent } from './add-event/add-event.component';
 
 @NgModule({
   imports: [
@@ -63,6 +64,7 @@ import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
     EventWhenComponent,
     EventSignupOpenTillComponent,
     EventSummaryComponent,
+    AddEventComponent,
     AddEventTitleComponent,
     AddEventPriceComponent,
     AddEventSummaryComponent,
