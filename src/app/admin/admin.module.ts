@@ -7,13 +7,6 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import { MaterialModule } from '../shared/material.module';
-import { AddEventAddressComponent } from './add-event/add-event-address/add-event-address.component';
-import { AddEventImageComponent } from './add-event/add-event-image/add-event-image.component';
-import { AddEventPriceComponent } from './add-event/add-event-price/add-event-price.component';
-import { AddEventSignupOpenTillComponent } from './add-event/add-event-signup-open-till/add-event-signup-open-till.component';
-import { AddEventSummaryComponent } from './add-event/add-event-summary/add-event-summary.component';
-import { AddEventTitleComponent } from './add-event/add-event-title/add-event-title.component';
-import { AddEventWhenComponent } from './add-event/add-event-when/add-event-when.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin/admin.component';
@@ -32,7 +25,6 @@ import { HotelNameComponent } from './manage-hotel/hotel-name/hotel-name.compone
 import { HotelPhoneComponent } from './manage-hotel/hotel-phone/hotel-phone.component';
 import { ManageHotelComponent } from './manage-hotel/manage-hotel.component';
 import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
-import { AddEventComponent } from './add-event/add-event.component';
 
 @NgModule({
   imports: [
@@ -63,15 +55,7 @@ import { AddEventComponent } from './add-event/add-event.component';
     EventPriceComponent,
     EventWhenComponent,
     EventSignupOpenTillComponent,
-    EventSummaryComponent,
-    AddEventComponent,
-    AddEventTitleComponent,
-    AddEventPriceComponent,
-    AddEventSummaryComponent,
-    AddEventImageComponent,
-    AddEventAddressComponent,
-    AddEventSignupOpenTillComponent,
-    AddEventWhenComponent
+    EventSummaryComponent
   ],
   entryComponents: [
     DeleteEvent

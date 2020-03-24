@@ -63,7 +63,7 @@ export class EventComponent implements OnInit {
   payHere() {
     alert('Still need to set up');
   }
-  
+
   signUp(): void {
     const rsvp = new Rsvp(this.eventId, this.event.title, this.rsvp.attending, this.rsvp.numberOfPeople);
     const dialogAttending = this.dialog.open(DialogAttending, {
