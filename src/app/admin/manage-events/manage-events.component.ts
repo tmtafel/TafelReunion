@@ -27,7 +27,7 @@ export class ManageEventsComponent implements OnInit {
   }
 
   procedeToAdd() {
-    const addEvent = this.dialog.open(AddEvent, {
+    const addEvent = this.dialog.open(AddNewEvent, {
       width: '300px'
     });
 
@@ -41,15 +41,16 @@ export class ManageEventsComponent implements OnInit {
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'add-event',
-  templateUrl: 'add-event.html',
+  selector: 'add-new-event',
+  templateUrl: 'add-new-event.html',
 })
 
 // tslint:disable-next-line:component-class-suffix
-export class AddEvent {
+export class AddNewEvent {
 
-  constructor(public dialogAttending: MatDialogRef<AddEvent>, private db: AngularFirestore) { }
+  constructor(public dialogAttending: MatDialogRef<AddNewEvent>, private db: AngularFirestore) { }
   title = '';
+
   onNoClick(): void {
     this.dialogAttending.close();
   }

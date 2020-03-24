@@ -6,7 +6,6 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
-import { MaterialModule } from '../shared/material.module';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin/admin.component';
@@ -18,24 +17,25 @@ import { EventSummaryComponent } from './manage-event/event-summary/event-summar
 import { EventTitleComponent } from './manage-event/event-title/event-title.component';
 import { EventWhenComponent } from './manage-event/event-when/event-when.component';
 import { DeleteEvent, ManageEventComponent } from './manage-event/manage-event.component';
-import { AddEvent, ManageEventsComponent } from './manage-events/manage-events.component';
+import { AddNewEvent, ManageEventsComponent } from './manage-events/manage-events.component';
 import { HotelAddressComponent } from './manage-hotel/hotel-address/hotel-address.component';
 import { HotelImageComponent } from './manage-hotel/hotel-image/hotel-image.component';
 import { HotelNameComponent } from './manage-hotel/hotel-name/hotel-name.component';
 import { HotelPhoneComponent } from './manage-hotel/hotel-phone/hotel-phone.component';
 import { ManageHotelComponent } from './manage-hotel/manage-hotel.component';
 import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
+import { MaterialModule } from '../shared/material.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
     NgxMaterialTimepickerModule,
     NgxCurrencyModule,
     CKEditorModule,
     HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
     AdminRoutingModule
   ],
   declarations: [
@@ -58,8 +58,8 @@ import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
     EventSummaryComponent
   ],
   entryComponents: [
-    DeleteEvent,
-    AddEvent
+    AddNewEvent,
+    DeleteEvent
   ]
 })
 export class AdminModule { }
