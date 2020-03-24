@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -115,6 +114,7 @@ export class ManageEventComponent implements OnInit {
 
     deleteEvent.afterClosed().subscribe(deleted => {
       if (deleted) {
+        this.db.doc(`events/${this.eventId}`).delete();
         this.router.navigateByUrl('/admin/events');
       }
     });
@@ -130,27 +130,14 @@ export class ManageEventComponent implements OnInit {
 // tslint:disable-next-line:component-class-suffix
 export class DeleteEvent {
 
-  constructor(public dialogAttending: MatDialogRef<DeleteEvent>, @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient) { }
+  constructor(public deleteEvent: MatDialogRef<DeleteEvent>) { }
 
   onNoClick(): void {
-    this.dialogAttending.close(false);
+    this.deleteEvent.close();
   }
 
   onYesClick() {
-    try {
-      this.http.get(`https://us-central1-tafelreunion.cloudfunctions.net/deleteEvent?id=${this.data.id}`, { responseType: 'text' })
-        .pipe(
-          tap(deleted => {
-            if (deleted) {
-              this.dialogAttending.close(true);
-            }
-            this.dialogAttending.close(false);
-          }));
-    } catch (err) {
-      console.log(err);
-      alert('Error Deleting Event, check logs for details');
-      this.dialogAttending.close(false);
-    }
+    this.deleteEvent.close(true)
   }
 
 }

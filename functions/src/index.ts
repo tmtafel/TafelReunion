@@ -58,83 +58,19 @@ export const deleteRegistration = functions.auth.user().onDelete(async (user) =>
     return registration.delete();
 });
 
-export const getUsers = functions.https.onRequest(async (req, res) => {
-    try {
-        const users = await admin.auth().listUsers();
-        const usersJson = JSON.stringify(users);
-        res.send(usersJson);
-    } catch (err) {
-        const errJson = JSON.stringify(err);
-        res.redirect(303, errJson);
-    }
-});
-
-export const getUser = functions.https.onRequest(async (req, res) => {
-    try {
-        const email = req.query.email;
-        const user = await admin.auth().getUserByEmail(email);
-        const userJson = JSON.stringify(user);
-        res.send(userJson);
-    } catch (err) {
-        const errJson = JSON.stringify(err);
-        res.redirect(303, errJson);
-    }
-});
-
-export const isUserAdmin = functions.https.onRequest(async (req, res) => {
-    try {
-        const id = req.query.id;
-        const user = await admin.auth().getUser(id);
-        if (user.customClaims) {
-            res.send(user.customClaims);
+export const eventDeleted = functions.firestore.document('events/{eventId}')
+    .onDelete(async (snapshot, context) => {
+        try {
+            const id = context.params.eventId;
+            const promises: Promise<FirebaseFirestore.WriteResult>[] = [];
+            const users = await db.collection(`registrations`).listDocuments();
+            users.forEach(u => {
+                const p = db.doc(`registrations/${u.id}/events/${id}`).delete();
+                promises.push(p);
+            });
+            return Promise.all(promises);
+        } catch (err) {
+            console.log(err);
+            return null;
         }
-        res.send(false);
-    } catch (err) {
-        console.log(err);
-        res.send(false);
-    }
-});
-
-// export const setUserAsAdmin = functions.https.onRequest(async (req, res) => {
-//     try {
-//         const id = req.query.id;
-//         await admin.auth().setCustomUserClaims(id, { admin: true });
-//         const user = await admin.auth().getUser(id);
-//         const userJson = JSON.stringify(user);
-//         res.send(userJson);
-//     } catch (err) {
-//         const errJson = JSON.stringify(err);
-//         res.redirect(303, errJson);
-//     }
-// });
-
-export const removeUserAsAdmin = functions.https.onRequest(async (req, res) => {
-    try {
-        const id = req.query.id;
-        await admin.auth().setCustomUserClaims(id, { admin: false });
-        const user = await admin.auth().getUser(id);
-        const userJson = JSON.stringify(user);
-        res.send(userJson);
-    } catch (err) {
-        const errJson = JSON.stringify(err);
-        res.redirect(303, errJson);
-    }
-});
-
-export const deleteEvent = functions.https.onRequest(async (req, res) => {
-    try {
-        const id = req.query.id;
-        const promises: Promise<FirebaseFirestore.WriteResult>[] = [];
-        const users = await db.collection(`registrations`).listDocuments();
-        users.forEach(u => {
-            const p = db.doc(`registrations/${u.id}/events/${id}`).delete();
-            promises.push(p);
-        });
-        await Promise.all(promises);
-        await db.doc(`events/${id}`).delete();
-        res.sendStatus(200);
-    } catch (err) {
-        const errJson = JSON.stringify(err);
-        res.redirect(303, errJson);
-    }
-});
+    });

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -27,13 +27,34 @@ export class ManageEventsComponent implements OnInit {
   }
 
   procedeToAdd() {
-    const addEvent = this.dialog.open(AddNewEvent, {
+    const addNewEvent = this.dialog.open(AddNewEvent, {
       width: '300px'
     });
 
-    addEvent.afterClosed().subscribe(id => {
-      if (id) {
-        this.router.navigateByUrl(`/admin/events/${id}`);
+    addNewEvent.afterClosed().subscribe(ttl => {
+      if (ttl) {
+        const eventObj = {
+          address: {
+            street: '',
+            city: '',
+            state: '',
+            zip: '',
+            country: ''
+          },
+          title: ttl,
+          pricePerPerson: 0,
+          signupOpenTill: new Date(2020, 7, 6, 12, 0, 0),
+          when: new Date(2020, 7, 6, 12, 0, 0),
+          summary: '',
+          imageUrl: ''
+        };
+        this.db.collection(`events`).add(eventObj).then(newEvent => {
+
+          this.router.navigateByUrl(`/admin/events/${newEvent.id}`);
+        }).catch(err => {
+          console.log(err);
+          alert('Error Adding Event, check logs for details');
+        });
       }
     });
   }
@@ -47,38 +68,15 @@ export class ManageEventsComponent implements OnInit {
 
 // tslint:disable-next-line:component-class-suffix
 export class AddNewEvent {
-
-  constructor(public dialogAttending: MatDialogRef<AddNewEvent>, private db: AngularFirestore) { }
   title = '';
+  constructor(public addNewEvent: MatDialogRef<AddNewEvent>) { }
 
   onNoClick(): void {
-    this.dialogAttending.close();
+    this.addNewEvent.close();
   }
 
-  async onYesClick() {
-    try {
-      const eventObj = {
-        address: {
-          street: '',
-          city: '',
-          state: '',
-          zip: '',
-          country: ''
-        },
-        title: this.title,
-        pricePerPerson: 0,
-        signupOpenTill: new Date(2020, 7, 6, 12, 0, 0),
-        when: new Date(2020, 7, 6, 12, 0, 0),
-        summary: '',
-        imageUrl: ''
-      };
-      const newEvent = await this.db.collection(`events`).add(eventObj);
-      this.dialogAttending.close(newEvent.id);
-    } catch (err) {
-      console.log(err);
-      alert('Error Adding Event, check logs for details');
-      this.dialogAttending.close();
-    }
+  onYesClick() {
+    this.addNewEvent.close(this.title);
   }
 
 }

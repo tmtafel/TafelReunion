@@ -32,6 +32,9 @@ import { HotelsComponent } from './home/hotels/hotels.component';
     AdminModule,
     FormsModule
   ],
+  exports: [
+    MaterialModule
+  ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
 })

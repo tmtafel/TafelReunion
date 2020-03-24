@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
@@ -17,7 +16,7 @@ import { EventSummaryComponent } from './manage-event/event-summary/event-summar
 import { EventTitleComponent } from './manage-event/event-title/event-title.component';
 import { EventWhenComponent } from './manage-event/event-when/event-when.component';
 import { DeleteEvent, ManageEventComponent } from './manage-event/manage-event.component';
-import { AddNewEvent, ManageEventsComponent } from './manage-events/manage-events.component';
+import { ManageEventsComponent, AddNewEvent } from './manage-events/manage-events.component';
 import { HotelAddressComponent } from './manage-hotel/hotel-address/hotel-address.component';
 import { HotelImageComponent } from './manage-hotel/hotel-image/hotel-image.component';
 import { HotelNameComponent } from './manage-hotel/hotel-name/hotel-name.component';
@@ -29,14 +28,13 @@ import { MaterialModule } from '../shared/material.module';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
     MaterialModule,
     NgxMaterialTimepickerModule,
     NgxCurrencyModule,
     CKEditorModule,
-    HttpClientModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     AdminComponent,
@@ -55,7 +53,9 @@ import { MaterialModule } from '../shared/material.module';
     EventPriceComponent,
     EventWhenComponent,
     EventSignupOpenTillComponent,
-    EventSummaryComponent
+    EventSummaryComponent,
+    AddNewEvent,
+    DeleteEvent
   ],
   entryComponents: [
     AddNewEvent,
