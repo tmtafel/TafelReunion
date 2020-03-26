@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 
@@ -63,7 +63,7 @@ export class EventImageComponent implements OnInit {
       return;
     }
     try {
-      const path = `hotels/${this.eventId}/${this.name}.${this.fileType}`;
+      const path = `events/${this.eventId}/${this.name}.${this.fileType}`;
       const snapshot: UploadTaskSnapshot = await this.storage.upload(path, this.fileData);
       const generatedUrl = await snapshot.ref.getDownloadURL();
       this.previewUrl = generatedUrl;

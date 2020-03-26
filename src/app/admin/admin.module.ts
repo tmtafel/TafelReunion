@@ -17,10 +17,6 @@ import { EventTitleComponent } from './manage-event/event-title/event-title.comp
 import { EventWhenComponent } from './manage-event/event-when/event-when.component';
 import { DeleteEvent, ManageEventComponent } from './manage-event/manage-event.component';
 import { ManageEventsComponent, AddNewEvent } from './manage-events/manage-events.component';
-import { HotelAddressComponent } from './manage-hotel/hotel-address/hotel-address.component';
-import { HotelImageComponent } from './manage-hotel/hotel-image/hotel-image.component';
-import { HotelNameComponent } from './manage-hotel/hotel-name/hotel-name.component';
-import { HotelPhoneComponent } from './manage-hotel/hotel-phone/hotel-phone.component';
 import { ManageHotelComponent } from './manage-hotel/manage-hotel.component';
 import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
 import { MaterialModule } from '../shared/material.module';
@@ -41,10 +37,6 @@ import { MaterialModule } from '../shared/material.module';
     AdminDashboardComponent,
     ManageHotelsComponent,
     ManageHotelComponent,
-    HotelAddressComponent,
-    HotelNameComponent,
-    HotelPhoneComponent,
-    HotelImageComponent,
     ManageEventsComponent,
     ManageEventComponent,
     EventAddressComponent,
