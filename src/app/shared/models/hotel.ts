@@ -1,4 +1,4 @@
-import { Address } from 'src/app/auth/address';
+import { Address } from './address';
 
 export interface Hotel {
     id: string;

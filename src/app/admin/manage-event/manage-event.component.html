@@ -1,10 +1,12 @@
 <div class="row">
-  <div class="col-12 justify-content-between d-flex">
+  <div class="col-12 justify-content-between d-flex pb-2">
     <button mat-raised-button routerLink="/admin/events">
-      <i class="material-icons">arrow_back</i>Back
+      <mat-icon>arrow_back</mat-icon>
+      <span class="ml-2">Back</span>
     </button>
     <button mat-raised-button (click)="procedeToDelete()">
-      <i class="material-icons">delete_forever</i>Delete
+      <mat-icon>delete_forever</mat-icon>
+      <span class="ml-2">Delete</span>
     </button>
   </div>
 </div>
@@ -13,8 +15,11 @@
     <div class="row">
       <event-title class="col-md-6 col-12" [title]="title" (titleChange)="updateTitle($event)"></event-title>
       <event-price class="col-md-6 col-12" [price]="pricePerPerson" (priceChange)="updatePricePerPerson($event)"></event-price>
-      <event-when class="col-lg-6 col-sm-6 col-12" [when]="when" (whenChange)="updateWhen($event)"></event-when>
-      <event-signup-open-till class="col-lg-6 col-sm-6 col-12" [signupOpenTill]="signupOpenTill" (signupOpenTillChange)="updateSignupOpenTill($event)"></event-signup-open-till>
+      <event-when class="col-lg-6 col-sm-6 col-12 pb-1" [when]="when" (whenChange)="updateWhen($event)"></event-when>
+      <event-signup-open-till class="col-lg-6 col-sm-6 col-12" 
+      [signupOpenTill]="signupOpenTill" (signupOpenTillChange)="updateSignupOpenTill($event)" 
+      [signupExpires]="signupExpires" (signupExpiresChange)="updateSignupExpires($event)">
+      </event-signup-open-till>
       <event-address class="col-12" [address]="address" (addressChange)="updateAddress($event)"></event-address>
     </div>
   </div>

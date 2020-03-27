@@ -1,7 +1,7 @@
 import { firestore } from 'firebase/app';
 
 import Timestamp = firestore.Timestamp;
-import { Address } from '../address';
+import { Address } from './address';
 
 export class Event {
 
@@ -13,6 +13,7 @@ export class Event {
     summary: string;
     when: Timestamp;
     imageUrl: string;
+    live: boolean;
 
 
     constructor() {

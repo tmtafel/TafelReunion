@@ -1,10 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
-import { Address } from 'src/app/auth/address';
-import { Event } from 'src/app/auth/event/event';
+import { Address } from 'src/app/shared/models/address';
+import { Event } from 'src/app/shared/models/event';
 
 @Component({
   selector: 'app-manage-event',
@@ -17,6 +16,7 @@ export class ManageEventComponent implements OnInit {
   title: string = null;
   address: Address = null;
   signupOpenTill: Date = null;
+  signupExpires: boolean = null;
   pricePerPerson: number = null;
   when: Date = null;
   summary: string = null;
@@ -60,6 +60,10 @@ export class ManageEventComponent implements OnInit {
     this.signupOpenTill = newDate;
   }
 
+  updateSignupExpires(newSignupExpires: boolean) {
+    this.signupExpires = newSignupExpires;
+  }
+
   updatePricePerPerson(newPrice: number) {
     this.pricePerPerson = newPrice;
   }
@@ -89,6 +93,7 @@ export class ManageEventComponent implements OnInit {
       },
       title: this.title,
       pricePerPerson: this.pricePerPerson,
+      signupExpires: this.signupExpires,
       signupOpenTill: this.signupOpenTill,
       when: this.when,
       summary: this.summary,
@@ -137,7 +142,7 @@ export class DeleteEvent {
   }
 
   onYesClick() {
-    this.deleteEvent.close(true)
+    this.deleteEvent.close(true);
   }
 
 }

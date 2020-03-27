@@ -1,9 +1,11 @@
-<div class="row pt-3">
-  <h6 class="col-12">
-    Signup Open Till
-  </h6>
+<div class="row pt-3 pb-1">
+  <div class="col-12 d-flex justify-content-between">
+    <mat-slide-toggle [formControl]="signupExpiresFormControl" (change)="signupExpiresChanged($event)">
+      Signup Expires
+    </mat-slide-toggle>
+  </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="signupExpires">
   <mat-form-field class="col-6">
     <mat-label>Choose a date</mat-label>
     <input matInput [formControl]="dateFormControl" [matDatepicker]="picker" (dateInput)="dateChanged($event)" readonly [min]="minDate" [max]="maxDate">

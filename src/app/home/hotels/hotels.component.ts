@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Hotel } from 'src/app/home/hotel';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { Hotel } from 'src/app/shared/models/hotel';
 
 @Component({
   // tslint:disable-next-line:component-selector

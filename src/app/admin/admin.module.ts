@@ -19,7 +19,7 @@ import { DeleteEvent, ManageEventComponent } from './manage-event/manage-event.c
 import { ManageEventsComponent, AddNewEvent } from './manage-events/manage-events.component';
 import { ManageHotelComponent } from './manage-hotel/manage-hotel.component';
 import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
-import { MaterialModule } from '../shared/material.module';
+import { MaterialModule } from '../shared/modules/material.module';
 
 @NgModule({
   imports: [

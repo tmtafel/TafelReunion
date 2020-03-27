@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Address } from 'src/app/auth/address';
+import { Address } from 'src/app/shared/models/address';
 
 @Component({
   // tslint:disable-next-line:component-selector

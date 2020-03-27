@@ -3,11 +3,10 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-
-import { Rsvp } from '../rsvp';
-import { EventService } from '../services/event.service';
-import { RsvpService } from '../services/rsvp.service';
-import { Event } from './event';
+import { Rsvp } from 'src/app/shared/models/rsvp';
+import { RsvpService } from 'src/app/shared/services/rsvp.service';
+import { EventService } from 'src/app/shared/services/event.service';
+import { Event } from 'src/app/shared/models/event';
 
 @Component({
   selector: 'app-event',
@@ -105,9 +104,7 @@ export class EventComponent implements OnInit {
 // tslint:disable-next-line:component-class-suffix
 export class DialogAttending {
 
-  constructor(
-    public dialogAttending: MatDialogRef<DialogAttending>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(public dialogAttending: MatDialogRef<DialogAttending>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   onNoClick(): void {
     this.data.rsvp.attending = false;
@@ -118,5 +115,4 @@ export class DialogAttending {
     this.data.rsvp.attending = true;
     this.dialogAttending.close(this.data.rsvp);
   }
-
 }

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-import { Address } from '../address';
-import { Profile } from '../profile';
-import { ProfileService } from '../services/profile.service';
+import { Profile } from 'src/app/shared/models/profile';
+import { ProfileService } from 'src/app/shared/services/profile.service';
+import { Address } from 'src/app/shared/models/address';
 
 @Component({
   selector: 'app-profile',

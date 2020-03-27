@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
+import { Event } from '../models/event';
 
-import { Event } from '../event/event';
 
 @Injectable({
   providedIn: 'root'

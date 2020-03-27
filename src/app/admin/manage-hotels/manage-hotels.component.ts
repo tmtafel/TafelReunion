@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Hotel } from 'src/app/home/hotel';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { Hotel } from 'src/app/shared/models/hotel';
 
 @Component({
   selector: 'app-manage-hotels',

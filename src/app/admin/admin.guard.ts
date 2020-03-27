@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Route, 
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../auth/auth.service';
-import { ProfileService } from '../auth/services/profile.service';
+import { ProfileService } from '../shared/services/profile.service';
 
 @Injectable({
   providedIn: 'root'

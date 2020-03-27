@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Address } from 'src/app/auth/address';
-import { Hotel } from 'src/app/home/hotel';
 import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { Hotel } from 'src/app/shared/models/hotel';
 
 @Component({
   selector: 'app-manage-hotel',

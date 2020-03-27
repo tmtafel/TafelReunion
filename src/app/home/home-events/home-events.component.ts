@@ -3,8 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
-
-import { HomeEvent } from '../home-event';
+import { HomeEvent } from 'src/app/shared/models/home-event';
 
 @Component({
   selector: 'app-home-events',

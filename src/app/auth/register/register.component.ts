@@ -5,8 +5,8 @@ import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
-import { Profile } from '../profile';
-import { ProfileService } from '../services/profile.service';
+import { Profile } from 'src/app/shared/models/profile';
+import { ProfileService } from 'src/app/shared/services/profile.service';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   profile: Profile;
   errorMessage: string;
 
-  constructor(private db: AngularFirestore, private formBuilder: FormBuilder, private router: Router, private authService: AuthService, private profileService: ProfileService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService, private profileService: ProfileService) {
 
   }
 

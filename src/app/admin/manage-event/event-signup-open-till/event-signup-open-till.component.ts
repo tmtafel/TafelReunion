@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -14,6 +15,10 @@ export class EventSignupOpenTillComponent implements OnInit {
   @Input() signupOpenTill: Date;
   @Output() signupOpenTillChange: EventEmitter<Date> = new EventEmitter();
 
+  @Input() signupExpires: boolean;
+  @Output() signupExpiresChange: EventEmitter<boolean> = new EventEmitter();
+
+  signupExpiresFormControl: FormControl;
   dateFormControl: FormControl;
   timeFormControl: FormControl;
 
@@ -51,6 +56,13 @@ export class EventSignupOpenTillComponent implements OnInit {
     const tm = this.getTimeForDatepicker(dt);
     this.time = tm;
     this.timeFormControl = new FormControl(tm);
+
+    this.signupExpiresFormControl = new FormControl(this.signupExpires);
+  }
+
+  signupExpiresChanged(toggle: MatSlideToggleChange) {
+    this.signupExpires = toggle.checked;
+    this.signupExpiresChange.emit(toggle.checked);
   }
 
   timeChanged(tm: any) {

@@ -8,7 +8,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 
-import { MaterialModule } from '../shared/material.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { DialogAttending, EventComponent } from './event/event.component';
 import { LoginComponent } from './login/login.component';
@@ -19,6 +18,7 @@ import { PhoneComponent } from './profile/phone/phone.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { RsvpsComponent } from './rsvps/rsvps.component';
+import { MaterialModule } from '../shared/modules/material.module';
 
 @NgModule({
   imports: [

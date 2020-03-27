@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AuthService } from '../auth/auth.service';
-import { ProfileService } from '../auth/services/profile.service';
+import { ProfileService } from '../shared/services/profile.service';
 
 @Component({
   selector: 'app-header',

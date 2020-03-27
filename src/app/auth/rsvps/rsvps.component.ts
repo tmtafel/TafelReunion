@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Rsvp } from '../rsvp';
-import { EventService } from '../services/event.service';
-import { RsvpService } from '../services/rsvp.service';
+import { Rsvp } from 'src/app/shared/models/rsvp';
+import { RsvpService } from 'src/app/shared/services/rsvp.service';
+import { EventService } from 'src/app/shared/services/event.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
