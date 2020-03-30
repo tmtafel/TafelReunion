@@ -44,8 +44,8 @@ export class ManageEventsComponent implements OnInit {
           imageUrl: '',
           live: false,
           pricePerPerson: 0,
-          signupOpenTill: new Date(2020, 7, 6, 12, 0, 0),
           signupExpires: false,
+          signupOpenTill: new Date(2020, 7, 6, 12, 0, 0),
           summary: '',
           title: ttl,
           when: new Date(2020, 7, 6, 12, 0, 0)

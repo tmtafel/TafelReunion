@@ -14,7 +14,7 @@
       <button mat-raised-button (click)="payHere()">Pay Here</button>
     </div>
   </div>
-  <div class="row" *ngIf="loaded">
+  <div class="row" *ngIf="eventLoaded && rsvpLoaded">
     <div class="col-12 col-sm-6">
       <h2>{{event.title}}</h2>
       <h4>{{when | date:'MMMM dd h:mm a'}}</h4>
@@ -36,7 +36,7 @@
       <p [innerHtml]="event.summary"></p>
     </div>
   </div>
-  <div class="row justify-content-center" *ngIf="!loaded">
+  <div class="row justify-content-center" *ngIf="!(eventLoaded && rsvpLoaded)">
     <div class="col">
       <h1>LOADING...</h1>
     </div>

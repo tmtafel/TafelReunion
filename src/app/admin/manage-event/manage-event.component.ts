@@ -27,6 +27,7 @@ export class ManageEventComponent implements OnInit {
 
   loaded = false;
   updating = false;
+  notFound = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,17 +40,20 @@ export class ManageEventComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.eventId = params.get('id');
       this.db.doc<Event>(`events/${this.eventId}`).valueChanges().subscribe(evt => {
-        this.address = evt.address ? evt.address as Address : null;
-        this.imageUrl = evt.imageUrl ? evt.imageUrl : null;
-        this.live = evt.live;
-        this.pricePerPerson = evt.pricePerPerson ? evt.pricePerPerson : null;
-        this.signupExpires = evt.signupExpires ? evt.signupExpires : false;
-        this.signupOpenTill = evt.signupOpenTill ? evt.signupOpenTill.toDate() : this.when;
-        this.summary = evt.summary ? evt.summary : null;
-        this.title = evt.title ? evt.title : null;
-        this.when = evt.when ? evt.when.toDate() : null;
-
-        this.loaded = true;
+        if (evt) {
+          this.address = evt.address ? evt.address as Address : null;
+          this.imageUrl = evt.imageUrl ? evt.imageUrl : null;
+          this.live = evt.live;
+          this.pricePerPerson = evt.pricePerPerson ? evt.pricePerPerson : null;
+          this.signupExpires = evt.signupExpires ? evt.signupExpires : false;
+          this.signupOpenTill = evt.signupOpenTill ? evt.signupOpenTill.toDate() : this.when;
+          this.summary = evt.summary ? evt.summary : null;
+          this.title = evt.title ? evt.title : null;
+          this.when = evt.when ? evt.when.toDate() : null;
+          this.loaded = true;
+        } else {
+          this.notFound = true;
+        }
       });
     });
   }
@@ -130,8 +134,12 @@ export class ManageEventComponent implements OnInit {
 
     deleteEvent.afterClosed().subscribe(deleted => {
       if (deleted) {
-        this.db.doc(`events/${this.eventId}`).delete();
-        this.router.navigateByUrl('/admin/events');
+        this.db.doc(`events/${this.eventId}`).delete().then(() => {
+          this.router.navigateByUrl('/admin/events');
+        }).catch(err => {
+          console.log(err);
+          alert('Error Deleting event check logs for error');
+        });
       }
     });
   }

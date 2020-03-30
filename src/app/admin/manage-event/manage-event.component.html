@@ -13,7 +13,7 @@
     </button>
   </div>
 </div>
-<div class="row" *ngIf="loaded && !updating">
+<div class="row" *ngIf="loaded && !updating && !notFound">
   <div class="col-lg-6 col-12">
     <div class="row">
       <event-title class="col-md-6 col-12" [title]="title" (titleChange)="updateTitle($event)"></event-title>
@@ -29,6 +29,11 @@
   <event-summary class="col-12" [summary]="summary" (summaryChange)="updateSummary($event)"></event-summary>
   <div class="col-12 py-5 text-right">
     <button mat-button mat-raised-button (click)="updateEvent()">Update</button>
+  </div>
+</div>
+<div class="row justify-content-center" *ngIf="notFound">
+  <div class="col">
+    <h1>Event Not Found</h1>
   </div>
 </div>
 <div class="row justify-content-center" *ngIf="!loaded">

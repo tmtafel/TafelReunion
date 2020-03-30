@@ -14,14 +14,16 @@ import { RsvpService } from 'src/app/shared/services/rsvp.service';
   styleUrls: ['./event.component.scss']
 })
 export class EventComponent implements OnInit {
-  attending: boolean;
-  attending$: Observable<boolean>;
+
   eventId: string;
+
+  attending$: Observable<boolean>;
 
   rsvp: Rsvp;
   event: Event;
 
-  loaded = false;
+  eventLoaded = false;
+  rsvpLoaded = false;
 
   when: Date;
   numberOfPeople: number;
@@ -41,18 +43,17 @@ export class EventComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.eventId = params.get('id');
-      this.event = this.eventService.getEvent(this.eventId);
-      if (!this.event.live) {
-        this.router.navigateByUrl('events');
-      }
-      this.when = this.eventService.getEventDate(this.eventId);
-      this.rsvpService.getRsvpObservable(this.eventId).subscribe(rsvp => {
-        this.numberOfPeople = rsvp.numberOfPeople;
-        this.attending = rsvp.attending;
-        this.rsvp = new Rsvp(this.eventId, this.event.title, this.attending, this.numberOfPeople);
-        this.rsvp.id = rsvp.id;
-        this.attending$ = this.rsvpService.isCurrentUserAttendingEvent(rsvp.id);
-        this.loaded = true;
+      this.eventService.getEvent(this.eventId).subscribe(evt => {
+        if (!evt.live) {
+          this.router.navigateByUrl('events');
+        }
+        this.event = evt;
+        this.when = evt.when.toDate();
+        this.eventLoaded = true;
+      });
+      this.rsvpService.getRsvp(this.eventId).subscribe(r => {
+        this.rsvp = r;
+        this.rsvpLoaded = true;
       });
     });
   }
@@ -68,7 +69,7 @@ export class EventComponent implements OnInit {
   }
 
   signUp(): void {
-    const rsvp = new Rsvp(this.eventId, this.event.title, this.rsvp.attending, this.rsvp.numberOfPeople);
+    const rsvp = new Rsvp(this.eventId, this.rsvp.attending, this.rsvp.numberOfPeople);
     const dialogAttending = this.dialog.open(DialogAttending, {
       width: '300px',
       data: { rsvp }
@@ -80,7 +81,6 @@ export class EventComponent implements OnInit {
         if (this.rsvp !== newRsvp) {
           this.rsvpService.updateRsvp(newRsvp).then(updatedRsvp => {
             if (updatedRsvp) {
-              this.rsvp = updatedRsvp;
               if (this.rsvp.attending) {
                 this.showMessage(`Signup Success`);
               } else {

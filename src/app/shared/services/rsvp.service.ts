@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Rsvp } from '../models/rsvp';
 import { AuthService } from 'src/app/auth/auth.service';
+
+import { Rsvp } from '../models/rsvp';
+import { EventService } from './event.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,43 +17,32 @@ export class RsvpService {
     this.userId = authService.getCurrentUserId();
   }
 
-  getRsvpsObservable(): Observable<Rsvp[]> {
-    return this.db.collection<Rsvp>(`registrations/${this.userId}/events`)
-      .snapshotChanges().pipe(map(rsvps => {
-        return rsvps.map(r => {
-          const rsvp = r.payload.doc.data();
-          rsvp.id = r.payload.doc.id;
-          return rsvp;
-        });
-      }));
-  }
-
-  getRsvpObservable(eventId: string): Observable<Rsvp> {
-    return this.db.collection<Rsvp>(`registrations/${this.userId}/events`, events => events.where('eventId', '==', eventId))
-      .snapshotChanges().pipe(map(rsvps => {
-        if (rsvps.length > 0) {
-          const rsvp = rsvps[0].payload.doc.data();
-          rsvp.id = rsvps[0].payload.doc.id;
-          return rsvp;
-        }
-        return null;
-      }));
-  }
-
-  updateRsvp(rsvp: Rsvp): Promise<Rsvp> {
-    const rsvpObj = {
-      attending: rsvp.attending,
-      eventId: rsvp.eventId,
-      numberOfPeople: rsvp.numberOfPeople,
-      title: rsvp.title
-    };
-    const rsvpDoc = this.db.doc(`registrations/${this.userId}/events/${rsvp.id}`);
-    return rsvpDoc.update(rsvpObj)
-      .then(() => {
+  getRsvp(eventId: string): Observable<Rsvp> {
+    return this.db.collection<Rsvp>(`registrations/${this.userId}/events`, events => events.where('eventId', '==', eventId)).snapshotChanges().pipe(map(rsvps => {
+      if (rsvps.length > 0) {
+        const rsvp = rsvps[0].payload.doc.data();
+        rsvp.id = rsvps[0].payload.doc.id;
         return rsvp;
-      }).catch(() => {
-        return null;
-      });
+      }
+      return null;
+    }));
+  }
+
+  async updateRsvp(rsvp: Rsvp): Promise<boolean> {
+    try {
+      const rsvpObj = {
+        attending: rsvp.attending,
+        eventId: rsvp.eventId,
+        numberOfPeople: rsvp.numberOfPeople,
+        title: rsvp.title
+      };
+      const rsvpDoc = this.db.doc(`registrations/${this.userId}/events/${rsvp.id}`);
+      await rsvpDoc.update(rsvpObj);
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
   }
 
   isCurrentUserAttendingEvent(rsvpId: string): Observable<boolean> {
