@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Rsvp } from 'src/app/shared/models/rsvp';
-import { RsvpService } from 'src/app/shared/services/rsvp.service';
-import { EventService } from 'src/app/shared/services/event.service';
 import { Event } from 'src/app/shared/models/event';
+import { Rsvp } from 'src/app/shared/models/rsvp';
+import { EventService } from 'src/app/shared/services/event.service';
+import { RsvpService } from 'src/app/shared/services/rsvp.service';
 
 @Component({
   selector: 'app-event',
@@ -33,7 +33,8 @@ export class EventComponent implements OnInit {
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
     private rsvpService: RsvpService,
-    private eventService: EventService) {
+    private eventService: EventService,
+    private router: Router) {
 
   }
 
@@ -41,6 +42,9 @@ export class EventComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.eventId = params.get('id');
       this.event = this.eventService.getEvent(this.eventId);
+      if (!this.event.live) {
+        this.router.navigateByUrl('events');
+      }
       this.when = this.eventService.getEventDate(this.eventId);
       this.rsvpService.getRsvpObservable(this.eventId).subscribe(rsvp => {
         this.numberOfPeople = rsvp.numberOfPeople;

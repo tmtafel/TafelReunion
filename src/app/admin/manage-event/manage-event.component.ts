@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'src/app/shared/models/address';
 import { Event } from 'src/app/shared/models/event';
@@ -11,16 +13,17 @@ import { Event } from 'src/app/shared/models/event';
   styleUrls: ['./manage-event.component.scss']
 })
 export class ManageEventComponent implements OnInit {
-  eventId: string;
 
-  title: string = null;
   address: Address = null;
-  signupOpenTill: Date = null;
-  signupExpires: boolean = null;
-  pricePerPerson: number = null;
-  when: Date = null;
-  summary: string = null;
+  eventId: string;
   imageUrl: string = null;
+  live = false;
+  pricePerPerson: number = null;
+  signupExpires: boolean = null;
+  signupOpenTill: Date = null;
+  summary: string = null;
+  title: string = null;
+  when: Date = null;
 
   loaded = false;
   updating = false;
@@ -36,16 +39,23 @@ export class ManageEventComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.eventId = params.get('id');
       this.db.doc<Event>(`events/${this.eventId}`).valueChanges().subscribe(evt => {
-        this.title = evt.title ? evt.title : null;
         this.address = evt.address ? evt.address as Address : null;
-        this.when = evt.when ? evt.when.toDate() : null;
-        this.signupOpenTill = evt.signupOpenTill ? evt.signupOpenTill.toDate() : this.when;
-        this.pricePerPerson = evt.pricePerPerson ? evt.pricePerPerson : null;
-        this.summary = evt.summary ? evt.summary : null;
         this.imageUrl = evt.imageUrl ? evt.imageUrl : null;
+        this.live = evt.live;
+        this.pricePerPerson = evt.pricePerPerson ? evt.pricePerPerson : null;
+        this.signupExpires = evt.signupExpires ? evt.signupExpires : false;
+        this.signupOpenTill = evt.signupOpenTill ? evt.signupOpenTill.toDate() : this.when;
+        this.summary = evt.summary ? evt.summary : null;
+        this.title = evt.title ? evt.title : null;
+        this.when = evt.when ? evt.when.toDate() : null;
+
         this.loaded = true;
       });
     });
+  }
+
+  liveChanged(toggle: MatSlideToggleChange) {
+    this.live = toggle.checked;
   }
 
   updateTitle(newTitle: string) {
@@ -91,13 +101,14 @@ export class ManageEventComponent implements OnInit {
         zip: this.address.zip,
         country: this.address.country
       },
-      title: this.title,
+      imageUrl: this.imageUrl,
+      live: this.live,
       pricePerPerson: this.pricePerPerson,
       signupExpires: this.signupExpires,
       signupOpenTill: this.signupOpenTill,
-      when: this.when,
       summary: this.summary,
-      imageUrl: this.imageUrl
+      title: this.title,
+      when: this.when
     };
     console.log(eventObj);
     this.db.doc(`events/${this.eventId}`).set(eventObj).then(() => {

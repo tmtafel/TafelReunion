@@ -41,15 +41,16 @@ export class ManageEventsComponent implements OnInit {
             zip: '',
             country: ''
           },
-          title: ttl,
+          imageUrl: '',
+          live: false,
           pricePerPerson: 0,
           signupOpenTill: new Date(2020, 7, 6, 12, 0, 0),
-          when: new Date(2020, 7, 6, 12, 0, 0),
+          signupExpires: false,
           summary: '',
-          imageUrl: ''
+          title: ttl,
+          when: new Date(2020, 7, 6, 12, 0, 0)
         };
         this.db.collection(`events`).add(eventObj).then(newEvent => {
-
           this.router.navigateByUrl(`/admin/events/${newEvent.id}`);
         }).catch(err => {
           console.log(err);

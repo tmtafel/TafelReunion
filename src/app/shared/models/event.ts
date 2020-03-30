@@ -6,14 +6,15 @@ import { Address } from './address';
 export class Event {
 
     address: Address;
-    title: string;
     id: string;
-    pricePerPerson: number;
-    signupOpenTill: Timestamp;
-    summary: string;
-    when: Timestamp;
     imageUrl: string;
     live: boolean;
+    pricePerPerson: number;
+    signupExpires: boolean;
+    signupOpenTill: Timestamp;
+    summary: string;
+    title: string;
+    when: Timestamp;
 
 
     constructor() {
