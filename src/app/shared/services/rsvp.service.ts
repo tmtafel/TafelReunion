@@ -28,20 +28,19 @@ export class RsvpService {
     }));
   }
 
-  async updateRsvp(rsvp: Rsvp): Promise<boolean> {
+  async updateRsvp(rsvp: Rsvp): Promise<Rsvp> {
     try {
       const rsvpObj = {
         attending: rsvp.attending,
         eventId: rsvp.eventId,
-        numberOfPeople: rsvp.numberOfPeople,
-        title: rsvp.title
+        numberOfPeople: rsvp.numberOfPeople
       };
       const rsvpDoc = this.db.doc(`registrations/${this.userId}/events/${rsvp.id}`);
       await rsvpDoc.update(rsvpObj);
-      return true;
+      return rsvp;
     } catch (err) {
       console.log(err);
-      return false;
+      return null;
     }
   }
 

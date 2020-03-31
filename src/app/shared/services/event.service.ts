@@ -24,6 +24,16 @@ export class EventService {
     }));
   }
 
+  getLiveEvents(): Observable<Event[]> {
+    return this.db.collection<Event>(`events`).snapshotChanges().pipe(map(evts => {
+      return evts.filter(e => e.payload.doc.data().live).map(e => {
+        const evt = e.payload.doc.data();
+        evt.id = e.payload.doc.id;
+        return evt;
+      });
+    }));
+  }
+
   getEvent(eventId: string): Observable<Event> {
     return this.db.doc<Event>(`events/${eventId}`).snapshotChanges().pipe(map(e => {
       if (e) {

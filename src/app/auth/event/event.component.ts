@@ -17,8 +17,6 @@ export class EventComponent implements OnInit {
 
   eventId: string;
 
-  attending$: Observable<boolean>;
-
   rsvp: Rsvp;
   event: Event;
 
@@ -53,6 +51,7 @@ export class EventComponent implements OnInit {
       });
       this.rsvpService.getRsvp(this.eventId).subscribe(r => {
         this.rsvp = r;
+        this.numberOfPeople = r.numberOfPeople;
         this.rsvpLoaded = true;
       });
     });
@@ -69,15 +68,15 @@ export class EventComponent implements OnInit {
   }
 
   signUp(): void {
-    const rsvp = new Rsvp(this.eventId, this.rsvp.attending, this.rsvp.numberOfPeople);
+    const rsvp = new Rsvp(this.rsvp.eventId, this.rsvp.attending, this.rsvp.numberOfPeople);
+    rsvp.id = this.rsvp.id;
     const dialogAttending = this.dialog.open(DialogAttending, {
-      width: '300px',
+      width: '295px',
       data: { rsvp }
     });
 
     dialogAttending.afterClosed().subscribe(newRsvp => {
       if (newRsvp) {
-        newRsvp.id = this.rsvp.id;
         if (this.rsvp !== newRsvp) {
           this.rsvpService.updateRsvp(newRsvp).then(updatedRsvp => {
             if (updatedRsvp) {

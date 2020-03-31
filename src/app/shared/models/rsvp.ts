@@ -1,6 +1,5 @@
 export class Rsvp {
     eventId: string;
-    title: string;
     attending: boolean;
     numberOfPeople: number;
 

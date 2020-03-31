@@ -114,12 +114,10 @@ export class ManageEventComponent implements OnInit {
       title: this.title,
       when: this.when
     };
-    console.log(eventObj);
     this.db.doc(`events/${this.eventId}`).set(eventObj).then(() => {
       console.log(eventObj);
     }).catch((err) => {
       console.log(err);
-      return false;
     }).finally(() => {
       this.updating = false;
     });
