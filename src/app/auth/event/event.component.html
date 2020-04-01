@@ -6,32 +6,27 @@
       </button>
       <div *ngIf="rsvp">
         <div class="d-flex align-items-center justify-content-end mb-3">
-          <h6 *ngIf="rsvp.attending" class="m-0 mr-3">{{this.numberOfPeople}} {{rsvp.numberOfPeople === 1 ? 'Tafel' : 'Tafels'}} Going</h6>
           <button mat-raised-button (click)="signUp()">
-            {{rsvp.attending ? 'Change' : 'Sign Up'}}
+            {{rsvp.attending ? 'Change Reservation' : 'Sign Up'}}
           </button>
         </div>
       </div>
     </div>
   </div>
-
   <div class="row" *ngIf="eventLoaded && rsvpLoaded">
     <div class="col-12 col-sm-6">
-      <h2>{{event.title}}</h2>
-      <h4>{{when | date:'MMMM dd h:mm a'}}</h4>
-      <address *ngIf="event.address.street">
-        {{event.address.street}}<br />
-        {{event.address.city}}, {{event.address.state}} {{event.address.zip}}
-      </address>
-      <div *ngIf="this.event.pricePerPerson" class="pb-3">
-        <h6 *ngIf="!rsvp.attending">
-          Cost: {{this.event.pricePerPerson | currency}} per person
-        </h6>
-        <div *ngIf="rsvp.attending" class="d-flex align-items-center justify-content-center">
-          <h5 class="m-0 mr-3">Total Price: {{this.numberOfPeople * this.event.pricePerPerson | currency}}</h5>
-          <button mat-raised-button (click)="payHere()">
-            <mat-icon>payment</mat-icon><span class="ml-2">Pay Here</span>
-          </button>
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <h2>{{event.title}}</h2>
+          <h4>{{when | date:'MMMM dd h:mm a'}}</h4>
+          <address *ngIf="event.address.street">
+            {{event.address.street}}<br />
+            {{event.address.city}}, {{event.address.state}} {{event.address.zip}}
+          </address>
+        </div>
+        <div class="col-12 col-lg-6">
+          <h6 *ngIf="!rsvp.attending">Cost: {{this.event.pricePerPerson | currency}} per person</h6>
+          <payment *ngIf="rsvp.attending" [numberOfPeople]="rsvp.numberOfPeople" [pricePerPerson]="event.pricePerPerson"></payment>
         </div>
       </div>
     </div>

@@ -3,10 +3,10 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
-
-import { AuthService } from '../auth.service';
 import { Profile } from 'src/app/shared/models/profile';
 import { ProfileService } from 'src/app/shared/services/profile.service';
+
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -38,9 +38,7 @@ export class RegisterComponent implements OnInit {
       emailFormCtrl: ['', [Validators.email, Validators.required]],
       passwordFormCtrl: ['', [Validators.minLength(6), Validators.required]],
       confirmPasswordFormCtrl: ['', [Validators.minLength(6), Validators.required]]
-    }, {
-        validator: this.MustMatch('passwordFormCtrl', 'confirmPasswordFormCtrl')
-      });
+    }, { validator: this.mustMatch('passwordFormCtrl', 'confirmPasswordFormCtrl') });
 
     this.nameFormGroup = this.formBuilder.group({
       firstNameFormCtrl: ['', [Validators.required]],
@@ -107,7 +105,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  MustMatch(controlName: string, matchingControlName: string) {
+  mustMatch(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[controlName];
       const matchingControl = formGroup.controls[matchingControlName];

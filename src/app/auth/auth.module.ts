@@ -20,6 +20,7 @@ import { RegisterComponent } from './register/register.component';
 import { RsvpsComponent } from './rsvps/rsvps.component';
 import { MaterialModule } from '../shared/modules/material.module';
 import { RsvpComponent } from './rsvps/rsvp/rsvp.component';
+import { PaymentComponent } from './event/payment/payment.component';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import { RsvpComponent } from './rsvps/rsvp/rsvp.component';
     RsvpsComponent,
     DialogAttending,
     BranchComponent,
-    RsvpComponent
+    RsvpComponent,
+    PaymentComponent
   ],
   entryComponents: [
     DialogAttending

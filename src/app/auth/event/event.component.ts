@@ -24,19 +24,16 @@ export class EventComponent implements OnInit {
   rsvpLoaded = false;
 
   when: Date;
-  numberOfPeople: number;
 
   signupOpen = true;
 
   constructor(
+    public dialog: MatDialog,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
-    public dialog: MatDialog,
     private rsvpService: RsvpService,
     private eventService: EventService,
-    private router: Router) {
-
-  }
+    private router: Router) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -51,7 +48,6 @@ export class EventComponent implements OnInit {
       });
       this.rsvpService.getRsvp(this.eventId).subscribe(r => {
         this.rsvp = r;
-        this.numberOfPeople = r.numberOfPeople;
         this.rsvpLoaded = true;
       });
     });
@@ -61,10 +57,6 @@ export class EventComponent implements OnInit {
     this.snackBar.open(message, 'X', {
       duration
     });
-  }
-
-  payHere() {
-    alert('Still need to set up');
   }
 
   signUp(): void {

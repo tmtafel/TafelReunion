@@ -6,6 +6,7 @@ import * as firebase from 'firebase/app';
 import UserCredential = firebase.auth.UserCredential;
 import { User } from 'firebase/app';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({

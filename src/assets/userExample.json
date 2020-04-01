@@ -1,0 +1,33 @@
+{
+  "uid": "ZmSlj3ONLMcYZJOCsAmRC9UezYf2",
+  "displayName": null,
+  "photoURL": null,
+  "email": "tmtafel@gmail.com",
+  "emailVerified": true,
+  "phoneNumber": null,
+  "isAnonymous": false,
+  "tenantId": null,
+  "providerData": [{
+    "uid": "tmtafel@gmail.com",
+    "displayName": null,
+    "photoURL": null,
+    "email": "tmtafel@gmail.com",
+    "phoneNumber": null,
+    "providerId": "password"
+  }],
+  "apiKey": "AIzaSyAEXSToOzZm2W243DrupG31FZs2ASt2yFQ",
+  "appName": "[DEFAULT]",
+  "authDomain": "tafelreunion.firebaseapp.com",
+  "stsTokenManager": {
+    "apiKey": "AIzaSyAEXSToOzZm2W243DrupG31FZs2ASt2yFQ",
+    "refreshToken": "AE0u-NcvpnYJmWgfP2ABT6Vr6yq3AMApqO5gOrvPHb1h_5r2URyYXXJtblgIc5380EEPHZmCuPIc7gPREc3KPl9hWGN6T8Ny0YJHm-hzIWbjLKbx1JsspSp9rL-7WfWfNYML-OfLJSZV8cUVahHUjMzIOiv-sQReZp1rRmORBhUvjPqOu8ESEnHsKThoHYJiDrotzAAMeKlo6j9ibEulMTAkkXJqGir-Ig",
+    "accessToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjgzYTczOGUyMWI5MWNlMjRmNDM0ODBmZTZmZWU0MjU4Yzg0ZGI0YzUiLCJ0eXAiOiJKV1QifQ.eyJhZG1pbiI6dHJ1ZSwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3RhZmVscmV1bmlvbiIsImF1ZCI6InRhZmVscmV1bmlvbiIsImF1dGhfdGltZSI6MTU4NTcwNDI5NywidXNlcl9pZCI6IlptU2xqM09OTE1jWVpKT0NzQW1SQzlVZXpZZjIiLCJzdWIiOiJabVNsajNPTkxNY1laSk9Dc0FtUkM5VWV6WWYyIiwiaWF0IjoxNTg1NzA0Mjk3LCJleHAiOjE1ODU3MDc4OTcsImVtYWlsIjoidG10YWZlbEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ0bXRhZmVsQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.SXCXuGtTy9W0a4YxFhI5kfAzx_U8IAQ77z-sZZmXz6xBqgu6OjXrEcV2GK62bvluCRUoetpxsOTvQPu-8EZt5kd6Ils4axnk77YKvGGbXB9l8BuLy5GHDhrHX79ymg3aDh6VAJOMOv9WePtStpx21KtdV25CWYDsqXqlmQc3xcn4XffwF4JIZWG9n4sYOVBVweaxhrOqcFcoDxvWvMz2ccD3tjBv82CzPnCxdd58PZkMV6EPU-sjsW5DMrrXpg6cJlp-D3SKoDlUJjDprRXRyhVh6eKGqzsGM2-VSBEIYEiRL3JIRSh97JbegDqUjN7a-JGe6OeBAS_tBWeJ5tYNhQ",
+    "expirationTime": 1585707897000
+  },
+  "redirectEventId": null,
+  "lastLoginAt": "1585704297497",
+  "createdAt": "1581182741683",
+  "multiFactor": {
+    "enrolledFactors": []
+  }
+}
