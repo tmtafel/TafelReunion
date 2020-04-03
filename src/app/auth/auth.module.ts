@@ -15,7 +15,7 @@ import { AddressComponent } from './profile/address/address.component';
 import { BranchComponent } from './profile/branch/branch.component';
 import { NameComponent } from './profile/name/name.component';
 import { PhoneComponent } from './profile/phone/phone.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent, AddMember } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { RsvpsComponent } from './rsvps/rsvps.component';
 import { MaterialModule } from '../shared/modules/material.module';
@@ -47,10 +47,12 @@ import { PaymentComponent } from './event/payment/payment.component';
     DialogAttending,
     BranchComponent,
     RsvpComponent,
-    PaymentComponent
+    PaymentComponent,
+    AddMember
   ],
   entryComponents: [
-    DialogAttending
+    DialogAttending,
+    AddMember
   ]
 })
 export class AuthModule { }

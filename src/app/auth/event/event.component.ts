@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Event } from 'src/app/shared/models/event';
 import { Rsvp } from 'src/app/shared/models/rsvp';
 import { EventService } from 'src/app/shared/services/event.service';
