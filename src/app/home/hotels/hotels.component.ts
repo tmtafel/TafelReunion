@@ -11,13 +11,13 @@ import { Hotel } from 'src/app/shared/models/hotel';
 })
 export class HotelsComponent {
   hotels$: Observable<Hotel[]>;
-  url = 'https://www.marriott.com/event-reservations/reservation-link.mi?id=1564439582731&key=GRP&app=resvlink';
+
   constructor(private db: AngularFirestore) {
     this.hotels$ = this.db.collection<Hotel>('hotels').valueChanges();
   }
 
-  goToHotelBooking() {
-    window.open(this.url, '_blank');
+  goToHotelBooking(url: string) {
+    window.open(url, '_blank');
   }
 
   getPhoneNumberFormatted(phone: string) {

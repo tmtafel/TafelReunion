@@ -15,6 +15,7 @@ export class AdminGuard implements CanActivate, CanActivateChild, CanLoad {
     const url: string = state.url;
     return this.checkAdmin();
   }
+
   canActivateChild(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.canActivate(next, state);
   }

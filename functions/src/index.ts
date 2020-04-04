@@ -20,14 +20,20 @@ export const createRegistration = functions.auth.user().onCreate(async (user, co
             email: user.email,
             firstName: '',
             lastName: '',
-            phone: ''
+            phone: '',
+            roles: {
+                admin: false,
+                leader: false,
+                member: true
+            }
         });
         const events = await db.collection('events').listDocuments();
         const eventObjs = events.map(evt => {
             return {
                 eventId: evt.id,
                 attending: false,
-                numberOfPeople: 1
+                numberOfPeople: 1,
+                payed: false
             };
         });
         const promises: Promise<FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>>[] = [];

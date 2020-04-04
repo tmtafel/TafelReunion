@@ -6,6 +6,7 @@ import { Address } from 'src/app/shared/models/address';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Member } from 'src/app/shared/models/member';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Roles } from 'src/app/shared/models/roles';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +16,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 export class ProfileComponent implements OnInit {
   profile: Profile;
 
-  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private profileService: ProfileService, private snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog, private profileService: ProfileService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -38,21 +39,22 @@ export class ProfileComponent implements OnInit {
         this.profile.lastName = '';
       }
       if (!(this.profile.address)) {
-        if (!(this.profile.address.street)) {
-          this.profile.address.street = '';
-        }
-        if (!(this.profile.address.city)) {
-          this.profile.address.city = '';
-        }
-        if (!(this.profile.address.state)) {
-          this.profile.address.state = '';
-        }
-        if (!(this.profile.address.zip)) {
-          this.profile.address.zip = '';
-        }
-        if (!(this.profile.address.country)) {
-          this.profile.address.country = '';
-        }
+        this.profile.address = new Address();
+      }
+      if (!(this.profile.address.street)) {
+        this.profile.address.street = '';
+      }
+      if (!(this.profile.address.city)) {
+        this.profile.address.city = '';
+      }
+      if (!(this.profile.address.state)) {
+        this.profile.address.state = '';
+      }
+      if (!(this.profile.address.zip)) {
+        this.profile.address.zip = '';
+      }
+      if (!(this.profile.address.country)) {
+        this.profile.address.country = '';
       }
       if (!(this.profile.phone)) {
         this.profile.phone = '';
@@ -60,9 +62,17 @@ export class ProfileComponent implements OnInit {
       if (!(this.profile.branch)) {
         this.profile.branch = '';
       }
-
-      if (!(this.profile.admin)) {
-        this.profile.admin = false;
+      if (!(this.profile.roles)) {
+        this.profile.roles = new Roles();
+      }
+      if (!(this.profile.roles.admin)) {
+        this.profile.roles.admin = false;
+      }
+      if (!(this.profile.roles.leader)) {
+        this.profile.roles.leader = false;
+      }
+      if (!(this.profile.roles.member)) {
+        this.profile.roles.member = false;
       }
       this.profileService.updateProfile(this.profile).then(() => {
         this.snackBar.open('Updated', 'X', { duration: 3000 });

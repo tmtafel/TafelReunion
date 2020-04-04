@@ -6,6 +6,7 @@ import { Event } from 'src/app/shared/models/event';
 import { Rsvp } from 'src/app/shared/models/rsvp';
 import { EventService } from 'src/app/shared/services/event.service';
 import { RsvpService } from 'src/app/shared/services/rsvp.service';
+import { ProfileService } from 'src/app/shared/services/profile.service';
 
 @Component({
   selector: 'app-event',
@@ -32,6 +33,7 @@ export class EventComponent implements OnInit {
     private snackBar: MatSnackBar,
     private rsvpService: RsvpService,
     private eventService: EventService,
+    private profileService: ProfileService,
     private router: Router) { }
 
   ngOnInit() {
@@ -45,10 +47,12 @@ export class EventComponent implements OnInit {
         this.when = evt.when.toDate();
         this.eventLoaded = true;
       });
-      this.rsvpService.getRsvp(this.eventId).subscribe(r => {
-        this.rsvp = r;
-        this.rsvpLoaded = true;
-      });
+      if (this.profileService.isLeader()) {
+        this.rsvpService.getRsvp(this.eventId).subscribe(r => {
+          this.rsvp = r;
+          this.rsvpLoaded = true;
+        });
+      }
     });
   }
 

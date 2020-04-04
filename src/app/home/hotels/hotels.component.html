@@ -14,7 +14,7 @@
               <a href="tel:{{hotel.phone}}">{{getPhoneNumberFormatted(hotel.phone)}}</a>
             </address>
             <div>
-              <button mat-raised-button (click)="goToHotelBooking()">
+              <button mat-raised-button (click)="goToHotelBooking(hotel.bookingUrl)">
                 <mat-icon>local_hotel</mat-icon>
                 <span class="ml-2">Book Hotel</span>
               </button>

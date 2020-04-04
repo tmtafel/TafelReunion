@@ -18,8 +18,8 @@ export class HeaderComponent implements OnInit {
   constructor(public authService: AuthService, public router: Router, private profileService: ProfileService) {
     this.loggedIn$ = this.authService.user.pipe(map(u => u !== null));
     this.isAdmin$ = this.profileService.profile.pipe(map(p => {
-      if (p.admin) {
-        return p.admin;
+      if (p.roles.admin) {
+        return p.roles.admin;
       }
       return false;
     }));

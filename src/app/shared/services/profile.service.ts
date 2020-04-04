@@ -31,8 +31,21 @@ export class ProfileService {
   isAdmin(): boolean {
     try {
       const profile = JSON.parse(localStorage.getItem('profile')) as Profile;
-      if (profile && profile.admin) {
-        return profile.admin;
+      if (profile && profile.roles.admin) {
+        return profile.roles.admin;
+      }
+      return false;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  isLeader(): boolean {
+    try {
+      const profile = JSON.parse(localStorage.getItem('profile')) as Profile;
+      if (profile && profile.roles.leader) {
+        return profile.roles.leader;
       }
       return false;
     } catch (error) {
@@ -69,7 +82,11 @@ export class ProfileService {
       },
       phone: profile.phone,
       branch: profile.branch,
-      admin: profile.admin
+      roles: {
+        admin: profile.roles.admin,
+        leader: profile.roles.leader,
+        member: profile.roles.member
+      }
     };
 
     return this.registrations.doc(profile.id).set(profileObj).then(() => {
