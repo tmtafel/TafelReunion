@@ -13,12 +13,10 @@
               {{hotel.address.city}}, {{hotel.address.state}} {{hotel.address.zip}}<br />
               <a href="tel:{{hotel.phone}}">{{getPhoneNumberFormatted(hotel.phone)}}</a>
             </address>
-            <div>
-              <button mat-raised-button (click)="goToHotelBooking(hotel.bookingUrl)">
-                <mat-icon>local_hotel</mat-icon>
-                <span class="ml-2">Book Hotel</span>
-              </button>
-            </div>
+            <button mat-raised-button (click)="goToHotelBooking(hotel.bookingUrl)">
+              <mat-icon>local_hotel</mat-icon>
+              <span class="ml-2">Book Hotel</span>
+            </button>
           </div>
         </mat-card-content>
       </mat-card>

@@ -9,19 +9,23 @@ import { AuthModule } from './auth/auth.module';
 import { HomeComponent } from './home/home.component';
 import { CitiesComponent } from './home/cities/cities.component';
 import { NearbyComponent } from './home/nearby/nearby.component';
-import { HomeEventsComponent } from './home/home-events/home-events.component';
 import { HeaderComponent } from './header/header.component';
 import { HotelsComponent } from './home/hotels/hotels.component';
 import { MaterialModule } from './shared/modules/material.module';
+import { EventsComponent } from './home/events/events.component';
+import { RegisterSignUpComponent } from './home/register-sign-up/register-sign-up.component';
+import { QuestionsComponent } from './home/questions/questions.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CitiesComponent,
     NearbyComponent,
-    HomeEventsComponent,
     HeaderComponent,
-    HotelsComponent
+    HotelsComponent,
+    EventsComponent,
+    RegisterSignUpComponent,
+    QuestionsComponent
   ],
   imports: [
     MaterialModule,

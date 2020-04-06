@@ -1,0 +1,2 @@
+<button mat-raised-button *ngIf="!(loggedIn$ | async)" routerLink="/register">Click Here to Register</button>
+<button mat-raised-button *ngIf="loggedIn$ | async" routerLink="/events">Click Here to Sign-up for events</button>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-nearby',
+  // tslint:disable-next-line:component-selector
+  selector: 'nearby',
   templateUrl: './nearby.component.html',
   styleUrls: ['./nearby.component.scss']
 })

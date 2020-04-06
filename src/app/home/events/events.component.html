@@ -1,0 +1,15 @@
+<mat-card [class.mat-elevation-z6]="true">
+  <mat-card-header>
+    <mat-card-title>Exciting Events Planned Including:</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let eventName of eventNames$ | async">
+          <h6 class="text-center w-100">{{eventName}}</h6>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <register-sign-up></register-sign-up>
+  </mat-card-actions>
+</mat-card>

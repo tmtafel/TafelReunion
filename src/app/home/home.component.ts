@@ -10,10 +10,8 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  loggedIn$: Observable<boolean>;
 
-  constructor(public authService: AuthService) {
-    this.loggedIn$ = this.authService.user.pipe(map(u => u !== null));
+  constructor() {
   }
 
   ngOnInit() {
