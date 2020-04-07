@@ -1,1 +1,13 @@
-<span>{{attending}}</span>
+<mat-card [class.mat-elevation-z6]="true">
+  <img *ngIf="evt.imageUrl" mat-card-image src="{{evt.imageUrl}}">
+  <mat-card-content>
+    <div class="d-flex w-100 justify-content-between align-items-center">
+      <h4>{{evt.title}}</h4>
+      <span *ngIf="loaded">{{rsvpText}}</span>
+      <mat-spinner *ngIf="!loaded"></mat-spinner>
+    </div>
+  </mat-card-content>
+  <mat-card-actions class="text-center">
+    <button *ngIf="loaded" mat-raised-button [routerLink]="['/events', evt.id]">Change Reservation</button>
+  </mat-card-actions>
+</mat-card>

@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Rsvp } from 'src/app/shared/models/rsvp';
+import { Event } from 'src/app/shared/models/event';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -8,8 +10,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PaymentComponent implements OnInit {
 
-  @Input() numberOfPeople: number;
-  @Input() pricePerPerson: number;
+  @Input() rsvp: Rsvp;
+  @Input() evt: Event;
   constructor() { }
 
   ngOnInit(): void {

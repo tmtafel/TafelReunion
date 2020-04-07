@@ -5,7 +5,10 @@
         <mat-card-header>
           <mat-card-title>{{hotel.name}}</mat-card-title>
         </mat-card-header>
-        <img mat-card-image src="{{hotel.imageUrl}}" alt="{{hotel.name}}">
+        <img *ngIf="hotel.imageUrl" mat-card-image src="{{hotel.imageUrl}}" alt="{{hotel.name}}">
+        <div *ngIf="!(hotel.imageUrl)" class="d-flex w-100 align-items-center justify-content-center">
+          <mat-spinner></mat-spinner>
+        </div>
         <mat-card-content>
           <div class="d-flex justify-content-between align-items-stretch">
             <address class="my-0">

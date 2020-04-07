@@ -6,18 +6,7 @@
   </div>
   <div class="row align-items-center" *ngIf="events | async">
     <div class="col-lg-6 col-12 py-3" *ngFor="let event of events | async">
-      <mat-card [class.mat-elevation-z6]="true">
-        <img *ngIf="event.imageUrl" mat-card-image src="{{event.imageUrl}}">
-        <mat-card-content>
-          <div class="d-flex w-100 justify-content-between align-items-center">
-            <h4>{{event.title}}</h4>
-            <rsvp [eventId]="event.id"></rsvp>
-          </div>
-        </mat-card-content>
-        <mat-card-actions class="text-center">
-          <button mat-raised-button [routerLink]="['/events', event.id]">Change Reservation</button>
-        </mat-card-actions>
-      </mat-card>
+        <rsvp [evt]="event"></rsvp>
     </div>
   </div>
 </div>

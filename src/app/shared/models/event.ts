@@ -16,7 +16,6 @@ export class Event {
     title: string;
     when: Timestamp;
 
-
     constructor() {
 
     }

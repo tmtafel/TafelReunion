@@ -15,20 +15,13 @@
   </div>
   <div class="row" *ngIf="event">
     <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-12 col-lg-6">
-          <h2>{{event.title}}</h2>
-          <h4>{{when | date:'MMMM dd h:mm a'}}</h4>
-          <address *ngIf="event.address.street">
-            {{event.address.street}}<br />
-            {{event.address.city}}, {{event.address.state}} {{event.address.zip}}
-          </address>
-        </div>
-        <div class="col-12 col-lg-6" *ngIf="rsvp">
-          <h6 *ngIf="!rsvp.attending">Cost: {{this.event.pricePerPerson | currency}} per person</h6>
-          <payment *ngIf="rsvp.attending" [numberOfPeople]="rsvp.numberOfPeople" [pricePerPerson]="event.pricePerPerson"></payment>
-        </div>
-      </div>
+      <h2>{{event.title}}</h2>
+      <h4>{{when | date:'MMMM dd h:mm a'}}</h4>
+      <address *ngIf="event.address.street">
+        {{event.address.street}}<br />
+        {{event.address.city}}, {{event.address.state}} {{event.address.zip}}
+      </address>
+      <payment *ngIf="rsvp" [rsvp]="rsvp" [evt]="event"></payment>
     </div>
     <div class="col-12 col-sm-6">
       <img *ngIf="event.imageUrl" class="w-100" src="{{event.imageUrl}}">
@@ -42,7 +35,7 @@
   </div>
   <div class="row justify-content-center" *ngIf="!(event)">
     <div class="col">
-      <h1>LOADING...</h1>
+      <mat-spinner></mat-spinner>
     </div>
   </div>
 </div>
