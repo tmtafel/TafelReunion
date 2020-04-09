@@ -4,9 +4,6 @@
       <mat-icon>arrow_back</mat-icon>
       <span class="ml-2">Back</span>
     </button>
-    <mat-slide-toggle [(ngModel)]="live" (change)="liveChanged($event)">
-      Live
-    </mat-slide-toggle>
     <button mat-raised-button (click)="procedeToDelete()">
       <mat-icon>delete_forever</mat-icon>
       <span class="ml-2">Delete</span>
@@ -17,6 +14,11 @@
   <div class="col-lg-6 col-12">
     <div class="row">
       <event-title class="col-md-6 col-12" [title]="title" (titleChange)="updateTitle($event)"></event-title>
+      <mat-slide-toggle [(ngModel)]="live" (change)="liveChanged($event)">
+        Live
+      </mat-slide-toggle>
+    </div>
+    <div class="row">
       <event-price class="col-md-6 col-12" [price]="pricePerPerson" (priceChange)="updatePricePerPerson($event)"></event-price>
       <event-when class="col-lg-6 col-sm-6 col-12 pb-1" [when]="when" (whenChange)="updateWhen($event)"></event-when>
       <event-signup-open-till class="col-lg-6 col-sm-6 col-12" [signupOpenTill]="signupOpenTill" (signupOpenTillChange)="updateSignupOpenTill($event)"

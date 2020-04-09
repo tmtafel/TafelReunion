@@ -14,8 +14,8 @@ import { ProfileService } from '../shared/services/profile.service';
 export class HeaderComponent implements OnInit {
   loggedIn$: Observable<boolean>;
   isAdmin$: Observable<boolean>;
-  currentUrl: string;
-  constructor(public authService: AuthService, public router: Router, private profileService: ProfileService) {
+  currentEmail$: Observable<string>;
+  constructor(private authService: AuthService, public router: Router, private profileService: ProfileService) {
     this.loggedIn$ = this.authService.user.pipe(map(u => u !== null));
     this.isAdmin$ = this.profileService.profile.pipe(map(p => {
       if (p.roles.admin) {
@@ -23,6 +23,12 @@ export class HeaderComponent implements OnInit {
       }
       return false;
     }));
+    this.currentEmail$ = this.authService.user.pipe(map(u => {
+      if (u && u.email) {
+        return u.email;
+      }
+      return null;
+    }))
   }
 
   ngOnInit() {

@@ -14,7 +14,7 @@
           Login
         </button>
       </div>
-      <div class="text-right" *ngIf="(loggedIn$ | async)">
+      <div class="text-right" *ngIf="loggedIn$ | async">
         <button mat-raised-button [matMenuTriggerFor]="menu" class="btn btn-secondary pull-right">
           <i class="material-icons">perm_identity</i>
         </button>
@@ -25,9 +25,9 @@
           </button>
           <button mat-menu-item routerLink="/profile">
             <mat-icon>perm_identity</mat-icon>
-            <span>{{authService.getCurrentUserEmail()}}</span>
+            <span>{{currentEmail$ | async}}</span>
           </button>
-          <button *ngIf="(isAdmin$ | async)" mat-menu-item routerLink="/admin">
+          <button *ngIf="isAdmin$ | async" mat-menu-item routerLink="/admin">
             <mat-icon>fingerprint</mat-icon>
             <span>Admin</span>
           </button>
