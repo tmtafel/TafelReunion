@@ -98,7 +98,8 @@ export const eventAdded = functions.firestore.document('events/{eventId}')
             const eventObj = {
                 eventId: id,
                 attending: false,
-                numberOfPeople: 1
+                numberOfPeople: 1,
+                payed: false
             };
             const promises: Promise<FirebaseFirestore.DocumentData>[] = [];
             const users = await db.collection(`registrations`).listDocuments();

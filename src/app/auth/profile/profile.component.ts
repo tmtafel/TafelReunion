@@ -1,12 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Profile } from 'src/app/shared/models/profile';
-import { ProfileService } from 'src/app/shared/services/profile.service';
 import { Address } from 'src/app/shared/models/address';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Member } from 'src/app/shared/models/member';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Profile } from 'src/app/shared/models/profile';
 import { Roles } from 'src/app/shared/models/roles';
+import { ProfileService } from 'src/app/shared/services/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -92,24 +92,6 @@ export class ProfileComponent implements OnInit {
 
     addMember.afterClosed().subscribe(newMember => {
       console.log(newMember);
-      // if (newRsvp) {
-      //   if (this.rsvp !== newRsvp) {
-      //     this.rsvpService.updateRsvp(newRsvp).then(updatedRsvp => {
-      //       if (updatedRsvp) {
-      //         if (this.rsvp.attending) {
-      //           this.showMessage(`Signup Success`);
-      //         } else {
-      //           this.showMessage(`We now no longer have you attending this event`);
-      //         }
-      //       } else {
-      //         this.showMessage('Error with updating your event, please try again.');
-      //       }
-      //     }, err => {
-      //       console.log(err);
-      //       this.showMessage('Error with updating your event, please try again.');
-      //     });
-      //   }
-      // }
     });
   }
 

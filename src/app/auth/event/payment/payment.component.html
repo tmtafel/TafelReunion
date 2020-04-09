@@ -1,18 +1,5 @@
 <h6 *ngIf="!rsvp.attending">Cost: {{this.evt.pricePerPerson | currency}} per person</h6>
-<mat-card class="mb-4 d-inline-block" *ngIf="rsvp.attending">
-  <mat-card-title>TOTAL</mat-card-title>
-  <mat-card-content>
-    <div class="d-flex justify-content-end">
-      <span>{{this.rsvp.numberOfPeople}} Tafels</span><span class="mx-3">X</span><span>{{this.evt.pricePerPerson | currency}}</span>
-    </div>
-    <div class="d-flex justify-content-end">
-      <span>{{this.rsvp.numberOfPeople * this.evt.pricePerPerson | currency}}</span>
-    </div>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button (click)="payHere()" [disabled]="this.rsvp.payed">
-      <mat-icon>payment</mat-icon>
-      <span class="ml-2">Pay Here</span>
-    </button>
-  </mat-card-actions>
-</mat-card>
+<button *ngIf="rsvp.attending" mat-raised-button (click)="payHere()" [disabled]="this.rsvp.payed">
+  <mat-icon>payment</mat-icon>
+  <span class="ml-2">Pay Here</span>
+</button>

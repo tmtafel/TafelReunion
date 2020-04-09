@@ -5,8 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Event } from 'src/app/shared/models/event';
 import { Rsvp } from 'src/app/shared/models/rsvp';
 import { EventService } from 'src/app/shared/services/event.service';
-import { RsvpService } from 'src/app/shared/services/rsvp.service';
 import { ProfileService } from 'src/app/shared/services/profile.service';
+import { RsvpService } from 'src/app/shared/services/rsvp.service';
 
 @Component({
   selector: 'app-event',
@@ -22,8 +22,6 @@ export class EventComponent implements OnInit {
 
   eventLoaded = false;
   rsvpLoaded = false;
-
-  when: Date;
 
   signupOpen = true;
 
@@ -44,7 +42,7 @@ export class EventComponent implements OnInit {
           this.router.navigateByUrl('events');
         }
         this.event = evt;
-        this.when = evt.when.toDate();
+        // this.when = evt.when.toDate();
         this.eventLoaded = true;
       });
       if (this.profileService.isLeader()) {

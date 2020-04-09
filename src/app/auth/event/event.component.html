@@ -14,22 +14,21 @@
     </div>
   </div>
   <div class="row" *ngIf="event">
-    <div class="col-12 col-sm-6">
-      <h2>{{event.title}}</h2>
-      <h4>{{when | date:'MMMM dd h:mm a'}}</h4>
-      <address *ngIf="event.address.street">
-        {{event.address.street}}<br />
-        {{event.address.city}}, {{event.address.state}} {{event.address.zip}}
-      </address>
-      <payment *ngIf="rsvp" [rsvp]="rsvp" [evt]="event"></payment>
+    <div class="col-5">
+      <div class="d-flex flex-column h-100">
+        <event-header [evt]="event"></event-header>
+        <payment *ngIf="rsvp" [rsvp]="rsvp" [evt]="event"></payment>
+      </div>
     </div>
-    <div class="col-12 col-sm-6">
+    <div class="col-7">
       <img *ngIf="event.imageUrl" class="w-100" src="{{event.imageUrl}}">
     </div>
+  </div>
+  <div class="row" *ngIf="event">
     <div class="col-12" *ngIf="event.summary">
-      <p>
+      <h5>
         <strong>About:</strong>
-      </p>
+      </h5>
       <p [innerHtml]="event.summary"></p>
     </div>
   </div>

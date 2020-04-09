@@ -8,19 +8,20 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 
+import { MaterialModule } from '../shared/modules/material.module';
 import { AuthRoutingModule } from './auth-routing.module';
+import { EventHeaderComponent } from './event/event-header/event-header.component';
 import { DialogAttending, EventComponent } from './event/event.component';
+import { PaymentComponent, PaymentDialog } from './event/payment/payment.component';
 import { LoginComponent } from './login/login.component';
 import { AddressComponent } from './profile/address/address.component';
 import { BranchComponent } from './profile/branch/branch.component';
 import { NameComponent } from './profile/name/name.component';
 import { PhoneComponent } from './profile/phone/phone.component';
-import { ProfileComponent, AddMember } from './profile/profile.component';
+import { AddMember, ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
-import { RsvpsComponent } from './rsvps/rsvps.component';
-import { MaterialModule } from '../shared/modules/material.module';
 import { RsvpComponent } from './rsvps/rsvp/rsvp.component';
-import { PaymentComponent } from './event/payment/payment.component';
+import { RsvpsComponent } from './rsvps/rsvps.component';
 
 @NgModule({
   imports: [
@@ -48,11 +49,14 @@ import { PaymentComponent } from './event/payment/payment.component';
     BranchComponent,
     RsvpComponent,
     PaymentComponent,
-    AddMember
+    AddMember,
+    EventHeaderComponent,
+    PaymentDialog
   ],
   entryComponents: [
     DialogAttending,
-    AddMember
+    AddMember,
+    PaymentDialog
   ]
 })
 export class AuthModule { }

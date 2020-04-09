@@ -1,0 +1,6 @@
+<h2>{{evt.title}}</h2>
+<h4>{{when | date:'MMMM dd h:mm a'}}</h4>
+<address *ngIf="evt.address">
+  {{evt.address.street}}<br />
+  {{evt.address.city}}, {{evt.address.state}} {{evt.address.zip}}
+</address>
