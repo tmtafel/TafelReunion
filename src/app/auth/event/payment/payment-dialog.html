@@ -1,10 +1,10 @@
 <h1 mat-dialog-title>TOTAL</h1>
 <div mat-dialog-content>
   <div class="d-flex justify-content-end">
-    <span>{{this.data.numberOfPeople}} Tafels</span><span class="mx-3">X</span><span>{{this.data.pricePerPerson | currency}}</span>
+    <span>{{this.data.rsvp.numberOfPeople}} Tafels</span><span class="mx-3">X</span><span>{{this.data.event.pricePerPerson | currency}}</span>
   </div>
   <div class="d-flex justify-content-end">
-    <span>{{this.data.numberOfPeople * this.data.pricePerPerson | currency}}</span>
+    <span>{{this.data.rsvp.numberOfPeople * this.data.event.pricePerPerson | currency}}</span>
   </div>
 </div>
 <div mat-dialog-actions>

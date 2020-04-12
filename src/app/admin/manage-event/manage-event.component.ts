@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'src/app/shared/models/address';
 import { Event } from 'src/app/shared/models/event';
 
+import { firestore } from 'firebase/app';
+import Timestamp = firestore.Timestamp;
 @Component({
   selector: 'app-manage-event',
   templateUrl: './manage-event.component.html',
   styleUrls: ['./manage-event.component.scss']
 })
 export class ManageEventComponent implements OnInit {
+  originalEvent: Event;
 
   address: Address = null;
   eventId: string;
@@ -29,12 +32,9 @@ export class ManageEventComponent implements OnInit {
   updating = false;
   notFound = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private db: AngularFirestore,
-    public dialog: MatDialog,
-    private router: Router
-  ) { }
+  eventHasChanged = true;
+
+  constructor(private route: ActivatedRoute, private db: AngularFirestore, public dialog: MatDialog, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -50,6 +50,7 @@ export class ManageEventComponent implements OnInit {
           this.summary = evt.summary ? evt.summary : null;
           this.title = evt.title ? evt.title : null;
           this.when = evt.when ? evt.when.toDate() : null;
+          this.originalEvent = evt;
           this.loaded = true;
         } else {
           this.notFound = true;
@@ -58,36 +59,66 @@ export class ManageEventComponent implements OnInit {
     });
   }
 
+  checkForChanges(): void {
+    if (
+      this.address.street === this.originalEvent.address.street &&
+      this.address.city === this.originalEvent.address.city &&
+      this.address.state === this.originalEvent.address.state &&
+      this.address.zip === this.originalEvent.address.zip &&
+      this.address.country === this.originalEvent.address.country &&
+      this.imageUrl === this.originalEvent.imageUrl &&
+      this.live === this.originalEvent.live &&
+      this.pricePerPerson === this.originalEvent.pricePerPerson &&
+      this.signupExpires === this.originalEvent.signupExpires &&
+      Timestamp.fromDate(this.signupOpenTill).seconds === this.originalEvent.signupOpenTill.seconds &&
+      this.summary === this.originalEvent.summary &&
+      this.title === this.originalEvent.title &&
+      Timestamp.fromDate(this.when).seconds === this.originalEvent.when.seconds
+    ) {
+      this.eventHasChanged = true;
+    } else {
+      this.eventHasChanged = false;
+    }
+  }
+
   liveChanged(toggle: MatSlideToggleChange) {
     this.live = toggle.checked;
+    this.checkForChanges();
   }
 
   updateTitle(newTitle: string) {
     this.title = newTitle;
+    this.checkForChanges();
   }
 
   updateAddress(newAddress: Address) {
     this.address = newAddress;
+    this.checkForChanges();
   }
 
   updateSignupOpenTill(newDate: Date) {
     this.signupOpenTill = newDate;
+    this.checkForChanges();
   }
 
   updateSignupExpires(newSignupExpires: boolean) {
     this.signupExpires = newSignupExpires;
+    this.checkForChanges();
   }
 
   updatePricePerPerson(newPrice: number) {
     this.pricePerPerson = newPrice;
+    this.checkForChanges();
   }
 
   updateWhen(newDate: Date) {
     this.when = newDate;
+    this.checkForChanges();
   }
 
   updateSummary(newSummary: string) {
     this.summary = newSummary;
+    this.checkForChanges();
   }
 
   updateImageUrl(newUrl: string) {

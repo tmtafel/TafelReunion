@@ -17,7 +17,7 @@
     <div class="col-5">
       <div class="d-flex flex-column h-100">
         <event-header [evt]="event"></event-header>
-        <payment *ngIf="rsvp" [rsvp]="rsvp" [evt]="event"></payment>
+        <payment *ngIf="rsvp" [rsvp]="rsvp" [evt]="event" (showMessage)="showMessage($event)"></payment>
       </div>
     </div>
     <div class="col-7">

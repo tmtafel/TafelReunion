@@ -33,7 +33,8 @@ export class RsvpService {
       const rsvpObj = {
         attending: rsvp.attending,
         eventId: rsvp.eventId,
-        numberOfPeople: rsvp.numberOfPeople
+        numberOfPeople: rsvp.numberOfPeople,
+        payed: rsvp.payed
       };
       const rsvpDoc = this.db.doc(`registrations/${this.userId}/events/${rsvp.id}`);
       await rsvpDoc.update(rsvpObj);

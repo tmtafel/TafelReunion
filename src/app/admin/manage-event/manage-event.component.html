@@ -1,9 +1,12 @@
 <div class="row">
-  <div class="col-12 justify-content-between d-flex pb-2">
+  <div class="col-12 justify-content-between d-flex pb-3 align-items-center">
     <button mat-raised-button routerLink="/admin/events">
       <mat-icon>arrow_back</mat-icon>
       <span class="ml-2">Back</span>
     </button>
+    <mat-slide-toggle [(ngModel)]="live" (change)="liveChanged($event)">
+      Live
+    </mat-slide-toggle>
     <button mat-raised-button (click)="procedeToDelete()">
       <mat-icon>delete_forever</mat-icon>
       <span class="ml-2">Delete</span>
@@ -11,17 +14,15 @@
   </div>
 </div>
 <div class="row" *ngIf="loaded && !updating && !notFound">
+  <div class="col-12 text-right">
+    <button [disabled]="eventHasChanged" mat-button mat-raised-button (click)="updateEvent()">Update</button>
+  </div>
   <div class="col-lg-6 col-12">
-    <div class="row">
-      <event-title class="col-md-6 col-12" [title]="title" (titleChange)="updateTitle($event)"></event-title>
-      <mat-slide-toggle [(ngModel)]="live" (change)="liveChanged($event)">
-        Live
-      </mat-slide-toggle>
-    </div>
-    <div class="row">
-      <event-price class="col-md-6 col-12" [price]="pricePerPerson" (priceChange)="updatePricePerPerson($event)"></event-price>
-      <event-when class="col-lg-6 col-sm-6 col-12 pb-1" [when]="when" (whenChange)="updateWhen($event)"></event-when>
-      <event-signup-open-till class="col-lg-6 col-sm-6 col-12" [signupOpenTill]="signupOpenTill" (signupOpenTillChange)="updateSignupOpenTill($event)"
+    <div class="row align-items-center">
+      <event-title class="col-12" [title]="title" (titleChange)="updateTitle($event)"></event-title>
+      <event-price class="col-sm-6 col-12" [price]="pricePerPerson" (priceChange)="updatePricePerPerson($event)"></event-price>
+      <event-when class="col-sm-6 col-12 pb-1" [when]="when" (whenChange)="updateWhen($event)"></event-when>
+      <event-signup-open-till class="col-sm-6 col-12" [signupOpenTill]="signupOpenTill" (signupOpenTillChange)="updateSignupOpenTill($event)"
         [signupExpires]="signupExpires" (signupExpiresChange)="updateSignupExpires($event)">
       </event-signup-open-till>
       <event-address class="col-12" [address]="address" (addressChange)="updateAddress($event)"></event-address>
@@ -29,9 +30,6 @@
   </div>
   <event-image class="col-lg-6 col-12" [url]="imageUrl" [eventId]="eventId" (imageUrlChange)="updateImageUrl($event)"></event-image>
   <event-summary class="col-12" [summary]="summary" (summaryChange)="updateSummary($event)"></event-summary>
-  <div class="col-12 py-5 text-right">
-    <button mat-button mat-raised-button (click)="updateEvent()">Update</button>
-  </div>
 </div>
 <div class="row justify-content-center" *ngIf="notFound">
   <div class="col">
