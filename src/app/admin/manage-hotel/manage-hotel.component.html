@@ -1,5 +1,9 @@
 <div class="row" *ngIf="loaded && !updating">
-  <div class="col-12 text-right pb-3">
+  <div class="col-12 d-flex pb-3 align-items-start">
+    <mat-form-field class="flex-grow-1 mr-3">
+      <mat-label>Booking Url</mat-label>
+      <input matInput [(ngModel)]="hotel.bookingUrl">
+    </mat-form-field>
     <button mat-button mat-raised-button (click)="updateHotel()">Update</button>
   </div>
   <div class="col-12 col-md-6 col-lg-4">
@@ -48,15 +52,16 @@
     </mat-card-actions>
   </mat-card>
 
+
 </div>
 
 <div class="row justify-content-center" *ngIf="!loaded">
-  <div class="col">
+  <div class="col text-center">
     <h1>LOADING...</h1>
   </div>
 </div>
 <div class="row justify-content-center" *ngIf="updating">
-  <div class="col">
+  <div class="col text-center">
     <h1>UPDATING...</h1>
   </div>
 </div>
