@@ -5,14 +5,13 @@ import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
 
 import { Rsvp } from '../models/rsvp';
-import { EventService } from './event.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RsvpService {
   userId: string;
-  rsvps: Observable<Rsvp[]>;
+  // rsvps: Observable<Rsvp[]>;
   constructor(authService: AuthService, public db: AngularFirestore) {
     this.userId = authService.getCurrentUserId();
   }

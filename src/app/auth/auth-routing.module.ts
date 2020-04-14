@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { EventComponent } from './event/event.component';
 import { LoginComponent } from './login/login.component';
+import { MembersComponent } from './members/members.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { RsvpsComponent } from './rsvps/rsvps.component';
@@ -30,6 +31,11 @@ const authRoutes: Routes = [
   {
     path: 'events/:id',
     component: EventComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'members',
+    component: MembersComponent,
     canActivate: [AuthGuard]
   }
 ];

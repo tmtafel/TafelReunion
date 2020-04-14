@@ -18,10 +18,11 @@ import { AddressComponent } from './profile/address/address.component';
 import { BranchComponent } from './profile/branch/branch.component';
 import { NameComponent } from './profile/name/name.component';
 import { PhoneComponent } from './profile/phone/phone.component';
-import { AddMember, ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { RsvpComponent } from './rsvps/rsvp/rsvp.component';
 import { RsvpsComponent } from './rsvps/rsvps.component';
+import { MembersComponent, AddMember } from './members/members.component';
 
 @NgModule({
   imports: [
@@ -51,7 +52,8 @@ import { RsvpsComponent } from './rsvps/rsvps.component';
     PaymentComponent,
     AddMember,
     EventHeaderComponent,
-    PaymentDialog
+    PaymentDialog,
+    MembersComponent
   ],
   entryComponents: [
     DialogAttending,

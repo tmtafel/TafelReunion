@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Profile } from '../models/profile';
 import { AuthService } from 'src/app/auth/auth.service';
+
+import { Member } from '../models/member';
+import { Profile } from '../models/profile';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class ProfileService {
   userId: string;
   private registrations: AngularFirestoreCollection<Profile>;
+
   profile: Observable<Profile>;
   constructor(authService: AuthService, public db: AngularFirestore) {
     this.userId = authService.getCurrentUserId();

@@ -23,9 +23,13 @@
             <mat-icon>event</mat-icon>
             <span>Events</span>
           </button>
+          <button mat-menu-item routerLink="/members">
+            <mat-icon>group</mat-icon>
+            <span>Group</span>
+          </button>
           <button mat-menu-item routerLink="/profile">
             <mat-icon>perm_identity</mat-icon>
-            <span>{{currentEmail$ | async}}</span>
+            <span>Profile</span>
           </button>
           <button *ngIf="isAdmin$ | async" mat-menu-item routerLink="/admin">
             <mat-icon>fingerprint</mat-icon>

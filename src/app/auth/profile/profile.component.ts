@@ -1,9 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Address } from 'src/app/shared/models/address';
-import { Member } from 'src/app/shared/models/member';
 import { Profile } from 'src/app/shared/models/profile';
 import { Roles } from 'src/app/shared/models/roles';
 import { ProfileService } from 'src/app/shared/services/profile.service';
@@ -16,7 +13,7 @@ import { ProfileService } from 'src/app/shared/services/profile.service';
 export class ProfileComponent implements OnInit {
   profile: Profile;
 
-  constructor(public dialog: MatDialog, private profileService: ProfileService, private snackBar: MatSnackBar) {
+  constructor(private profileService: ProfileService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -83,18 +80,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  addMemberToGroup(): void {
-    const member = new Member(this.profile.id);
-    const addMember = this.dialog.open(AddMember, {
-      width: '295px',
-      data: { member }
-    });
-
-    addMember.afterClosed().subscribe(newMember => {
-      console.log(newMember);
-    });
-  }
-
   updateFirstName(newFirstName: string) {
     this.profile.firstName = newFirstName;
   }
@@ -117,22 +102,4 @@ export class ProfileComponent implements OnInit {
 
 }
 
-@Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'add-member',
-  templateUrl: 'add-member.html',
-})
 
-// tslint:disable-next-line:component-class-suffix
-export class AddMember {
-
-  constructor(public addMember: MatDialogRef<AddMember>, @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-  onNoClick(): void {
-    this.addMember.close();
-  }
-
-  onAddClick(): void {
-    this.addMember.close(this.data.member);
-  }
-}
