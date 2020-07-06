@@ -26,4 +26,13 @@ export class MemberService {
       });
     }));
   }
+
+  addMember(member: Member) {
+    this.db.collection<Member>(`registrations/${this.userId}/members`).add(member).then(m => {
+      member.id = m.id;
+      return member;
+    }).catch(() => {
+      return null;
+    });
+  }
 }

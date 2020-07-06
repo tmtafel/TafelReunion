@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Member } from 'src/app/shared/models/member';
 import { MemberService } from 'src/app/shared/services/member.service';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ProfileService } from 'src/app/shared/services/profile.service';
 
 @Component({
@@ -29,7 +29,8 @@ export class MembersComponent implements OnInit {
     });
 
     addMember.afterClosed().subscribe(newMember => {
-      console.log(newMember);
+      const nm = newMember as Member;
+      console.log(nm);
     });
   }
 

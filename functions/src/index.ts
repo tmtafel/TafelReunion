@@ -64,54 +64,52 @@ export const deleteRegistration = functions.auth.user().onDelete(async (user) =>
     return registration.delete();
 });
 
-export const eventDeleted = functions.firestore.document('events/{eventId}')
-    .onDelete(async (snapshot, context) => {
-        try {
-            const eventId = context.params.eventId;
-            const getRsvpPromises: Promise<FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>>[] = [];
-            const users = await db.collection(`registrations`).listDocuments();
-            users.forEach(u => {
-                const getPromise = db.collection(`registrations/${u.id}/events`).where("eventId", "==", eventId).get();
-                getRsvpPromises.push(getPromise);
+export const eventDeleted = functions.firestore.document('events/{eventId}').onDelete(async (snapshot, context) => {
+    try {
+        const eventId = context.params.eventId;
+        const getRsvpPromises: Promise<FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>>[] = [];
+        const users = await db.collection(`registrations`).listDocuments();
+        users.forEach(u => {
+            const getPromise = db.collection(`registrations/${u.id}/events`).where("eventId", "==", eventId).get();
+            getRsvpPromises.push(getPromise);
+        });
+        const rsvps = await Promise.all(getRsvpPromises);
+        const deleteRsvpPromises: Promise<FirebaseFirestore.WriteResult>[] = [];
+        rsvps.forEach(rsvp => {
+            rsvp.docs.forEach(doc => {
+                const deletePromise = doc.ref.delete();
+                deleteRsvpPromises.push(deletePromise);
             });
-            const rsvps = await Promise.all(getRsvpPromises);
-            const deleteRsvpPromises: Promise<FirebaseFirestore.WriteResult>[] = [];
-            rsvps.forEach(rsvp => {
-                rsvp.docs.forEach(doc => {
-                    const deletePromise = doc.ref.delete();
-                    deleteRsvpPromises.push(deletePromise);
-                });
-            });
-            const deletedRsvps = await Promise.all(deleteRsvpPromises);
-            console.log(deletedRsvps);
-            return;
-        } catch (err) {
-            console.log(err);
-            return;
-        }
-    });
+        });
+        const deletedRsvps = await Promise.all(deleteRsvpPromises);
+        console.log(deletedRsvps);
+        return;
+    } catch (err) {
+        console.log(err);
+        return;
+    }
+});
 
-export const eventAdded = functions.firestore.document('events/{eventId}')
-    .onCreate(async (snapshot, context) => {
-        try {
-            const id = context.params.eventId;
-            const eventObj = {
-                eventId: id,
-                attending: false,
-                numberOfPeople: 1,
-                payed: false
-            };
-            const promises: Promise<FirebaseFirestore.DocumentData>[] = [];
-            const users = await db.collection(`registrations`).listDocuments();
-            users.forEach(u => {
-                const p = db.collection(`registrations/${u.id}/events`).add(eventObj);
-                promises.push(p);
-            });
+export const eventAdded = functions.firestore.document('events/{eventId}').onCreate(async (snapshot, context) => {
+    try {
+        const id = context.params.eventId;
+        const eventObj = {
+            eventId: id,
+            attending: false,
+            numberOfPeople: 1,
+            payed: false
+        };
+        const promises: Promise<FirebaseFirestore.DocumentData>[] = [];
+        const users = await db.collection(`registrations`).listDocuments();
+        users.forEach(u => {
+            const p = db.collection(`registrations/${u.id}/events`).add(eventObj);
+            promises.push(p);
+        });
 
-            await Promise.all(promises);
-            return;
-        } catch (err) {
-            console.log(err);
-            return;
-        }
-    });
+        await Promise.all(promises);
+        return;
+    } catch (err) {
+        console.log(err);
+        return;
+    }
+});
