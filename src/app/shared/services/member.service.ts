@@ -21,7 +21,7 @@ export class MemberService {
     return this.db.collection<Member>(`registrations/${this.userId}/members`).snapshotChanges().pipe(map(members => {
       return members.map(m => {
         const member = m.payload.doc.data();
-        member.id = m.payload.doc.id;
+        member.id = m.payload.doc.data().id;
         return member;
       });
     }));
