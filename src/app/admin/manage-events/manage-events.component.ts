@@ -20,7 +20,7 @@ export class ManageEventsComponent implements OnInit {
     this.events$ = this.db.collection<Event>('events').snapshotChanges().pipe(map(events => {
       return events.map(evt => {
         const event = evt.payload.doc.data();
-        event.id = evt.payload.doc.id;
+        event.id = evt.payload.doc.data().id;
         return event;
       });
     }));

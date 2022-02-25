@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Hotel } from 'src/app/shared/models/hotel';
 
 @Component({
@@ -19,7 +19,7 @@ export class ManageHotelsComponent implements OnInit {
     this.hotels$ = this.db.collection<Hotel>('hotels').snapshotChanges().pipe(map(hotels => {
       return hotels.map(htl => {
         const hotel = htl.payload.doc.data();
-        hotel.id = htl.payload.doc.id;
+        hotel.id = htl.payload.doc.data().id;
         this.getImageUrl(hotel.name).subscribe(url => {
           hotel.imageUrl = url;
         });

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase/app';
 
-import UserCredential = firebase.auth.UserCredential;
 import { AuthService } from '../auth.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -31,7 +30,7 @@ export class LoginComponent implements OnInit {
     try {
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
-      const credential: UserCredential = await this.authService.login(email, password);
+      const credential = await this.authService.login(email, password);
       if (credential) {
         const json = JSON.stringify(credential.user);
         localStorage.setItem('user', json);

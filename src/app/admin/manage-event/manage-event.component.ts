@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
+import { firestore } from 'firebase-admin';
 import { Address } from 'src/app/shared/models/address';
 import { Event } from 'src/app/shared/models/event';
 
-import { firestore } from 'firebase/app';
 import Timestamp = firestore.Timestamp;
 @Component({
   selector: 'app-manage-event',

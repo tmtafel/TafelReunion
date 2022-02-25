@@ -18,7 +18,7 @@ export class EventService {
     return this.db.collection<Event>(`events`).snapshotChanges().pipe(map(evts => {
       return evts.map(e => {
         const evt = e.payload.doc.data();
-        evt.id = e.payload.doc.id;
+        evt.id = e.payload.doc.data().id;
         return evt;
       });
     }));

@@ -62,7 +62,7 @@ export class ProfileService {
       return this.registrations.doc<Profile>(this.userId).snapshotChanges().pipe(map(profile => {
         if (profile) {
           const prfl = profile.payload.data();
-          prfl.id = profile.payload.id;
+          prfl.id = profile.payload.data().id;
           return prfl;
         }
         return null;
