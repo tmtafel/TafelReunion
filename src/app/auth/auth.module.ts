@@ -25,40 +25,35 @@ import { RsvpsComponent } from './rsvps/rsvps.component';
 import { MembersComponent, AddMember } from './members/members.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    AuthRoutingModule,
-    ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
-    MaterialModule,
-    AngularFireStorageModule,
-    AngularFireDatabaseModule
-  ],
-  declarations: [
-    LoginComponent,
-    RegisterComponent,
-    ProfileComponent,
-    PhoneComponent,
-    AddressComponent,
-    NameComponent,
-    EventComponent,
-    RsvpsComponent,
-    DialogAttending,
-    BranchComponent,
-    RsvpComponent,
-    PaymentComponent,
-    AddMember,
-    EventHeaderComponent,
-    PaymentDialog,
-    MembersComponent
-  ],
-  entryComponents: [
-    DialogAttending,
-    AddMember,
-    PaymentDialog
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        AuthRoutingModule,
+        ReactiveFormsModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFirestoreModule,
+        AngularFireAuthModule,
+        MaterialModule,
+        AngularFireStorageModule,
+        AngularFireDatabaseModule
+    ],
+    declarations: [
+        LoginComponent,
+        RegisterComponent,
+        ProfileComponent,
+        PhoneComponent,
+        AddressComponent,
+        NameComponent,
+        EventComponent,
+        RsvpsComponent,
+        DialogAttending,
+        BranchComponent,
+        RsvpComponent,
+        PaymentComponent,
+        AddMember,
+        EventHeaderComponent,
+        PaymentDialog,
+        MembersComponent
+    ]
 })
 export class AuthModule { }
