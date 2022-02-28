@@ -2,31 +2,30 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
-
-import UserCredential = firebase.auth.UserCredential;
-import { User } from 'firebase/app';
+// import UserCredential = firebase.auth.UserCredential;
+// import { Observable } from 'firebase/app';
 import { Observable } from 'rxjs';
-import { Profile } from '../shared/models/profile';
 
+import { Profile } from '../shared/models/profile';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   redirectUrl: string;
-  user: Observable<User>;
+  user: Observable<any>;
 
   constructor(public afAuth: AngularFireAuth, public db: AngularFirestore) {
     this.afAuth.authState.subscribe(this.firebaseAuthChangeListener);
     this.user = afAuth.user;
   }
 
-  register(email: string, password: string): Promise<UserCredential> {
+  register(email: string, password: string): Promise<any> {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
-  async login(email: string, password: string): Promise<UserCredential> {
-    const userCredential: UserCredential = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+  async login(email: string, password: string): Promise<any> {
+    const userCredential: any = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
 
     this.firebaseAuthChangeListener(userCredential.user);
     return userCredential;
@@ -61,7 +60,7 @@ export class AuthService {
     return currentUser ? currentUser.email : null;
   }
 
-  getCurrentUser(): User {
+  getCurrentUser(): any {
     try {
       const user = JSON.parse(localStorage.getItem('user'));
       return user;
@@ -71,7 +70,7 @@ export class AuthService {
     }
   }
 
-  private firebaseAuthChangeListener(user: User) {
+  private firebaseAuthChangeListener(user: any) {
     if (user !== null) {
       const json = JSON.stringify(user);
       localStorage.setItem('user', json);
