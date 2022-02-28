@@ -1,4 +1,4 @@
-import { firestore } from 'firebase-admin';
+import { firestore } from 'firebase/compat-admin';
 
 import Timestamp = firestore.Timestamp;
 import { Address } from './address';

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import * as firebase from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import * as firebase from 'firebase/compat/app';
 // import UserCredential = firebase.auth.UserCredential;
-// import { Observable } from 'firebase/app';
+// import { Observable } from 'firebase/compat/app';
 import { Observable } from 'rxjs';
 
 import { Profile } from '../shared/models/profile';
