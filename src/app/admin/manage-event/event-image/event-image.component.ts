@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { UploadTaskSnapshot } from '@angular/fire/compat/storage/interfaces';
 
 @Component({
   // tslint:disable-next-line:component-selector

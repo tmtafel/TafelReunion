@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 
@@ -25,40 +25,35 @@ import { RsvpsComponent } from './rsvps/rsvps.component';
 import { MembersComponent, AddMember } from './members/members.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    AuthRoutingModule,
-    ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
-    MaterialModule,
-    AngularFireStorageModule,
-    AngularFireDatabaseModule
-  ],
-  declarations: [
-    LoginComponent,
-    RegisterComponent,
-    ProfileComponent,
-    PhoneComponent,
-    AddressComponent,
-    NameComponent,
-    EventComponent,
-    RsvpsComponent,
-    DialogAttending,
-    BranchComponent,
-    RsvpComponent,
-    PaymentComponent,
-    AddMember,
-    EventHeaderComponent,
-    PaymentDialog,
-    MembersComponent
-  ],
-  entryComponents: [
-    DialogAttending,
-    AddMember,
-    PaymentDialog
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        AuthRoutingModule,
+        ReactiveFormsModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFirestoreModule,
+        AngularFireAuthModule,
+        MaterialModule,
+        AngularFireStorageModule,
+        AngularFireDatabaseModule
+    ],
+    declarations: [
+        LoginComponent,
+        RegisterComponent,
+        ProfileComponent,
+        PhoneComponent,
+        AddressComponent,
+        NameComponent,
+        EventComponent,
+        RsvpsComponent,
+        DialogAttending,
+        BranchComponent,
+        RsvpComponent,
+        PaymentComponent,
+        AddMember,
+        EventHeaderComponent,
+        PaymentDialog,
+        MembersComponent
+    ]
 })
 export class AuthModule { }

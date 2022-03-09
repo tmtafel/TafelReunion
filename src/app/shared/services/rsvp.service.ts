@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -20,7 +20,7 @@ export class RsvpService {
     return this.db.collection<Rsvp>(`registrations/${this.userId}/events`, events => events.where('eventId', '==', eventId)).snapshotChanges().pipe(map(rsvps => {
       if (rsvps.length > 0) {
         const rsvp = rsvps[0].payload.doc.data();
-        rsvp.id = rsvps[0].payload.doc.id;
+        rsvp.id = rsvps[0].payload.doc.data().id;
         return rsvp;
       }
       return null;

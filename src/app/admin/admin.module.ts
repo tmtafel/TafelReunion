@@ -22,36 +22,32 @@ import { ManageHotelsComponent } from './manage-hotels/manage-hotels.component';
 import { MaterialModule } from '../shared/modules/material.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MaterialModule,
-    NgxMaterialTimepickerModule,
-    NgxCurrencyModule,
-    CKEditorModule,
-    AdminRoutingModule,
-    ReactiveFormsModule,
-    FormsModule
-  ],
-  declarations: [
-    AdminComponent,
-    AdminDashboardComponent,
-    ManageHotelsComponent,
-    ManageHotelComponent,
-    ManageEventsComponent,
-    ManageEventComponent,
-    EventAddressComponent,
-    EventImageComponent,
-    EventTitleComponent,
-    EventPriceComponent,
-    EventWhenComponent,
-    EventSignupOpenTillComponent,
-    EventSummaryComponent,
-    AddNewEvent,
-    DeleteEvent
-  ],
-  entryComponents: [
-    AddNewEvent,
-    DeleteEvent
-  ]
+    imports: [
+        CommonModule,
+        MaterialModule,
+        NgxMaterialTimepickerModule,
+        NgxCurrencyModule,
+        CKEditorModule,
+        AdminRoutingModule,
+        ReactiveFormsModule,
+        FormsModule
+    ],
+    declarations: [
+        AdminComponent,
+        AdminDashboardComponent,
+        ManageHotelsComponent,
+        ManageHotelComponent,
+        ManageEventsComponent,
+        ManageEventComponent,
+        EventAddressComponent,
+        EventImageComponent,
+        EventTitleComponent,
+        EventPriceComponent,
+        EventWhenComponent,
+        EventSignupOpenTillComponent,
+        EventSummaryComponent,
+        AddNewEvent,
+        DeleteEvent
+    ]
 })
 export class AdminModule { }

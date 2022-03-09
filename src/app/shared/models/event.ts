@@ -1,6 +1,3 @@
-import { firestore } from 'firebase/app';
-
-import Timestamp = firestore.Timestamp;
 import { Address } from './address';
 
 export class Event {
@@ -11,10 +8,10 @@ export class Event {
     live: boolean;
     pricePerPerson: number;
     signupExpires: boolean;
-    signupOpenTill: Timestamp;
+    signupOpenTill: any;
     summary: string;
     title: string;
-    when: Timestamp;
+    when: any;
 
     constructor() {
 

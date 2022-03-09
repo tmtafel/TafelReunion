@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -18,7 +18,7 @@ export class EventService {
     return this.db.collection<Event>(`events`).snapshotChanges().pipe(map(evts => {
       return evts.map(e => {
         const evt = e.payload.doc.data();
-        evt.id = e.payload.doc.id;
+        evt.id = e.payload.doc.data().id;
         return evt;
       });
     }));
