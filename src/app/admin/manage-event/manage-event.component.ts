@@ -4,11 +4,11 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
-import { firestore } from 'firebase/compat-admin';
+// import { Address } from 'firebase/compat-admin';
 import { Address } from 'src/app/shared/models/address';
 import { Event } from 'src/app/shared/models/event';
 
-import Timestamp = firestore.Timestamp;
+// import Timestamp = firestore.Timestamp;
 @Component({
   selector: 'app-manage-event',
   templateUrl: './manage-event.component.html',
@@ -70,10 +70,10 @@ export class ManageEventComponent implements OnInit {
       this.live === this.originalEvent.live &&
       this.pricePerPerson === this.originalEvent.pricePerPerson &&
       this.signupExpires === this.originalEvent.signupExpires &&
-      Timestamp.fromDate(this.signupOpenTill).seconds === this.originalEvent.signupOpenTill.seconds &&
+      // Timestamp.fromDate(this.signupOpenTill).seconds === this.originalEvent.signupOpenTill.seconds &&
       this.summary === this.originalEvent.summary &&
-      this.title === this.originalEvent.title &&
-      Timestamp.fromDate(this.when).seconds === this.originalEvent.when.seconds
+      this.title === this.originalEvent.title
+      // Timestamp.fromDate(this.when).seconds === this.originalEvent.when.seconds
     ) {
       this.eventHasChanged = true;
     } else {

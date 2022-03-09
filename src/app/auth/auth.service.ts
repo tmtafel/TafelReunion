@@ -21,11 +21,11 @@ export class AuthService {
   }
 
   register(email: string, password: string): Promise<any> {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+    return this.afAuth.createUserWithEmailAndPassword(email, password);
   }
 
   async login(email: string, password: string): Promise<any> {
-    const userCredential: any = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+    const userCredential: any = await this.afAuth.signInWithEmailAndPassword(email, password);
 
     this.firebaseAuthChangeListener(userCredential.user);
     return userCredential;
@@ -33,7 +33,7 @@ export class AuthService {
 
   logout(): Promise<boolean> {
     localStorage.setItem('user', null);
-    return this.afAuth.auth.signOut().then(() => {
+    return this.afAuth.signOut().then(() => {
       return true;
     }).catch(() => {
       return false;
